@@ -1,0 +1,182 @@
+package it.univaq.disim.lpo.Service.ServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+
+import it.univaq.disim.lpo.Model.PedoneModel;
+import it.univaq.disim.lpo.Model.PezzoModel;
+import it.univaq.disim.lpo.Model.ScacchieraModel;
+import it.univaq.disim.lpo.Service.PezzoService;
+
+public class PedoneServiceImpl extends PedoneModel implements PezzoService{
+
+	public PedoneServiceImpl(String nome, boolean isAlive) {
+		super(nome, isAlive);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
+	@Override
+	public List<String> mosseValide(ScacchieraModel scacchiera) {
+
+		List<String> mosseValide = new ArrayList<>();
+		try {
+			Table<Integer, Character, PezzoService> table = scacchiera.getScacchiera();
+			if (this != null) {
+				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
+				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+
+				if (this.getNome().equals("PB1") || this.getNome().equals("PB2") || this.getNome().equals("PB3")
+						|| this.getNome().equals("PB4") || this.getNome().equals("PB5") || this.getNome().equals("PB6")
+						|| this.getNome().equals("PB7") || this.getNome().equals("PB8")) {
+					boolean trovato = false;
+					int tempRiga = posizionePezzoRiga;
+
+					while (trovato == false) {
+						int posizioneNuovaRiga = tempRiga + 1;
+
+						if (posizioneNuovaRiga <= 8) {
+
+							if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
+								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								if (temp.getNome().charAt(2) == 'B') {
+									trovato = true;
+								} else {
+									trovato = true;
+
+								}
+							} else {
+								// Debug
+								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+										+ posizionePezzoColonna;
+								mosseValide.add(posizione);
+								trovato = true;
+
+							}
+							char tempColonna = posizionePezzoColonna;
+							char posizioneNuovaColonna = ++tempColonna;
+							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
+								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								if (temp.getNome().charAt(2) == 'N') {
+									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+											+ posizionePezzoColonna;
+									mosseValide.add(posizione);
+									trovato = true;
+								} else {
+									trovato = true;
+								}
+							}
+
+						} else {
+
+							trovato = true;
+						}
+						char tempColonna = posizionePezzoColonna;
+						char posizioneNuovaColonna = --tempColonna;
+						if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
+							PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+							if (temp.getNome().charAt(2) == 'N') {
+								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+										+ posizionePezzoColonna;
+								mosseValide.add(posizione);
+								trovato = true;
+							} else {
+								trovato = true;
+							}
+						} else {
+
+							trovato = true;
+						}
+
+					}
+				}
+					if (this.getNome().equals("PN1") || this.getNome().equals("PN2") || this.getNome().equals("PN3")
+							|| this.getNome().equals("PN4") || this.getNome().equals("PN5")
+							|| this.getNome().equals("PN6") || this.getNome().equals("PN7")
+							|| this.getNome().equals("PN8")) {
+						boolean trovato = false;
+						int tempRiga = posizionePezzoRiga;
+
+						while (trovato == false) {
+							int posizioneNuovaRiga = tempRiga - 1;
+							if (posizioneNuovaRiga >= 1) {
+
+								if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
+									PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+									if (temp.getNome().charAt(2) == 'N') {
+										trovato = true;
+									} else {
+										trovato = true;
+
+									}
+								} else {
+									// Debug
+									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+											+ posizionePezzoColonna;
+									mosseValide.add(posizione);
+									trovato = true;
+
+								}
+								char tempColonna = posizionePezzoColonna;
+								char posizioneNuovaColonna = tempColonna++;
+								if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
+									PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+									if (temp.getNome().charAt(2) == 'B') {
+										String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+												+ posizionePezzoColonna;
+										mosseValide.add(posizione);
+										trovato = true;
+									} else {
+										trovato = true;
+									}
+								}
+
+							} else {
+
+								trovato = true;
+							}
+							char tempColonna = posizionePezzoColonna;
+							char posizioneNuovaColonna = --tempColonna;
+							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
+								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								if (temp.getNome().charAt(2) == 'N') {
+									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
+											+ posizionePezzoColonna;
+									mosseValide.add(posizione);
+									trovato = true;
+								} else {
+									trovato = true;
+								}
+							} else {
+
+								trovato = true;
+							}
+
+						}
+					}
+				}
+			
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mosseValide;
+	}
+
+		
+	
+
+
+	@Override
+	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
