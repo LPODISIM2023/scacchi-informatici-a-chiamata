@@ -9,16 +9,18 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.PartitaModel;
-import it.univaq.disim.lpo.Model.PedoneModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ReModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Model.TorreModel;
-import it.univaq.disim.lpo.Service.PartitaService;
-import it.univaq.disim.lpo.Service.PezzoService;
+import it.univaq.disim.lpo.Service.Partita;
 
-public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
+public class PartitaServiceImpl extends PartitaModel implements  Partita{
 	
+
+	public PartitaServiceImpl(String nomePartita) {
+		super(nomePartita);
+		// TODO Auto-generated constructor stub
+	}
+
 
 	@Override
 	public void inzia() {
@@ -27,25 +29,23 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		inizializzaScacchiera();
 
 	}
-	public PartitaServiceImpl() {
-		
-	}
+	
 	
 	void inizializzaScacchiera() {
 
 		// Sezione Creazione della scacchiera e Dei Pezzi
-		Table<Integer, Character, PezzoService> scacchiera = HashBasedTable.create();
+		Table<Integer, Character, PezzoModel> scacchiera = HashBasedTable.create();
 		ScacchieraModel scacchieraDaGioco = new ScacchieraModel(scacchiera);
 		// PedoneModel
-		List<PezzoService> pezzi = new ArrayList<>();
-		PezzoService pedoneB1 = new PedoneServiceImpl("PB1",true);
-		PezzoService pedoneB2 = new PedoneServiceImpl("PB2", true);
-		PezzoService pedoneB3 = new PedoneServiceImpl("PB3", true);
-		PezzoService pedoneB4 = new PedoneServiceImpl("PB4", true);
-		PezzoService pedoneB5 = new PedoneServiceImpl("PB5", true);
-		PezzoService pedoneB6 = new PedoneServiceImpl("PB6", true);
-		PezzoService pedoneB7 = new PedoneServiceImpl("PB7", true);
-		PezzoService pedoneB8 = new PedoneServiceImpl("PB8", true);
+		List<PezzoModel> pezzi = new ArrayList<>();
+		PezzoModel pedoneB1 = new PedoneServiceImpl("PB1",true);
+		PezzoModel pedoneB2 = new PedoneServiceImpl("PB2", true);
+		PezzoModel pedoneB3 = new PedoneServiceImpl("PB3", true);
+		PezzoModel pedoneB4 = new PedoneServiceImpl("PB4", true);
+		PezzoModel pedoneB5 = new PedoneServiceImpl("PB5", true);
+		PezzoModel pedoneB6 = new PedoneServiceImpl("PB6", true);
+		PezzoModel pedoneB7 = new PedoneServiceImpl("PB7", true);
+		PezzoModel pedoneB8 = new PedoneServiceImpl("PB8", true);
 
 		// PedoneService
 
@@ -61,8 +61,8 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 
 	
 		// AlfiereModel
-		PezzoService alfiereB1 = new AlfiereServiceImpl("AB1", true);
-		PezzoService alfiereB2 = new AlfiereServiceImpl("AB2", true);
+		PezzoModel alfiereB1 = new AlfiereServiceImpl("AB1", true);
+		PezzoModel alfiereB2 = new AlfiereServiceImpl("AB2", true);
 		
 		
 		// AlfiereService
@@ -72,8 +72,8 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(alfiereB2);
 		
 		// TorreModel
-		PezzoService torreB1 = new TorreServiceImpl("TB1", true);
-		PezzoService torreB2 = new TorreServiceImpl("TB2", true);
+		PezzoModel torreB1 = new TorreServiceImpl("TB1", true);
+		PezzoModel torreB2 = new TorreServiceImpl("TB2", true);
 		
 		// TorreService
 		// Add
@@ -81,7 +81,7 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(torreB2);
 		
 		// ReModel
-		PezzoService reB = new ReServiceImpl("RB1",true);
+		PezzoModel reB = new ReServiceImpl("RB1",true);
 	
 		// ReService
 	
@@ -89,17 +89,17 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(reB);
 		
 		// ReginaModel
-		PezzoService reginaB = new ReginaServiceImpl("rB1", true);
+		PezzoModel reginaB = new ReginaServiceImpl("rB1", true);
 		
 		// ReginaService
 	// Add
 		pezzi.add(reginaB);
 
 		// CavalloModel
-		PezzoService cavalloB1 = new CavalloServiceImpl("CB1",true);
+		PezzoModel cavalloB1 = new CavalloServiceImpl("CB1",true);
 
 	
-		PezzoService cavalloB2 = new CavalloServiceImpl("CB2",true);
+		PezzoModel cavalloB2 = new CavalloServiceImpl("CB2",true);
 		
 		// CavalloService
 		
@@ -109,14 +109,14 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 
 		// PedoneModel
 
-		PezzoService pedoneN1 = new PedoneServiceImpl("PN1",true);
-		PezzoService pedoneN2 = new PedoneServiceImpl("PN2", true);
-		PezzoService pedoneN3 = new PedoneServiceImpl("PN3", true);
-		PezzoService pedoneN4 = new PedoneServiceImpl("PN4", true);
-		PezzoService pedoneN5 = new PedoneServiceImpl("PN5", true);
-		PezzoService pedoneN6 = new PedoneServiceImpl("PN6", true);
-		PezzoService pedoneN7 = new PedoneServiceImpl("PN7", true);
-		PezzoService pedoneN8 = new PedoneServiceImpl("PN8", true);
+		PezzoModel pedoneN1 = new PedoneServiceImpl("PN1",true);
+		PezzoModel pedoneN2 = new PedoneServiceImpl("PN2", true);
+		PezzoModel pedoneN3 = new PedoneServiceImpl("PN3", true);
+		PezzoModel pedoneN4 = new PedoneServiceImpl("PN4", true);
+		PezzoModel pedoneN5 = new PedoneServiceImpl("PN5", true);
+		PezzoModel pedoneN6 = new PedoneServiceImpl("PN6", true);
+		PezzoModel pedoneN7 = new PedoneServiceImpl("PN7", true);
+		PezzoModel pedoneN8 = new PedoneServiceImpl("PN8", true);
 
 		// PedoneService
 
@@ -132,8 +132,8 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 
 	
 		// AlfiereModel
-		PezzoService alfiereN1 = new AlfiereServiceImpl("AN1", true);
-		PezzoService alfiereN2 = new AlfiereServiceImpl("AN2", true);
+		PezzoModel alfiereN1 = new AlfiereServiceImpl("AN1", true);
+		PezzoModel alfiereN2 = new AlfiereServiceImpl("AN2", true);
 		
 		
 		// AlfiereService
@@ -143,8 +143,8 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(alfiereN2);
 		
 		// TorreModel
-		PezzoService torreN1 = new TorreServiceImpl("TN1", true);
-		PezzoService torreN2 = new TorreServiceImpl("TN2", true);
+		PezzoModel torreN1 = new TorreServiceImpl("TN1", true);
+		PezzoModel torreN2 = new TorreServiceImpl("TN2", true);
 		
 		// TorreService
 		// Add
@@ -152,7 +152,7 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(torreN2);
 		
 		// ReModel
-		PezzoService reN = new ReServiceImpl("RN1",true);
+		PezzoModel reN = new ReServiceImpl("RN1",true);
 	
 		// ReService
 	
@@ -160,17 +160,17 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 		pezzi.add(reN);
 		
 		// ReginaModel
-		PezzoService reginaN = new ReginaServiceImpl("rN1", true);
+		PezzoModel reginaN = new ReginaServiceImpl("rN1", true);
 		
 		// ReginaService
 	// Add
 		pezzi.add(reginaN);
 
 		// CavalloModel
-		PezzoService cavalloN1 = new CavalloServiceImpl("CN1",true);
+		PezzoModel cavalloN1 = new CavalloServiceImpl("CN1",true);
 
 	
-		PezzoService cavalloN2 = new CavalloServiceImpl("CN2",true);
+		PezzoModel cavalloN2 = new CavalloServiceImpl("CN2",true);
 		
 		// CavalloService
 		
@@ -204,7 +204,7 @@ public class PartitaServiceImpl extends PartitaModel implements  PartitaService{
 
 			String input = scanner.nextLine();
 			List<String> mosseValide = new ArrayList<>();
-			PezzoService pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
+			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 		
 			mosseValide = pezzo.mosseValide(scacchiera);
 

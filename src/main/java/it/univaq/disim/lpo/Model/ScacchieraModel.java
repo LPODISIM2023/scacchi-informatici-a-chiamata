@@ -4,18 +4,17 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Service.PezzoService;
 
 
 public class ScacchieraModel {
 
-	private Table<Integer, Character, PezzoService> scacchiera;
+	private Table<Integer, Character, PezzoModel> scacchiera;
 
-	public ScacchieraModel(Table<Integer, Character, PezzoService> scacchiera) {
+	public ScacchieraModel(Table<Integer, Character, PezzoModel> scacchiera) {
 		this.scacchiera = scacchiera;
 	}
 
-	public Table<Integer, Character, PezzoService> getScacchiera() {
+	public Table<Integer, Character, PezzoModel> getScacchiera() {
 		return this.scacchiera;
 	}
 
@@ -23,7 +22,7 @@ public class ScacchieraModel {
 
 		try {
 			for (Integer riga= 1; riga <= 8; riga++) {
-				for (PezzoService p : this.scacchiera.row(riga).values()) {
+				for (PezzoModel p : this.scacchiera.row(riga).values()) {
 					if (p != null) {
 						if (p.getNome().equals(nomePezzo)) {
 							return riga;
@@ -43,7 +42,7 @@ public class ScacchieraModel {
 
 		try {
 			for (Character colonna = 'A'; colonna <= 'H'; colonna++) {
-				for (PezzoService p : this.scacchiera.column(colonna).values()) {
+				for (PezzoModel p : this.scacchiera.column(colonna).values()) {
 					if (p != null) {
 						if (p.getNome().equals(nomePezzo)) {
 							return colonna;
@@ -60,10 +59,10 @@ public class ScacchieraModel {
 	}
 
 	
-public PezzoService getPezzoFromScacchieraByValue(String nomePezzo) {
+public PezzoModel getPezzoFromScacchieraByValue(String nomePezzo) {
 	try {
 		for (Integer riga= 1; riga <= 8; riga++) {
-			for (PezzoService p : this.scacchiera.row(riga).values()) {
+			for (PezzoModel p : this.scacchiera.row(riga).values()) {
 				if (p != null) {
 					if (p.getNome().equals(nomePezzo)) {
 						return p;
@@ -103,10 +102,10 @@ public PezzoService getPezzoFromScacchieraByValue(String nomePezzo) {
 		return true;
 	}
 
-	public void creaScacchiera(List<PezzoService> pezzi) {
+	public void creaScacchiera(List<PezzoModel> pezzi) {
 
 		try {
-			for (PezzoService
+			for (PezzoModel
 					p : pezzi) {
 				if (p.getNome().equals("PB1")) {
 
@@ -229,7 +228,7 @@ public PezzoService getPezzoFromScacchieraByValue(String nomePezzo) {
 			
 				for (char colonna = 'A'; colonna <= 'H'; colonna++) {
 
-					PezzoService pezzo = this.scacchiera.get(riga, colonna);
+					PezzoModel pezzo = this.scacchiera.get(riga, colonna);
 					if (pezzo == null) {
 						System.out.print("--" + "  ");
 					} else {

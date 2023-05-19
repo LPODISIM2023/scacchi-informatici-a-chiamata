@@ -1,6 +1,6 @@
 package it.univaq.disim.lpo.Service;
 
-public interface PartitaService {
+public interface Partita {
 
 	void inzia();
 

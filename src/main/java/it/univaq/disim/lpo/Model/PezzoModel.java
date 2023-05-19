@@ -1,6 +1,8 @@
 package it.univaq.disim.lpo.Model;
 
-public class PezzoModel {
+import it.univaq.disim.lpo.Service.Pezzo;
+
+public abstract class PezzoModel implements Pezzo{
 	private String nome;
 	private boolean isAlive;
 

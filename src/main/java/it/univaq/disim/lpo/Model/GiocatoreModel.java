@@ -1,5 +1,7 @@
 package it.univaq.disim.lpo.Model;
 
-public class GiocatoreModel {
+import it.univaq.disim.lpo.Service.Giocatore;
+
+public abstract class GiocatoreModel implements Giocatore{
 
 }

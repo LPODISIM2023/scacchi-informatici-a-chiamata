@@ -1,5 +1,6 @@
-
 package it.univaq.disim.lpo.Service.ServiceImpl;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +8,10 @@ import java.util.List;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.AlfiereModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.PezzoService;
 
-public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
+public class AlfiereServiceImpl extends PezzoModel {
 	public AlfiereServiceImpl(String nome, boolean isAlive) {
 		super(nome, isAlive);
 	}
@@ -22,7 +21,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoService> table = scacchiera.getScacchiera();
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 			if (this.getNome() != null && this.getIsAlive() != false) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
@@ -37,7 +36,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -67,7 +66,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -96,7 +95,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
@@ -129,7 +128,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -163,7 +162,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -193,7 +192,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -222,7 +221,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
@@ -255,7 +254,7 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -289,8 +288,9 @@ public class AlfiereServiceImpl extends AlfiereModel implements PezzoService {
 		return mosseValide;
 	}
 
+	
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera) {
+	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
 		// TODO Auto-generated method stub
 		
 	}

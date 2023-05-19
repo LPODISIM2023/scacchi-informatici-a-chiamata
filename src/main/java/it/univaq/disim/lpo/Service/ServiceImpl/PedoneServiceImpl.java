@@ -6,12 +6,10 @@ import java.util.List;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PedoneModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.PezzoService;
 
-public class PedoneServiceImpl extends PedoneModel implements PezzoService{
+public class PedoneServiceImpl extends PezzoModel {
 
 	public PedoneServiceImpl(String nome, boolean isAlive) {
 		super(nome, isAlive);
@@ -27,7 +25,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoService> table = scacchiera.getScacchiera();
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 			if (this != null) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
@@ -44,7 +42,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 						if (posizioneNuovaRiga <= 8) {
 
 							if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									trovato = true;
 								} else {
@@ -62,7 +60,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 							char tempColonna = posizionePezzoColonna;
 							char posizioneNuovaColonna = ++tempColonna;
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizionePezzoColonna;
@@ -80,7 +78,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 						char tempColonna = posizionePezzoColonna;
 						char posizioneNuovaColonna = --tempColonna;
 						if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 							if (temp.getNome().charAt(2) == 'N') {
 								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 										+ posizionePezzoColonna;
@@ -108,7 +106,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 							if (posizioneNuovaRiga >= 1) {
 
 								if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
-									PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+									PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 									if (temp.getNome().charAt(2) == 'N') {
 										trovato = true;
 									} else {
@@ -126,7 +124,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 								char tempColonna = posizionePezzoColonna;
 								char posizioneNuovaColonna = tempColonna++;
 								if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-									PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+									PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 									if (temp.getNome().charAt(2) == 'B') {
 										String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 												+ posizionePezzoColonna;
@@ -144,7 +142,7 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 							char tempColonna = posizionePezzoColonna;
 							char posizioneNuovaColonna = --tempColonna;
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizionePezzoColonna;
@@ -173,8 +171,10 @@ public class PedoneServiceImpl extends PedoneModel implements PezzoService{
 	
 
 
+
+
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera) {
+	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
 		// TODO Auto-generated method stub
 		
 	}

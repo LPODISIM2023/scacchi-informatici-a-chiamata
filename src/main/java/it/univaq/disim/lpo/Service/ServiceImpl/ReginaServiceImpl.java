@@ -7,11 +7,9 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ReginaModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.PezzoService;
 
-public class ReginaServiceImpl extends ReginaModel implements PezzoService{
+public class ReginaServiceImpl extends PezzoModel {
 
 	public ReginaServiceImpl(String nome, boolean isAlive) {
 		super(nome, isAlive);
@@ -23,7 +21,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoService> table = scacchiera.getScacchiera();
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 			if (this != null) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
@@ -38,7 +36,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -68,7 +66,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 							if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -97,7 +95,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'N') {
@@ -130,7 +128,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -161,7 +159,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 					//	char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8) {
-							PezzoService temp = table.get(posizioneNuovaRiga, tempColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -191,7 +189,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 					//	char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 8) {
-							PezzoService temp = table.get(posizioneNuovaRiga, tempColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -220,7 +218,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 					//	int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(tempRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + tempRiga + " " + "Colonna "
@@ -254,7 +252,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -284,7 +282,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
 							if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -313,7 +311,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
@@ -346,7 +344,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-							PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -379,7 +377,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = ++tempRiga;
 					//	char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8) {
-							PezzoService temp = table.get(posizioneNuovaRiga, tempColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -411,7 +409,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 					//	char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1) {
-							PezzoService temp = table.get(posizioneNuovaRiga, tempColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -441,7 +439,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 						int posizioneNuovaRiga = --tempRiga;
 					//	char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 8) {
-							PezzoService temp = table.get(posizioneNuovaRiga, tempColonna);
+							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
@@ -470,7 +468,7 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 					//	int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaColonna <= 'H') {
-							PezzoService temp = table.get(tempRiga, posizioneNuovaColonna);
+							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + tempRiga + " " + "Colonna "
@@ -510,8 +508,9 @@ public class ReginaServiceImpl extends ReginaModel implements PezzoService{
 }
 
 
+
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera) {
+	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
 		// TODO Auto-generated method stub
 		
 	}

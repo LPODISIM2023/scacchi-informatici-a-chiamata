@@ -6,12 +6,10 @@ import java.util.List;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.CavalloModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.PezzoService;
 
-public class CavalloServiceImpl extends CavalloModel implements PezzoService {
+public class CavalloServiceImpl extends PezzoModel {
 
 	public CavalloServiceImpl(String nome, boolean isAlive) {
 		super(nome, isAlive);
@@ -22,7 +20,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 	public List<String> mosseValide(ScacchieraModel scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoService> table = scacchiera.getScacchiera();
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 			if (this != null) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
@@ -40,7 +38,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = ++tempColonna;
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -70,7 +68,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = --tempColonna;
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -100,7 +98,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -133,7 +131,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -164,7 +162,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = --tempColonna;
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -193,7 +191,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = ++tempColonna;
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -224,7 +222,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -257,7 +255,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						if (posizioneNuovaRiga >= 8 && posizioneNuovaColonna >= 'A') {
 
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'N') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -298,7 +296,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -328,7 +326,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = --tempColonna;
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -358,7 +356,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -391,7 +389,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -422,7 +420,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = --tempColonna;
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -451,7 +449,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = ++tempColonna;
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -480,7 +478,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna =(char)(tempColonna - 2);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -509,7 +507,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 						char posizioneNuovaColonna = (char)(tempColonna+2);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoService temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(2) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
 											+ posizioneNuovaColonna;
@@ -545,7 +543,7 @@ public class CavalloServiceImpl extends CavalloModel implements PezzoService {
 
 
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera) {
+	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
 		// TODO Auto-generated method stub
 		
 	}
