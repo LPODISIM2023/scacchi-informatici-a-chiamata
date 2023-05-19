@@ -1,8 +1,9 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.Scanner;
 
 import it.univaq.disim.lpo.Model.GiocatoreModel;
@@ -18,7 +19,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	}
 
 	@Override
-	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera) {
+	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaServiceImpl partita) {
 
 		scegliPezzo(scacchiera, this);
 
@@ -38,13 +39,17 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 				String input = scanner.nextLine();
 
-				if (presenzaScelta(input) == true) {
+				if (presenzaScelta(input) != true) {
 
-					System.out.println(
-							"Non sono presenti mosse valide per il pezzo scelto, si prega di scegliere un altro pezzo.");
+					System.out.println("Il PezzoScelto non è presente, si prega di scegliere un altro pezzo.");
 					scegliPezzo(scacchiera, giocatore);
 
 				} else {
+					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
+					String risposta = scanner.nextLine();
+					if (risposta.equals("N")) {
+						scegliPezzo(scacchiera, giocatore);
+					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValideB(scacchiera);
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
@@ -69,11 +74,15 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 				if (presenzaScelta(input) == true) {
 
-					System.out.println(
-							"Non sono presenti mosse valide per il pezzo scelto, si prega di scegliere un altro pezzo.");
+					System.out.println("Il PezzoScelto non è presente, si prega di scegliere un altro pezzo.");
 					scegliPezzo(scacchiera, giocatore);
 
 				} else {
+					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
+					input = scanner.nextLine();
+					if (input.equals("N")) {
+						scegliPezzo(scacchiera, giocatore);
+					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValideB(scacchiera);
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
@@ -90,9 +99,11 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	}
 
 	public boolean presenzaScelta(String input) {
-		String[] pezzi = { "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "AB1", "AB2", "CB1", "CB2", "TB1",
-				"TB2", "RB1", "rB1", "PN1", "PN2", "PN3", "PN4", "PN5", "PN6", "PN7", "PN8", "AN1", "AN2", "CN1", "CN2",
-				"TN1", "TN2", "RN1", "rN1" };
+		String[] a = { "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "AB1", "AB2", "CB1", "CB2", "TB1", "TB2",
+				"RB1", "rB1", "PN1", "PN2", "PN3", "PN4", "PN5", "PN6", "PN7", "PN8", "AN1", "AN2", "CN1", "CN2", "TN1",
+				"TN2", "RN1", "rN1" };
+		List<String> pezzi = new ArrayList<>();
+		pezzi.addAll(Arrays.asList(a));
 
 		try {
 
@@ -110,20 +121,27 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo) {
 
-		
 		try (Scanner scanner = new Scanner(System.in)) {
-
+			boolean trovato = false;
 			System.out.println("Scegli la Mossa da eseguire: ");
 
 			String input = scanner.nextLine();
 
-			for (String s : mosseValide) {
-				if (s.equals(input))
-					pezzo.muovi(pezzo, scacchiera, input);
-			}
+			try {
+				for (String s : mosseValide) {
+					if (s.equals(input)) {
+						pezzo.muovi(pezzo, scacchiera, input);
+						trovato = true;
+					}
+				}
+				if(trovato == false) {
+				System.out.println("Mossa Non Valida, scegli un'altra mossa");
+				scegliMossa(scacchiera, mosseValide,  pezzo);
+				}
+			} catch (NoSuchElementException e) {
+				e.printStackTrace();
 
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+			}
 		}
 
 	}

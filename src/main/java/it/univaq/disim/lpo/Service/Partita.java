@@ -7,11 +7,10 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public interface Partita {
 
-	void inzia();
 	void resa();
 	void scaccoMatto();
-	void scegliTipologiaPartita(ScacchieraModel scacchiera);
 	boolean patta();
+	void scegliTipologiaPartita();
 	 
 	
 }

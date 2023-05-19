@@ -15,9 +15,9 @@ public class ComputerServiceImpl extends GiocatoreModel {
 	}
 
 	@Override
-	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera) {
-		// TODO Auto-generated method stub
+	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaServiceImpl partita) {
 		
+		scegliPezzo(scacchiera, this);
 	}
 
 	@Override

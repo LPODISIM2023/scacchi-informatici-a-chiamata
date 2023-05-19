@@ -7,8 +7,8 @@ public class main {
 
 	public static void main(String[] args) {
 		PartitaModel partita = new PartitaServiceImpl("Partita1");
-		partita.inzia();
-
+		
+		partita.scegliTipologiaPartita();
 	}
 
 }

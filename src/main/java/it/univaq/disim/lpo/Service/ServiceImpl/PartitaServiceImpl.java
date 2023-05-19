@@ -21,14 +21,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void inzia() {
 
-		
-		ScacchieraModel scacchiera = inizializzaScacchiera();
-		scegliTipologiaPartita(scacchiera);
-
-	}
 
 	ScacchieraModel inizializzaScacchiera() {
 
@@ -171,7 +164,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 		pezzi.add(cavalloN1);
 		pezzi.add(cavalloN2);
 		scacchieraDaGioco.creaScacchiera(pezzi);
-		scacchieraDaGioco.stampaScacchiera();
+		
 		return scacchieraDaGioco;
 		// Chiamata Funzione turno(Giocatore) che in GiocatoreServiceImpl chiamerà
 		// questa funzione
@@ -185,30 +178,36 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 
 	@Override
-	public void scegliTipologiaPartita(ScacchieraModel scacchiera) {
+	public void scegliTipologiaPartita() {
 		try (Scanner scanner = new Scanner(System.in)) {
 
-			System.out.println("Scegli la tipologia della partita:" + "0 - Giocatore1 vs Giocatore 2;"
-					+ "1 - Giocatore1 vs Computer;");
+			System.out.println("Scegli la tipologia della partita: \n" + "0 - Giocatore1 vs Giocatore 2;"
+					+ "\n 1 - Giocatore1 vs Computer;");
 
 			String input = scanner.nextLine();
+			
+			if (input.equals("0")) {
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
 
-			if (input.charAt(0) == 1) {
-				GiocatoreModel giocatore1 = new UtenteServiceImpl("Giocatore1");
-
-				GiocatoreModel giocatore2 = new UtenteServiceImpl("Giocatore2");
-				giocatore1.turno(giocatore2, scacchiera);
+				GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera();
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else {
 
-				GiocatoreModel giocatore1 = new UtenteServiceImpl("Giocatore1");
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
 
 				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
-				giocatore1.turno(giocatore2, scacchiera);
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera();
+				giocatore1.turno(giocatore2, scacchiera, this);
 			}
 			
+		}catch(NoSuchElementException e) {
+			e.printStackTrace();
 		}
-		return;
+		
 	}
 
 
