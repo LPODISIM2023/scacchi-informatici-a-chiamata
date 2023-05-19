@@ -17,7 +17,7 @@ public class ReginaServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -39,18 +39,15 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
 									trovato = true;
-
 								}
 							} else {
 								// Debug
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -69,8 +66,7 @@ public class ReginaServiceImpl extends PezzoModel {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -78,8 +74,7 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -99,8 +94,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -110,8 +104,7 @@ public class ReginaServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 
@@ -131,8 +124,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -140,8 +132,7 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -162,8 +153,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ tempColonna;
+									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -171,8 +161,7 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ tempColonna;
+								String posizione = tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -192,8 +181,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ tempColonna;
+									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -201,8 +189,7 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ tempColonna;
+								String posizione = tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -221,8 +208,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + tempRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -230,8 +216,7 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + tempRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + tempRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -241,7 +226,27 @@ public class ReginaServiceImpl extends PezzoModel {
 						}
 					}
 				}
+			
+				}
 
+			return mosseValide;
+			}catch(NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+		}
+		return null;
+	}
+	
+
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
+		List<String> mosseValide = new ArrayList<>();
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		
+		try {
+			if (this != null) {
+				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
+				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 				if (this.getNome().equals("rN1")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -255,8 +260,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -265,12 +269,11 @@ public class ReginaServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
@@ -281,12 +284,11 @@ public class ReginaServiceImpl extends PezzoModel {
 					while (tempRiga <= 8 && tempColonna >= 'A' && trovato == false) {
 						int posizioneNuovaRiga = ++tempRiga;
 						char posizioneNuovaColonna = (char) (--tempColonna);
-							if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
-								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
+						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
+							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -294,12 +296,11 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
@@ -315,8 +316,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -326,13 +326,12 @@ public class ReginaServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 
 							}
-						
+
 						} else {
 							trovato = true;
 						}
@@ -347,8 +346,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -356,32 +354,30 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
 //// FINE SEZIONE MOVIMENTI DIAGONALI NERI
-						
+
 					}
-					
+
 //// SEZIONE MOVIMENTI VERTICALI E ORIZZONTALI
 					tempRiga = posizionePezzoRiga;
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempRiga <= 8 && tempColonna <= 'H' && trovato == false) {
 						int posizioneNuovaRiga = ++tempRiga;
-					//	char posizioneNuovaColonna = (char) (++tempColonna);
+						// char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ tempColonna;
+									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -389,17 +385,16 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ tempColonna;
+
+								String posizione = tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
 
-						
 					}
 					/// MOVIMENTI VERTICALI E ORIZZONTALI
 					tempRiga = posizionePezzoRiga;
@@ -407,13 +402,13 @@ public class ReginaServiceImpl extends PezzoModel {
 					trovato = false;
 					while (tempRiga >= 1 && trovato == false) {
 						int posizioneNuovaRiga = --tempRiga;
-					//	char posizioneNuovaColonna = (char) (++tempColonna);
+						// char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ tempColonna;
+
+									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -421,12 +416,12 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ tempColonna;
+
+								String posizione = tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
@@ -434,16 +429,15 @@ public class ReginaServiceImpl extends PezzoModel {
 					tempRiga = posizionePezzoRiga;
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
-					
+
 					while (tempRiga >= 1 && trovato == false) {
 						int posizioneNuovaRiga = --tempRiga;
-					//	char posizioneNuovaColonna = (char) (++tempColonna);
+						// char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ tempColonna;
+									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna " + tempColonna;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -451,12 +445,11 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ tempColonna;
+								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna " + tempColonna;
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
@@ -465,14 +458,13 @@ public class ReginaServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempColonna <= 'H' && trovato == false) {
-					//	int posizioneNuovaRiga = --tempRiga;
+						// int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + tempRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -480,12 +472,12 @@ public class ReginaServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + tempRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + tempRiga;
+
 								mosseValide.add(posizione);
 
 							}
-							
+
 						} else {
 							trovato = true;
 						}
@@ -495,25 +487,20 @@ public class ReginaServiceImpl extends PezzoModel {
 
 			}
 
-			
-		}catch(
+		} catch (
 
-	NullPointerException e)
-	{
+		NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	return mosseValide;
-}
-
-
-
-	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
-		// TODO Auto-generated method stub
-		
+		return mosseValide;
 	}
 
+	@Override
+	public void muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

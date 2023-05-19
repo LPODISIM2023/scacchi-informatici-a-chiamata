@@ -17,7 +17,7 @@ public class CavalloServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -278,9 +278,26 @@ public class CavalloServiceImpl extends PezzoModel {
 
 						}
 					}
-
 				}
-				// Neri:
+			}
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return mosseValide;
+	}
+
+	// Neri:
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
+
+		List<String> mosseValide = new ArrayList<>();
+		try {
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+			if (this.getNome() != null && this.getIsAlive() != false) {
+				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
+				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+
 				if (this.getNome().equals("CN1") || this.getNome().equals("CN2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -475,7 +492,7 @@ public class CavalloServiceImpl extends PezzoModel {
 					trovato = false;
 					while (trovato == false) {
 						int posizioneNuovaRiga = tempRiga + 1;
-						char posizioneNuovaColonna =(char)(tempColonna - 2);
+						char posizioneNuovaColonna = (char) (tempColonna - 2);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
@@ -504,7 +521,7 @@ public class CavalloServiceImpl extends PezzoModel {
 					trovato = false;
 					while (trovato == false) {
 						int posizioneNuovaRiga = tempRiga + 1;
-						char posizioneNuovaColonna = (char)(tempColonna+2);
+						char posizioneNuovaColonna = (char) (tempColonna + 2);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
@@ -529,7 +546,6 @@ public class CavalloServiceImpl extends PezzoModel {
 						}
 					}
 
-
 				}
 			}
 		} catch (NullPointerException e) {
@@ -540,10 +556,8 @@ public class CavalloServiceImpl extends PezzoModel {
 		return mosseValide;
 	}
 
-
-
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
+	public void muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione) {
 		// TODO Auto-generated method stub
 		
 	}

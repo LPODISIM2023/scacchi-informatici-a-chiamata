@@ -1,13 +1,12 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
@@ -17,7 +16,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -49,8 +48,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -69,8 +67,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -78,8 +75,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -99,8 +95,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -110,8 +105,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 
@@ -131,8 +125,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -140,8 +133,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -151,7 +143,23 @@ public class AlfiereServiceImpl extends PezzoModel {
 						}
 					}
 				}
+			}
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mosseValide;
+	}
 
+	@Override
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
+
+		List<String> mosseValide = new ArrayList<>();
+		try {
+			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+			if (this.getNome() != null && this.getIsAlive() != false) {
+				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
+				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 				if (this.getNome().equals("AN1") || this.getNome().equals("AN2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -165,8 +173,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -175,8 +182,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -195,8 +201,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -204,8 +209,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -214,6 +218,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							trovato = true;
 						}
 					}
+
 					tempRiga = posizionePezzoRiga;
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
@@ -225,8 +230,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							if (temp != null) {
 								System.out.println(temp.toString());
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -236,8 +240,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 
@@ -257,8 +260,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -266,8 +268,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-										+ posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -288,11 +289,10 @@ public class AlfiereServiceImpl extends PezzoModel {
 		return mosseValide;
 	}
 
-	
 	@Override
-	public void muovi(PezzoModel pezzo, HashBasedTable<Integer, Integer, PezzoModel> scacchiera, String posizione) {
+	public void muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
