@@ -1,5 +1,6 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Table;
@@ -219,5 +220,16 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 			e.getMessage();
 		}
 	}
-
+	@Override
+	public List<PezzoModel> getPezziFromScacchiera() {
+		Table<Integer, Character, PezzoModel> table = this.getScacchiera();
+		List<PezzoModel> pezzi = new ArrayList<>();
+		for (int i = 1; i <= 8; i++) {
+			for (PezzoModel p : table.row(i).values()) {
+				pezzi.add(p);
+			}
+		}
+		return pezzi;
+	}
+	
 }

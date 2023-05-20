@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
+import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
@@ -16,7 +17,7 @@ public class ReServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera, PartitaModel partita) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -244,12 +245,18 @@ public class ReServiceImpl extends PezzoModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		for (String s : mosseValide) {
+			if (scaccoN(scacchiera, partita, s) == true) {
+				mosseValide.remove(s);
+			}
+
+		}
 		return mosseValide;
 	}
 
 	@Override
 	public List<String> mosseValideN(ScacchieraModel scacchiera) {
-
 		List<String> mosseValide = new ArrayList<>();
 		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 
@@ -516,15 +523,62 @@ public class ReServiceImpl extends PezzoModel {
 			e.printStackTrace();
 		}
 
+		// Sezione che elimina le mosse che porta ad avere uno scacco;
+		for (String s : mosseValide) {
+			if (scaccoN(scacchiera, s) == true) {
+				mosseValide.remove(s);
+			}
+
+		}
 		return mosseValide;
 	}
 
-	@Override
-	public void muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione) {
-		// TODO Auto-generated method stub
-		
+	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
+		for (PezzoModel p : pezzi) {
+			List<String> temp = p.mosseValideB(scacchiera);
+			if (!(pezzi.isEmpty())) {
+				for (String s : temp) {
+					if (s.equals(posizioneRe))
+						;
+					return true;
+				}
+			}
+		}
+
+		return false;
+
 	}
 
-	
+	public boolean scaccoB(ScacchieraModel scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
+		for (PezzoModel p : pezzi) {
+			List<String> temp = p.mosseValideN(scacchiera);
+			if (!(temp.isEmpty())) {
+				for (String s : temp) {
+					if (s.equals(posizioneRe))
+						;
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
+	@Override
+	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ScacchieraModel muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

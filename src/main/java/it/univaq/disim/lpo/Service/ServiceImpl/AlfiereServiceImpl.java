@@ -17,8 +17,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera) {
-
+	public List<String> mosseValideB(ScacchieraModel scacchiera, PartitaModel partita) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -153,7 +152,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideN(ScacchieraModel scacchiera) {
+	public List<String> mosseValideN(ScacchieraModel scacchiera, PartitaModel partita) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -286,12 +285,16 @@ public class AlfiereServiceImpl extends PezzoModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (partita.scaccoB(scacchiera, mosseValide) == true) {
+
+		}
 
 		return mosseValide;
 	}
 
 	@Override
-	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione, PartitaModel partita) {
+	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione,
+			PartitaModel partita) {
 		// Esegui Mossa con Aumento contatore
 		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 		Integer rigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
@@ -305,12 +308,9 @@ public class AlfiereServiceImpl extends PezzoModel {
 		table.remove(rigaAttuale, colonnaAttuale);
 		scacchiera.setScacchiera(table);
 		// Verifica scacco e scacco matto e Patta
-		
-		if(partita.scaccoB(scacchiera) == true) {
-			
-		}
+
 		return scacchiera;
-		
+
 		// Salvataggio Mossa e Aumento contatore Mosse.
 
 	}

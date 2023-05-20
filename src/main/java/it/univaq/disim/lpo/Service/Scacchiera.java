@@ -11,6 +11,8 @@ public interface Scacchiera {
 	Character getColonnaPezzoFromScacchiera(String nomePezzo);
 
 	PezzoModel getPezzoFromScacchieraByValue(String nomePezzo);
+	
+	public List<PezzoModel> getPezziFromScacchiera();
 
 	void creaScacchiera(List<PezzoModel> pezzi);
 

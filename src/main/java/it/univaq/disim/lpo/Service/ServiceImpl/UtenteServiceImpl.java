@@ -21,8 +21,32 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 	@Override
 	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaModel partita) {
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-		scegliPezzo(scacchiera, giocatore, partita);
+		if (this.getNomeGiocatore().equals("giocatore1")) {
+			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
+			ReServiceImpl re = (ReServiceImpl) pezzo;
+			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome())+""+scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+			if (re.scaccoN(scacchiera, posizioneRe) == true) {
+				if (partita.scaccoMatto(scacchiera, this) == true) {
+					partita.fine();
+				}
+
+			}
+
+		} else {
+			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
+			ReServiceImpl re = (ReServiceImpl) pezzo;
+			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome())+""+scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+			if (re.scaccoB(scacchiera, posizioneRe) == true) {
+				if (partita.scaccoMatto(scacchiera, this) == true) {
+					partita.fine();
+				}
+
+			}
+
+
+		}
+
+	scegliPezzo(scacchiera, giocatore, partita);
 
 	}
 
@@ -154,7 +178,5 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		}
 
 	}
-
-	
 
 }

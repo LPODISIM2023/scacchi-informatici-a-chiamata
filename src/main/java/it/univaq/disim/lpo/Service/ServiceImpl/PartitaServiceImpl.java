@@ -206,69 +206,27 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	}
 
 	@Override
-	public boolean scaccoB(ScacchieraModel scacchiera) {
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-		PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
-		Integer posizioneRigaRe = scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-		Character posizioneColonnaRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome());
-		int tempRiga = posizioneRigaRe;
-		char tempColonna = posizioneColonnaRe;
-		// Verifica se sul re potrebbe passarci il Cavallo
-		table.get(posizioneRigaRe, posizioneColonnaRe);
-		
-		
-		/*
-		 * List<String> mosseRe = re.mosseValide();
-		 *  
-		 * 
-		 */
-		
-		
-		
-		while (tempRiga <= 8 && tempColonna <= 'H') {
-			tempRiga = tempRiga++;
-			// tempColonna = posizioneColonnaRe;
-			
-			// Verifica se Davanti al re ci sono Torre             o Regina
-			PezzoModel pezzo = table.get(tempRiga, posizioneColonnaRe);
-			if (pezzo != null) {
-				if (pezzo.getNome().equals("rN1")) {
-					return true;
-				} else if (pezzo.getNome().equals("rN1")) {
-					return true;
-				}
-			}
-			
-			
-		}
-		return false;
-
-	}
-
-	@Override
-	public boolean scaccoN(ScacchieraModel scacchiera) {
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-
-		return false;
-
-	}
-
-	@Override
 	public void resa() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void scaccoMatto() {
-		// TODO Auto-generated method stub
+	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore) {
 
+		
+		return false;
 	}
 
 	@Override
 	public boolean patta() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void fine() {
+
 	}
 
 }
