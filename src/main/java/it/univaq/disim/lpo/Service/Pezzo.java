@@ -14,6 +14,9 @@ public interface Pezzo {
 	
 	public List<String> mosseValideN(ScacchieraModel scacchiera);
 
-	void muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione, PartitaModel partita, GiocatoreModel giocatore);
+	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita);
+	public ScacchieraModel muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita);
+
+
 
 }

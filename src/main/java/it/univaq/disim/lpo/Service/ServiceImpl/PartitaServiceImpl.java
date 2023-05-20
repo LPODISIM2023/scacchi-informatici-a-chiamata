@@ -21,13 +21,11 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
 	ScacchieraModel inizializzaScacchiera() {
 
 		// Sezione Creazione della scacchiera e Dei Pezzi
 		Table<Integer, Character, PezzoModel> scacchiera = HashBasedTable.create();
-		ScacchieraModel scacchieraDaGioco = new ScacchieraModel(scacchiera);
+		ScacchieraModel scacchieraDaGioco = new ScacchieraServiceImpl(scacchiera);
 		// PedoneModel
 		List<PezzoModel> pezzi = new ArrayList<>();
 		PezzoModel pedoneB1 = new PedoneServiceImpl("PB1", true);
@@ -164,18 +162,15 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 		pezzi.add(cavalloN1);
 		pezzi.add(cavalloN2);
 		scacchieraDaGioco.creaScacchiera(pezzi);
-		
+
 		return scacchieraDaGioco;
 		// Chiamata Funzione turno(Giocatore) che in GiocatoreServiceImpl chiamerà
 		// questa funzione
 
 	}
 
-	
-
 	// Metodo Da inserire nella Classe Giocatore.
 	// E' stato implementato qui solo per prova.
-
 
 	@Override
 	public void scegliTipologiaPartita() {
@@ -185,7 +180,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 					+ "\n 1 - Giocatore1 vs Computer;");
 
 			String input = scanner.nextLine();
-			
+
 			if (input.equals("0")) {
 				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
 
@@ -203,14 +198,60 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 				scacchiera.stampaScacchiera();
 				giocatore1.turno(giocatore2, scacchiera, this);
 			}
-			
-		}catch(NoSuchElementException e) {
+
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
+	@Override
+	public boolean scaccoB(ScacchieraModel scacchiera) {
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
+		Integer posizioneRigaRe = scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+		Character posizioneColonnaRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome());
+		int tempRiga = posizioneRigaRe;
+		char tempColonna = posizioneColonnaRe;
+		// Verifica se sul re potrebbe passarci il Cavallo
+		table.get(posizioneRigaRe, posizioneColonnaRe);
+		
+		
+		/*
+		 * List<String> mosseRe = re.mosseValide();
+		 *  
+		 * 
+		 */
+		
+		
+		
+		while (tempRiga <= 8 && tempColonna <= 'H') {
+			tempRiga = tempRiga++;
+			// tempColonna = posizioneColonnaRe;
+			
+			// Verifica se Davanti al re ci sono Torre             o Regina
+			PezzoModel pezzo = table.get(tempRiga, posizioneColonnaRe);
+			if (pezzo != null) {
+				if (pezzo.getNome().equals("rN1")) {
+					return true;
+				} else if (pezzo.getNome().equals("rN1")) {
+					return true;
+				}
+			}
+			
+			
+		}
+		return false;
 
+	}
+
+	@Override
+	public boolean scaccoN(ScacchieraModel scacchiera) {
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+
+		return false;
+
+	}
 
 	@Override
 	public void resa() {

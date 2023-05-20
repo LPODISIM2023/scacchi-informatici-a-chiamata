@@ -39,4 +39,4 @@ public class ComputerServiceImpl extends GiocatoreModel {
 		pezzo.muovi(pezzo, scacchiera, posizione);
 	
 	}
-}
+}   

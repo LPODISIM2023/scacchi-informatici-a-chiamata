@@ -20,7 +20,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	}
 
 	@Override
-	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaServiceImpl partita) {
+	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaModel partita) {
 
 		scegliPezzo(scacchiera, giocatore, partita);
 
@@ -49,7 +49,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
 					String risposta = scanner.nextLine();
 					if (risposta.equals("N")) {
-						scegliPezzo(scacchiera, giocatore,partita);
+						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValideB(scacchiera);
@@ -57,7 +57,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					for (String s : mosseValide) {
 						System.out.println(s);
 					}
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore,partita);
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
 			} catch (NullPointerException e) {
@@ -120,7 +120,8 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		return false;
 	}
 
-	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo, GiocatoreModel giocatore, PartitaModel partita) {
+	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo,
+			GiocatoreModel giocatore, PartitaModel partita) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean trovato = false;
@@ -131,15 +132,21 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 			try {
 				for (String s : mosseValide) {
 					if (s.equals(input)) {
-						pezzo.muovi(pezzo, scacchiera, input, partita, giocatore);
-						trovato = true;
+						if (this.getNomeGiocatore().equals("giocatore1")) {
+							pezzo.muoviB(pezzo, scacchiera, input, partita);
+							trovato = true;
+						} else {
+							pezzo.muoviN(pezzo, scacchiera, input, partita);
+							trovato = true;
+						}
 					}
 				}
-				if(trovato == false) {
-				System.out.println("Mossa Non Valida, scegli un'altra mossa");
-				scegliMossa(scacchiera, mosseValide,  pezzo, giocatore, partita);
-				
+
+				if (trovato == false) {
+					System.out.println("Mossa Non Valida, scegli un'altra mossa");
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
+				this.turno(giocatore, scacchiera, partita);
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 
@@ -147,5 +154,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		}
 
 	}
+
+	
 
 }
