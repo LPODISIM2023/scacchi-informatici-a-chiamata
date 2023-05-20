@@ -78,6 +78,10 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValideB(scacchiera);
+					if(mosseValide.isEmpty()) {
+						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome() + ". \n Si prega di scegliere unaltro pezzo.");
+						scegliPezzo(scacchiera, giocatore, partita);
+					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
 					for (String s : mosseValide) {
 						System.out.println(s);
@@ -111,6 +115,10 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValideN(scacchiera);
+					if(mosseValide.isEmpty()) {
+						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome() + ". \n Si prega di scegliere unaltro pezzo.");
+						scegliPezzo(scacchiera, giocatore, partita);
+					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
 					for (String s : mosseValide) {
 						System.out.println(s);
