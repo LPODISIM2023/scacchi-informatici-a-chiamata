@@ -9,7 +9,7 @@ public interface Partita {
 	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore);
 	public boolean patta();
 	public void scegliTipologiaPartita();
-	public void fine();
+	public void fine(GiocatoreModel giocatore);
 	 
 	
 }

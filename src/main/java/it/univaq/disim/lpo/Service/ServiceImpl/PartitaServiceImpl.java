@@ -213,8 +213,21 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 	@Override
 	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore) {
+		if (giocatore.getNomeGiocatore().equals("giocatore1")) {
+			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RN1");
+			List<String> temp = re.mosseValideN(scacchiera);
+			if (temp.isEmpty()) {
+				return true;
+			}
 
-		
+		} else {
+			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
+			List<String> temp = re.mosseValideB(scacchiera);
+			if (temp.isEmpty()) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -225,8 +238,8 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	}
 
 	@Override
-	public void fine() {
-
+	public void fine(GiocatoreModel giocatore) {
+		System.out.println("Partita Finita, ha vinto il giocatore: " + giocatore);
 	}
 
 }

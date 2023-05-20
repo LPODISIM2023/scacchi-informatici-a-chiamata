@@ -3,10 +3,8 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
@@ -18,7 +16,7 @@ public class TorreServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -150,7 +148,7 @@ public class TorreServiceImpl extends PezzoModel {
 
 	}
 
-	public List<String> mosseValideN(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -286,17 +284,7 @@ public class TorreServiceImpl extends PezzoModel {
 	}
 
 
-	@Override
-	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ScacchieraModel muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 }

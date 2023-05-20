@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import com.google.common.collect.Table;
+
 import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
@@ -20,53 +22,52 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	}
 
 	@Override
-	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaModel partita) {
+	public void turno(GiocatoreModel giocatore2, ScacchieraModel scacchiera, PartitaModel partita) {
 		if (this.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
 			ReServiceImpl re = (ReServiceImpl) pezzo;
-			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome())+""+scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
+					+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
 			if (re.scaccoN(scacchiera, posizioneRe) == true) {
 				if (partita.scaccoMatto(scacchiera, this) == true) {
-					partita.fine();
+					partita.fine(this);
 				}
 
 			}
-
+			scegliPezzo(scacchiera, giocatore2, partita);
 		} else {
 			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
 			ReServiceImpl re = (ReServiceImpl) pezzo;
-			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome())+""+scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
+					+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
 			if (re.scaccoB(scacchiera, posizioneRe) == true) {
 				if (partita.scaccoMatto(scacchiera, this) == true) {
-					partita.fine();
+					partita.fine(this);
 				}
 
 			}
-
-
+			scegliPezzo(scacchiera, giocatore2, partita);
 		}
-
-	scegliPezzo(scacchiera, giocatore, partita);
 
 	}
 
 	@Override
 	public void scegliPezzo(ScacchieraModel scacchiera, GiocatoreModel giocatore, PartitaModel partita) {
 		List<String> mosseValide;
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 
 		if (this.getNomeGiocatore().equals("giocatore1")) {
 			try (Scanner scanner = new Scanner(System.in)) {
 
-				System.out.println("Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti:"
+				System.out.println(this.getNomeGiocatore() + ": " + "Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti:"
 						+ "\n -Pedoni Bianchi: PB1...PB8" + "\n -Torri Bianche: TB1, TB2"
 						+ "\n -Cavalli Bianchi: CB1, CB2" + "\n -Alfieri Bianchi: AB1, AB2" + "\n -Re Bianco: RB1"
 						+ "\n -Regina Bianca: rB1");
 
 				String input = scanner.nextLine();
 
-				if (presenzaScelta(input) != true) {
-
-					System.out.println("Il PezzoScelto non è presente, si prega di scegliere un altro pezzo.");
+				if (presenzaSceltaB(input, pezzi) != true) {
+					System.out.println("Il PezzoScelto non è presente oppure si è sbagliato a digitare l'input, si prega di scegliere un altro pezzo.");
 					scegliPezzo(scacchiera, giocatore, partita);
 
 				} else {
@@ -91,25 +92,25 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		if (this.getNomeGiocatore().equals("giocatore2")) {
 			try (Scanner scanner = new Scanner(System.in)) {
 
-				System.out.println("Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti:"
+				System.out.println(this.getNomeGiocatore() + ": " + "Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti:"
 						+ "\n -Pedoni Neri: PN1...PN8" + "\n -Torri Nere: TN1, TN2" + "\n -Cavalli Neri: CN1, CN2"
 						+ "\n -Alfieri Neri: AN1, AN2" + "\n -Re Nero: RN1" + "\n -Regina Nera: rN1");
 
 				String input = scanner.nextLine();
 
-				if (presenzaScelta(input) == true) {
+				if (presenzaSceltaN(input, pezzi) != true) {
 
-					System.out.println("Il PezzoScelto non è presente, si prega di scegliere un altro pezzo.");
+					System.out.println("Il PezzoScelto non è presente oppure si è sbagliato a digitare l'input, si prega di scegliere un altro pezzo.");
 					scegliPezzo(scacchiera, giocatore, partita);
 
 				} else {
 					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
-					input = scanner.nextLine();
-					if (input.equals("N")) {
+					String risposta = scanner.nextLine();
+					if (risposta.equals("N")) {
 						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
-					mosseValide = pezzo.mosseValideB(scacchiera);
+					mosseValide = pezzo.mosseValideN(scacchiera);
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
 					for (String s : mosseValide) {
 						System.out.println(s);
@@ -123,29 +124,33 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		}
 	}
 
-	public boolean presenzaScelta(String input) {
-		String[] a = { "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "AB1", "AB2", "CB1", "CB2", "TB1", "TB2",
-				"RB1", "rB1", "PN1", "PN2", "PN3", "PN4", "PN5", "PN6", "PN7", "PN8", "AN1", "AN2", "CN1", "CN2", "TN1",
-				"TN2", "RN1", "rN1" };
-		List<String> pezzi = new ArrayList<>();
-		pezzi.addAll(Arrays.asList(a));
-
-		try {
-
-			for (String s : pezzi) {
-
-				if (s.equals(input)) {
+	public boolean presenzaSceltaB(String input, List<PezzoModel> pezzi) {
+		if (input.charAt(1) == 'B') {
+			for (PezzoModel p : pezzi) {
+				if (p.getNome().equals(input)) {
 					return true;
 				}
+				
 			}
-		} catch (NoSuchElementException e) {
-			e.getMessage();
+			
 		}
 		return false;
 	}
-
+	public boolean presenzaSceltaN(String input, List<PezzoModel> pezzi) {
+		if (input.charAt(1) == 'N') {
+			for (PezzoModel p : pezzi) {
+				if (p.getNome().equals(input)) {
+					return true;
+				} 
+			}
+			
+		}
+		return false;
+	}
+	
+	@Override
 	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo,
-			GiocatoreModel giocatore, PartitaModel partita) {
+			GiocatoreModel giocatore2, PartitaModel partita) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean trovato = false;
@@ -157,10 +162,10 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 				for (String s : mosseValide) {
 					if (s.equals(input)) {
 						if (this.getNomeGiocatore().equals("giocatore1")) {
-							pezzo.muoviB(pezzo, scacchiera, input, partita);
+							this.muoviB(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
 						} else {
-							pezzo.muoviN(pezzo, scacchiera, input, partita);
+							this.muoviN(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
 						}
 					}
@@ -168,14 +173,27 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 				if (trovato == false) {
 					System.out.println("Mossa Non Valida, scegli un'altra mossa");
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore2, partita);
 				}
-				this.turno(giocatore, scacchiera, partita);
+				giocatore2.turno(this, scacchiera, partita);
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 
 			}
 		}
+
+	}
+
+	public void muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
+			GiocatoreModel giocatore) {
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+
+	}
+
+	@Override
+	public void muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
+			GiocatoreModel giocatore) {
+		// TODO Auto-generated method stub
 
 	}
 

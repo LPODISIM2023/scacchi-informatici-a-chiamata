@@ -3,11 +3,8 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.GiocatoreModel;
-import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
@@ -17,7 +14,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -38,8 +35,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna "
-											+ posizioneNuovaColonna;
+									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -48,7 +44,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
+								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
 								mosseValide.add(posizione);
 
 							}
@@ -152,7 +148,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideN(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -285,40 +281,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (partita.scaccoB(scacchiera, mosseValide) == true) {
-
-		}
-
 		return mosseValide;
-	}
-
-	@Override
-	public ScacchieraModel muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String posizione,
-			PartitaModel partita) {
-		// Esegui Mossa con Aumento contatore
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-		Integer rigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
-
-		Character colonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
-		Integer rigaNuova = (int) posizione.charAt(1);
-		Character colonnaNuova = posizione.charAt(0);
-
-		// Inserimento pezzo nella nuova posizione
-		table.put(rigaNuova, colonnaNuova, pezzo);
-		table.remove(rigaAttuale, colonnaAttuale);
-		scacchiera.setScacchiera(table);
-		// Verifica scacco e scacco matto e Patta
-
-		return scacchiera;
-
-		// Salvataggio Mossa e Aumento contatore Mosse.
-
-	}
-
-	@Override
-	public ScacchieraModel muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -3,10 +3,8 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
@@ -18,7 +16,7 @@ public class PedoneServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -98,7 +96,7 @@ public class PedoneServiceImpl extends PezzoModel {
 		return mosseValide;
 	}
 
-	public List<String> mosseValideN(ScacchieraModel scacchiera, PartitaModel partita) {
+	public List<String> mosseValideN(ScacchieraModel scacchiera) {
 
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -128,6 +126,7 @@ public class PedoneServiceImpl extends PezzoModel {
 							} else {
 								// Debug
 								String posizione = posizionePezzoColonna + "" + posizioneNuovaRiga;
+								mosseValide.add(posizione);
 								trovato = true;
 
 							}

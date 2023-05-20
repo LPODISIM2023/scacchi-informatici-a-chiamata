@@ -1,7 +1,5 @@
 package it.univaq.disim.lpo.Model;
 
-import java.util.List;
-
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Service.Scacchiera;
