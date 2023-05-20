@@ -4,7 +4,7 @@ import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
-public interface Giocatore {
+public interface GiocatoreService {
 	
 	
 	void scegliPezzo(ScacchieraModel scacchiera, GiocatoreModel giocatore, PartitaModel partita);

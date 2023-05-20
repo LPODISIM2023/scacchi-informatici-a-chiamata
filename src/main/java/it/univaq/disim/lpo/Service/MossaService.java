@@ -1,5 +1,5 @@
 package it.univaq.disim.lpo.Service;
 
-public interface Mossa {
+public interface MossaService {
 
 }

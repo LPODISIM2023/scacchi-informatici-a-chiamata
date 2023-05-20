@@ -4,7 +4,7 @@ import java.util.List;
 
 import it.univaq.disim.lpo.Model.PezzoModel;
 
-public interface Scacchiera {
+public interface ScacchieraService {
 
 	Integer getRigaPezzoFromScacchiera(String nomePezzo);
 

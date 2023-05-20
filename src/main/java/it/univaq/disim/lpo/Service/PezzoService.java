@@ -7,7 +7,7 @@ import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
-public interface Pezzo {
+public interface PezzoService {
 
 	
 	List<String> mosseValideB(ScacchieraModel scacchiera);

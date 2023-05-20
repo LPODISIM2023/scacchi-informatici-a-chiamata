@@ -10,9 +10,9 @@ import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.Giocatore;
+import it.univaq.disim.lpo.Service.GiocatoreService;
 
-public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
+public class UtenteServiceImpl extends GiocatoreModel implements GiocatoreService {
 
 	public UtenteServiceImpl(String nomeGiocatore) {
 		super(nomeGiocatore);

@@ -2,9 +2,9 @@ package it.univaq.disim.lpo.Model;
 
 import java.util.Objects;
 
-import it.univaq.disim.lpo.Service.Giocatore;
+import it.univaq.disim.lpo.Service.GiocatoreService;
 
-public abstract class GiocatoreModel implements Giocatore {
+public abstract class GiocatoreModel implements GiocatoreService {
 	private String nomeGiocatore;
 
 	public GiocatoreModel(String nomeGiocatore) {

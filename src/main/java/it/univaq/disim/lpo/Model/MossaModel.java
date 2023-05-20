@@ -2,9 +2,9 @@ package it.univaq.disim.lpo.Model;
 
 import java.util.Map;
 
-import it.univaq.disim.lpo.Service.Mossa;
+import it.univaq.disim.lpo.Service.MossaService;
 
-public abstract class MossaModel implements Mossa{
+public abstract class MossaModel implements MossaService{
 	private Map<PezzoModel, String> mossa;
 	
 	public MossaModel(Map<PezzoModel,String> mossa) {
