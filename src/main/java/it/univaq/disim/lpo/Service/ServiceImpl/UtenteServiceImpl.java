@@ -98,7 +98,8 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 				System.out.println(this.getNomeGiocatore() + ": " + "Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti:"
 						+ "\n -Pedoni Neri: PN1...PN8" + "\n -Torri Nere: TN1, TN2" + "\n -Cavalli Neri: CN1, CN2"
-						+ "\n -Alfieri Neri: AN1, AN2" + "\n -Re Nero: RN1" + "\n -Regina Nera: rN1");
+						+ "\n -Alfieri Neri: AN1, AN2" + "\n -Re Nero: RN1" + "\n -Regina Nera: rN1"
+						+ "\n si prega di scrivere il nome del pezzo IN MAIUSCOLO (Es. PB1).");
 
 				String input = scanner.nextLine();
 
