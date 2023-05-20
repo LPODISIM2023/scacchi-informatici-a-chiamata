@@ -171,11 +171,13 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 				for (String s : mosseValide) {
 					if (s.equals(input)) {
 						if (this.getNomeGiocatore().equals("giocatore1")) {
-							this.muoviB(pezzo, scacchiera, input, partita, giocatore2);
+							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
+							giocatore2.turno(this, scacchieraNuova, partita);
 						} else {
-							this.muoviN(pezzo, scacchiera, input, partita, giocatore2);
+							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
+							giocatore2.turno(this, scacchieraNuova, partita);
 						}
 					}
 				}
@@ -184,7 +186,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					System.out.println("Mossa Non Valida, scegli un'altra mossa");
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore2, partita);
 				}
-				giocatore2.turno(this, scacchiera, partita);
+				
 			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 
@@ -192,18 +194,38 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		}
 
 	}
-
-	public void muoviB(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
-			GiocatoreModel giocatore) {
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-
-	}
-
+	
 	@Override
-	public void muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
+	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore) {
-		// TODO Auto-generated method stub
-
+	
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
+		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
+	
+		char carattereNumerico = input.charAt(1);
+		int posizioneRigaNuova = Character.getNumericValue(carattereNumerico);
+		System.out.println(posizioneRigaNuova);
+		Character posizioneColonnaNuova = (char) input.charAt(0);
+		PezzoModel pezzoMorto = table.get(posizioneRigaNuova, posizioneColonnaNuova);
+		if(pezzoMorto != null) {
+			pezzoMorto.setAlive(false);
+	
+			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
+			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			
+		}else {
+			;
+			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
+									
+			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			System.out.println(table.get(posizioneRigaAttuale, posizioneColonnaAttuale));
+		
+			
+		}
+		scacchiera.setScacchiera(table);
+		scacchiera.stampaScacchiera(scacchiera);
+		return scacchiera;
+		
 	}
-
 }

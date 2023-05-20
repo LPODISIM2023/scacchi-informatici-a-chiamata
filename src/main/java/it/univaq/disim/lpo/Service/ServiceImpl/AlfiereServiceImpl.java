@@ -34,7 +34,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -62,7 +62,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -90,7 +90,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -120,7 +120,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -168,7 +168,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -196,7 +196,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -225,7 +225,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -255,7 +255,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;

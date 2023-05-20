@@ -17,8 +17,6 @@ public interface Giocatore {
 //			GiocatoreModel giocatore);
 	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo,
 			GiocatoreModel giocatore2, PartitaModel partita);
-	void muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
+	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore);
-
-
 }

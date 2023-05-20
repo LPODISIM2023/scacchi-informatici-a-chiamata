@@ -37,7 +37,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -64,7 +64,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -92,7 +92,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -122,7 +122,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -151,7 +151,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -179,7 +179,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -206,7 +206,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -258,7 +258,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -286,7 +286,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -314,7 +314,7 @@ public class ReginaServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -344,7 +344,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -375,7 +375,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -405,7 +405,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 
 									String posizione = tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
@@ -435,7 +435,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = "Riga: " + posizioneNuovaRiga + " " + "Colonna " + tempColonna;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -462,7 +462,7 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
+								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;

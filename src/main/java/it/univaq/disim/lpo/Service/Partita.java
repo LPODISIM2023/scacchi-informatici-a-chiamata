@@ -10,6 +10,6 @@ public interface Partita {
 	public boolean patta();
 	public void scegliTipologiaPartita();
 	public void fine(GiocatoreModel giocatore);
-	 
+	  
 	
 }

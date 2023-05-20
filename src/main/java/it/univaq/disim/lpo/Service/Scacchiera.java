@@ -3,6 +3,7 @@ package it.univaq.disim.lpo.Service;
 import java.util.List;
 
 import it.univaq.disim.lpo.Model.PezzoModel;
+import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public interface Scacchiera {
 
@@ -17,6 +18,6 @@ public interface Scacchiera {
 	void creaScacchiera(List<PezzoModel> pezzi);
 
 	//  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
-	void stampaScacchiera();
+	void stampaScacchiera(ScacchieraModel scacchiera);
 
 }

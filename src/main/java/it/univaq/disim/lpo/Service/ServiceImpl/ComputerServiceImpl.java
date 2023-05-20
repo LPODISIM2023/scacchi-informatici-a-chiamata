@@ -3,6 +3,8 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Table;
+
 import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
@@ -66,21 +68,38 @@ public class ComputerServiceImpl extends GiocatoreModel {
 			GiocatoreModel giocatore2, PartitaModel partita) {
 		Random random = new Random();
 		String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
-		this.muoviN(pezzo, scacchiera, posizione,partita,giocatore2);
+		this.muovi(pezzo, scacchiera, posizione,partita,giocatore2);
 	
 	}
 
 
-
-	
-
-
-
-
 	@Override
-	public void muoviN(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
+	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore) {
-		// TODO Auto-generated method stub
+		
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
+		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
+		
+		Integer posizioneRigaNuova = (int) input.charAt(0);
+		Character posizioneColonnaNuova = (char) input.charAt(1);
+		PezzoModel pezzoMorto = table.get(posizioneRigaNuova, posizioneColonnaNuova);
+		if(pezzoMorto != null) {
+			pezzoMorto.setAlive(false);
+			table.remove(posizioneRigaNuova, posizioneColonnaNuova);
+			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
+			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+		}else {
+			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
+			System.out.println(table.get(posizioneRigaNuova, posizioneColonnaNuova));						
+			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			System.out.println(table.get(posizioneRigaAttuale, posizioneColonnaAttuale));
+		}
+		scacchiera.stampaScacchiera(scacchiera);
+		scacchiera.setScacchiera(table);
+		scacchiera.stampaScacchiera(scacchiera);
+		return scacchiera;
 		
 	}
 }   

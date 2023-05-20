@@ -196,7 +196,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 
 //  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
 	@Override
-	public void stampaScacchiera() {
+	public void stampaScacchiera(ScacchieraModel scacchiera) {
 		try {
 			for (int riga = 1; riga <= 8; riga++) {
 
@@ -204,7 +204,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 
 				for (char colonna = 'A'; colonna <= 'H'; colonna++) {
 
-					PezzoModel pezzo = this.getScacchiera().get(riga, colonna);
+					PezzoModel pezzo = scacchiera.getScacchiera().get(riga, colonna);
 					if (pezzo == null) {
 						System.out.print("--" + "  ");
 					} else {

@@ -37,9 +37,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
-									mosseValide.add(posizione);
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;									mosseValide.add(posizione);
 									trovato = true;
 								} else {
 									trovato = true;
@@ -47,8 +46,7 @@ public class ReServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
-								mosseValide.add(posizione);
+								String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;								mosseValide.add(posizione);
 								trovato = true;
 
 							}
@@ -66,9 +64,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
-
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -76,8 +73,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
-
+								String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -96,9 +92,8 @@ public class ReServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
-
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -108,7 +103,7 @@ public class ReServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
+								String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 
 
 								mosseValide.add(posizione);
@@ -129,8 +124,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 
 									mosseValide.add(posizione);
 									trovato = true;
@@ -139,7 +134,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
+								String posizione =posizioneNuovaColonna  + "" + posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 								trovato = true;
@@ -161,8 +156,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + tempColonna;
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =  tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -170,7 +165,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga + "" + tempColonna;
+								String posizione =  tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 							}
@@ -189,8 +184,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + tempColonna;
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =  tempColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -198,7 +193,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga + "" + tempColonna;
+								String posizione =  tempColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 							}
@@ -216,8 +211,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'N') {
-									String posizione = tempRiga + "" + posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione =  posizioneNuovaColonna  + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -225,7 +220,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = tempRiga + "" + posizioneNuovaColonna;
+								String posizione =  posizioneNuovaColonna  + "" + tempRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 							}
@@ -274,8 +269,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 								
 									mosseValide.add(posizione);
 									trovato = true;
@@ -285,7 +280,7 @@ public class ReServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 
@@ -304,8 +299,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 									mosseValide.add(posizione);
 									trovato = true;
@@ -314,7 +309,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 								trovato = true;
@@ -335,8 +330,8 @@ public class ReServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								System.out.println(temp.toString());
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 									mosseValide.add(posizione);
 									trovato = true;
@@ -347,7 +342,7 @@ public class ReServiceImpl extends PezzoModel {
 
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 
 								mosseValide.add(posizione);
@@ -368,8 +363,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 									mosseValide.add(posizione);
 									trovato = true;
@@ -378,7 +373,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna +""+ posizioneNuovaRiga;
 
 								mosseValide.add(posizione);
 								trovato = true;
@@ -402,8 +397,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {	
-									String posizione = posizioneNuovaRiga+""+tempColonna;
+								if (temp.getNome().charAt(1) == 'B') {	
+									String posizione =tempColonna  +""+ posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -411,7 +406,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+tempColonna;
+								String posizione =tempColonna  +""+ posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 
@@ -432,8 +427,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+tempColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione =tempColonna  +""+ posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -441,7 +436,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+tempColonna;
+								String posizione =tempColonna  +""+ posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 
@@ -461,8 +456,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 8) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, tempColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = posizioneNuovaRiga+""+tempColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione =tempColonna  +""+ posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -470,7 +465,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = posizioneNuovaRiga+""+tempColonna;
+								String posizione =tempColonna  +""+ posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 
@@ -489,8 +484,8 @@ public class ReServiceImpl extends PezzoModel {
 						if (posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(2) == 'B') {
-									String posizione = tempRiga + "" + posizioneNuovaColonna;
+								if (temp.getNome().charAt(1) == 'B') {
+									String posizione =  posizioneNuovaColonna + "" + tempRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -498,7 +493,7 @@ public class ReServiceImpl extends PezzoModel {
 									trovato = true;
 								}
 							} else {
-								String posizione = tempRiga + "" + posizioneNuovaColonna;
+								String posizione =  posizioneNuovaColonna + "" + tempRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 							}

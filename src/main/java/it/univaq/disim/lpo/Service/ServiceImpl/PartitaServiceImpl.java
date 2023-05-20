@@ -186,7 +186,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 				GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
 				ScacchieraModel scacchiera = inizializzaScacchiera();
-				scacchiera.stampaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
 				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else {
@@ -195,7 +195,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
 				ScacchieraModel scacchiera = inizializzaScacchiera();
-				scacchiera.stampaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
 				giocatore1.turno(giocatore2, scacchiera, this);
 			}
 
