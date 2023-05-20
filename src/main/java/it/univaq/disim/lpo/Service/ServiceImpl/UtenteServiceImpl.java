@@ -21,7 +21,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 	@Override
 	public void turno(GiocatoreModel giocatore, ScacchieraModel scacchiera, PartitaModel partita) {
-
+		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 		scegliPezzo(scacchiera, giocatore, partita);
 
 	}
