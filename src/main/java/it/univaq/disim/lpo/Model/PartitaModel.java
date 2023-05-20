@@ -2,9 +2,9 @@ package it.univaq.disim.lpo.Model;
 
 import java.util.Objects;
 
-import it.univaq.disim.lpo.Service.PartitaService;
+import it.univaq.disim.lpo.Service.Partita;
 
-public abstract class PartitaModel implements PartitaService {
+public abstract class PartitaModel implements Partita {
 	private String nomePartita;
 
 	public PartitaModel(String nomePartita) {

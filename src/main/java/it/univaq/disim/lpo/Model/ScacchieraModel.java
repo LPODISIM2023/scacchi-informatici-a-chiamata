@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Service.ScacchieraService;
+import it.univaq.disim.lpo.Service.Scacchiera;
 
 
 
-public abstract class ScacchieraModel implements ScacchieraService{
+public abstract class ScacchieraModel implements Scacchiera{
 
 	private Table<Integer, Character, PezzoModel> scacchiera;
 

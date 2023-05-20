@@ -12,9 +12,9 @@ import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.PartitaService;
+import it.univaq.disim.lpo.Service.Partita;
 
-public class PartitaServiceImpl extends PartitaModel implements PartitaService {
+public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 	public PartitaServiceImpl(String nomePartita) {
 		super(nomePartita);
