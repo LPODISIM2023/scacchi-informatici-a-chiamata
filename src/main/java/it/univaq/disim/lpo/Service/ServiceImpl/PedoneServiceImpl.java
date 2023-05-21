@@ -52,7 +52,7 @@ public class PedoneServiceImpl extends PezzoModel {
 
 							}
 							char tempColonna = posizionePezzoColonna;
-							char posizioneNuovaColonna = ++tempColonna;
+							char posizioneNuovaColonna = tempColonna++;
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 								if (temp.getNome().charAt(1) == 'N') {
@@ -70,7 +70,7 @@ public class PedoneServiceImpl extends PezzoModel {
 							trovato = true;
 						}
 						char tempColonna = posizionePezzoColonna;
-						char posizioneNuovaColonna = --tempColonna;
+						char posizioneNuovaColonna = tempColonna--;
 						if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
 							if (temp.getNome().charAt(1) == 'N') {
@@ -131,7 +131,7 @@ public class PedoneServiceImpl extends PezzoModel {
 
 							}
 							char tempColonna = posizionePezzoColonna;
-							char posizioneNuovaColonna = tempColonna++;
+							char posizioneNuovaColonna = (char)(tempColonna + 1);
 							if (posizioneNuovaColonna <= 'H') {
 								if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 									PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
@@ -150,11 +150,11 @@ public class PedoneServiceImpl extends PezzoModel {
 							trovato = true;
 						}
 						char tempColonna = posizionePezzoColonna;
-						char posizioneNuovaColonna = --tempColonna;
+						char posizioneNuovaColonna = (char)(tempColonna - 1);
 						if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp.getNome().charAt(1) == 'N') {
-								String posizione = posizionePezzoColonna + "" + posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
 							} else {

@@ -21,7 +21,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 			if (this.getNome() != null && this.getIsAlive() != false) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
-
+				int posizioneNuovaRiga;
+				char posizioneNuovaColonna;
 				if (this.getNome().equals("AB1") || this.getNome().equals("AB2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -29,8 +30,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 
 					while (trovato == false) {
 
-						int posizioneNuovaRiga = ++tempRiga;
-						char posizioneNuovaColonna = (char) (--tempColonna);
+						posizioneNuovaRiga = ++tempRiga;
+						posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -57,8 +58,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (trovato == false) {
-						int posizioneNuovaRiga = --tempRiga;
-						char posizioneNuovaColonna = (char) (--tempColonna);
+						posizioneNuovaRiga = --tempRiga;
+						posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -84,8 +85,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (trovato == false) {
-						int posizioneNuovaRiga = ++tempRiga;
-						char posizioneNuovaColonna = (char) (++tempColonna);
+						posizioneNuovaRiga = ++tempRiga;
+						posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -115,8 +116,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempRiga >= 1 && tempColonna <= 'H' && trovato == false) {
-						int posizioneNuovaRiga = --tempRiga;
-						char posizioneNuovaColonna = (char) (++tempColonna);
+						posizioneNuovaRiga = --tempRiga;
+						posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -156,6 +157,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 			if (this.getNome() != null && this.getIsAlive() != false) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+				int posizioneNuovaRiga;
+				char posizioneNuovaColonna;
 				if (this.getNome().equals("AN1") || this.getNome().equals("AN2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -163,8 +166,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 
 					while (tempRiga >= 1 && tempColonna >= 'A' && trovato == false) {
 
-						int posizioneNuovaRiga = --tempRiga;
-						char posizioneNuovaColonna = (char) (--tempColonna);
+						posizioneNuovaRiga = --tempRiga;
+						posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -191,8 +194,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempRiga <= 8 && tempColonna >= 'A' && trovato == false) {
-						int posizioneNuovaRiga = ++tempRiga;
-						char posizioneNuovaColonna = (char) (--tempColonna);
+						posizioneNuovaRiga = ++tempRiga;
+						posizioneNuovaColonna = (char) (--tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -219,8 +222,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempRiga >= 1 && tempColonna >= 'A' && trovato == false) {
-						int posizioneNuovaRiga = --tempRiga;
-						char posizioneNuovaColonna = (char) (++tempColonna);
+						posizioneNuovaRiga = --tempRiga;
+						posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
@@ -250,8 +253,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (tempRiga <= 8 && tempColonna <= 'H' && trovato == false) {
-						int posizioneNuovaRiga = ++tempRiga;
-						char posizioneNuovaColonna = (char) (++tempColonna);
+						 posizioneNuovaRiga = ++tempRiga;
+						 posizioneNuovaColonna = (char) (++tempColonna);
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
