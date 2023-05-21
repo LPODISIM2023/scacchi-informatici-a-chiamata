@@ -91,13 +91,11 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								System.out.println(temp.toString());
 								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
-									System.out.println(temp.getNome());
 
 									trovato = true;
 
@@ -313,13 +311,11 @@ public class ReginaServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								System.out.println(temp.toString());
 								if (temp.getNome().charAt(1) == 'B') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
-									System.out.println(temp.getNome());
 
 									trovato = true;
 

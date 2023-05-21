@@ -22,28 +22,33 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	@Override
 	public void turno(GiocatoreModel giocatore2, ScacchieraModel scacchiera, PartitaModel partita) {
 		if (this.getNomeGiocatore().equals("giocatore1")) {
-			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
-			ReServiceImpl re = (ReServiceImpl) pezzo;
-			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
-					+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-			if (re.scaccoN(scacchiera, posizioneRe) == true) {
-				if (partita.scaccoMatto(scacchiera, this) == true) {
-					partita.fine(this);
-				} else {
-//					gestisciScacco(scacchiera)
-				}
-			}
-			scegliPezzo(scacchiera, giocatore2, partita);
-		} else
-
-		{
 			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
 			ReServiceImpl re = (ReServiceImpl) pezzo;
 			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
 					+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
 			if (re.scaccoB(scacchiera, posizioneRe) == true) {
 				if (partita.scaccoMatto(scacchiera, this) == true) {
-					partita.fine(this);
+					partita.fine(giocatore2);
+					return;
+				} else {
+					System.out.println("Il tuo re è sotto scacco. Muovi il re oppure proteggilo con un altro pezzo");
+				}
+			}
+			scegliPezzo(scacchiera, giocatore2, partita);
+		} else
+
+		{
+			PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
+			ReServiceImpl re = (ReServiceImpl) pezzo;
+			String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
+					+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+			if (re.scaccoN(scacchiera, posizioneRe) == true) {
+				if (partita.scaccoMatto(scacchiera, this) == true) {
+					partita.fine(giocatore2);
+					return;
+				} else {
+					System.out.println("Il tuo re è sotto scacco. Muovi il re oppure proteggilo con un altro pezzo");
+
 				}
 
 			}
@@ -87,9 +92,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
-					for (String s : mosseValide) {
-						System.out.println(s);
-					}
+					System.out.println(mosseValide);
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
@@ -128,9 +131,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
-					for (String s : mosseValide) {
-						System.out.println(s);
-					}
+					System.out.println(mosseValide);
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
@@ -230,9 +231,154 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 			System.out.println(table.get(posizioneRigaAttuale, posizioneColonnaAttuale));
 
 		}
-		scacchiera.setScacchiera(table);
-		scacchiera.stampaScacchiera(scacchiera);
-		return scacchiera;
+		// Verifica se dopo aver spostato un pezzo il re è andato sottoscacco oppure si
+		// è tolto dallo scacco
+		ScacchieraModel scacchieraCopia = new ScacchieraServiceImpl(table);
+		if (this.getNomeGiocatore().equals("giocatore1")) {
+			PezzoModel pezzoRe = scacchieraCopia.getPezzoFromScacchieraByValue("RB1");
+			ReServiceImpl re = (ReServiceImpl) pezzoRe;
+			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(re.getNome());
+			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(re.getNome());
+			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
+
+// CONTROLLO SE IL PEZZO SI TROVA NEL RANGE DEL RE. IN QUESTO CASO NON SI HA LO SCACCO
+		
+//			if ((posizioneRigaAttuale + 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
+//				scacchiera.setScacchiera(table);
+//				scacchiera.stampaScacchiera(scacchiera);
+//				return scacchiera;
+//			} else {
+//				if ((posizioneRigaAttuale - 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
+//					scacchiera.setScacchiera(table);
+//					scacchiera.stampaScacchiera(scacchiera);
+//					return scacchiera;
+//				} else {
+//					if ((posizioneRigaAttuale + 1) == posizioneRigaRe
+//							&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//						scacchiera.setScacchiera(table);
+//						scacchiera.stampaScacchiera(scacchiera);
+//						return scacchiera;
+//					} else {
+//						if ((posizioneRigaAttuale - 1) == posizioneRigaRe
+//								&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//							scacchiera.setScacchiera(table);
+//							scacchiera.stampaScacchiera(scacchiera);
+//							return scacchiera;
+//						} else {
+//							if ((posizioneRigaAttuale - 1) == posizioneRigaRe
+//									&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//								scacchiera.setScacchiera(table);
+//								scacchiera.stampaScacchiera(scacchiera);
+//								return scacchiera;
+//							} else {
+//								if ((posizioneRigaAttuale + 1) == posizioneRigaRe
+//										&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//									scacchiera.setScacchiera(table);
+//									scacchiera.stampaScacchiera(scacchiera);
+//									return scacchiera;
+//								} else {
+//									if ((posizioneRigaAttuale) == posizioneRigaRe
+//											&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//										scacchiera.setScacchiera(table);
+//										scacchiera.stampaScacchiera(scacchiera);
+//										return scacchiera;
+//									} else {
+//										if ((posizioneRigaAttuale) == posizioneRigaRe
+//												&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//											scacchiera.setScacchiera(table);
+//											scacchiera.stampaScacchiera(scacchiera);
+//											return scacchiera;
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+
+			if (re.scaccoB(scacchieraCopia, posizioneRe) == true) {
+				System.out.println("Il tuo Re è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
+				scegliPezzo(scacchiera, giocatore, partita);
+			} else {
+				scacchiera.setScacchiera(table);
+				scacchiera.stampaScacchiera(scacchiera);
+				return scacchiera;
+			}
+		} else {
+			PezzoModel pezzoRe = scacchieraCopia.getPezzoFromScacchieraByValue("RN1");
+			ReServiceImpl re = (ReServiceImpl) pezzoRe;
+			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(re.getNome());
+			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(re.getNome());
+			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
+//			
+//// CONTROLLO SE IL PEZZO SI TROVA NEL RANGE DEL RE. IN QUESTO CASO NON SI HA LO SCACCO
+//			
+//			if ((posizioneRigaAttuale + 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
+//				scacchiera.setScacchiera(table);
+//				scacchiera.stampaScacchiera(scacchiera);
+//				return scacchiera;
+//			} else {
+//				if ((posizioneRigaAttuale - 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
+//					scacchiera.setScacchiera(table);
+//					scacchiera.stampaScacchiera(scacchiera);
+//					return scacchiera;
+//				} else {
+//					if ((posizioneRigaAttuale + 1) == posizioneRigaRe
+//							&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//						scacchiera.setScacchiera(table);
+//						scacchiera.stampaScacchiera(scacchiera);
+//						return scacchiera;
+//					} else {
+//						if ((posizioneRigaAttuale - 1) == posizioneRigaRe
+//								&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//							scacchiera.setScacchiera(table);
+//							scacchiera.stampaScacchiera(scacchiera);
+//							return scacchiera;
+//						} else {
+//							if ((posizioneRigaAttuale - 1) == posizioneRigaRe
+//									&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//								scacchiera.setScacchiera(table);
+//								scacchiera.stampaScacchiera(scacchiera);
+//								return scacchiera;
+//							} else {
+//								if ((posizioneRigaAttuale + 1) == posizioneRigaRe
+//										&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//									scacchiera.setScacchiera(table);
+//									scacchiera.stampaScacchiera(scacchiera);
+//									return scacchiera;
+//								} else {
+//									if ((posizioneRigaAttuale) == posizioneRigaRe
+//											&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
+//										scacchiera.setScacchiera(table);
+//										scacchiera.stampaScacchiera(scacchiera);
+//										return scacchiera;
+//									} else {
+//										if ((posizioneRigaAttuale) == posizioneRigaRe
+//												&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
+//											scacchiera.setScacchiera(table);
+//											scacchiera.stampaScacchiera(scacchiera);
+//											return scacchiera;
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+
+			if (re.scaccoN(scacchieraCopia, posizioneRe) == true) {
+				System.out.println(
+						"Il tuo Re è ancora sotto scacco oppure Potrebbe andarci se sposti quel pezzo. Scegli un altro pezzo oppure muovi il re");
+				scegliPezzo(scacchiera, giocatore, partita);
+			} else {
+				scacchiera.setScacchiera(table);
+				scacchiera.stampaScacchiera(scacchiera);
+				return scacchiera;
+			}
+		}
+		return null;
 
 	}
 }

@@ -381,7 +381,6 @@ public class CavalloServiceImpl extends PezzoModel {
 					while (trovato == false) {
 						int posizioneNuovaRiga = tempRiga--;
 						char posizioneNuovaColonna = (char) (tempColonna - 2);
-						System.out.println(posizioneNuovaColonna);
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {

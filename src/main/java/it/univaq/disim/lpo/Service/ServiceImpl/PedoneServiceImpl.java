@@ -38,7 +38,7 @@ public class PedoneServiceImpl extends PezzoModel {
 
 							if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
-								if (temp.getNome().charAt(1) == 'B') {
+								if (temp.getNome().charAt(1) == 'N') {
 									trovato = true;
 								} else {
 									trovato = true;
@@ -153,7 +153,7 @@ public class PedoneServiceImpl extends PezzoModel {
 						char posizioneNuovaColonna = (char)(tempColonna - 1);
 						if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
-							if (temp.getNome().charAt(1) == 'N') {
+							if (temp.getNome().charAt(1) == 'B') {
 								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 								trovato = true;
