@@ -25,6 +25,10 @@ public class ReginaServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				if (this.getNome().equals("rB1")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -244,6 +248,11 @@ public class ReginaServiceImpl extends PezzoModel {
 			if (this != null) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+				
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				if (this.getNome().equals("rN1")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;

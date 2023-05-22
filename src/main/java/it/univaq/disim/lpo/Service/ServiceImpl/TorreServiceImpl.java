@@ -25,6 +25,10 @@ public class TorreServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				if (this.getNome().equals("TB1") || this.getNome().equals("TB2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -156,6 +160,10 @@ public class TorreServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				if (this.getNome().equals("TN1") || this.getNome().equals("TN2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;

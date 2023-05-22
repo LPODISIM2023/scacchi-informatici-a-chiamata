@@ -18,15 +18,22 @@ public class AlfiereServiceImpl extends PezzoModel {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-			if (this.getNome() != null && this.getIsAlive() != false) {
+			if (this != null && this.getIsAlive() != false) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+				
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				int posizioneNuovaRiga;
 				char posizioneNuovaColonna;
+				int tempRiga;
+				char tempColonna; 
 				if (this.getNome().equals("AB1") || this.getNome().equals("AB2")) {
 					boolean trovato = false;
-					int tempRiga = posizionePezzoRiga;
-					char tempColonna = posizionePezzoColonna;
+					tempRiga = posizionePezzoRiga;
+					tempColonna = posizionePezzoColonna;
 
 					while (trovato == false) {
 
@@ -152,9 +159,14 @@ public class AlfiereServiceImpl extends PezzoModel {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-			if (this.getNome() != null && this.getIsAlive() != false) {
+			if (this != null && this.getIsAlive() != false) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+				
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
+				
 				int posizioneNuovaRiga;
 				char posizioneNuovaColonna;
 				if (this.getNome().equals("AN1") || this.getNome().equals("AN2")) {

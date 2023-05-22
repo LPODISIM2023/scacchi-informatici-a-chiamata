@@ -25,6 +25,9 @@ public class PedoneServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
 				if (this.getNome().equals("PB1") || this.getNome().equals("PB2") || this.getNome().equals("PB3")
 						|| this.getNome().equals("PB4") || this.getNome().equals("PB5") || this.getNome().equals("PB6")
 						|| this.getNome().equals("PB7") || this.getNome().equals("PB8")) {
@@ -105,6 +108,9 @@ public class PedoneServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
 				if (this.getNome().equals("PN1") || this.getNome().equals("PN2") || this.getNome().equals("PN3")
 						|| this.getNome().equals("PN4") || this.getNome().equals("PN5") || this.getNome().equals("PN6")
 						|| this.getNome().equals("PN7") || this.getNome().equals("PN8")) {

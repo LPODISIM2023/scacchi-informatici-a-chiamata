@@ -15,7 +15,6 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 import it.univaq.disim.lpo.Service.Partita;
 
 public class PartitaServiceImpl extends PartitaModel implements Partita {
-
 	public PartitaServiceImpl(String nomePartita) {
 		super(nomePartita);
 		// TODO Auto-generated constructor stub
@@ -244,14 +243,16 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	}
 
 	@Override
-	public boolean patta() {
-		// TODO Auto-generated method stub
-		return false;
+	public void patta() {
+
+		System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
+		return;
 	}
 
 	@Override
 	public void fine(GiocatoreModel giocatore) {
 		System.out.println("Partita Finita, ha vinto il giocatore: " + giocatore.getNomeGiocatore());
+		return;
 	}
 
 }

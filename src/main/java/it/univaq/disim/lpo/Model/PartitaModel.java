@@ -6,6 +6,7 @@ import it.univaq.disim.lpo.Service.Partita;
 
 public abstract class PartitaModel implements Partita {
 	private String nomePartita;
+	public static int contatoreMosse = 0;
 
 	public PartitaModel(String nomePartita) {
 		super();

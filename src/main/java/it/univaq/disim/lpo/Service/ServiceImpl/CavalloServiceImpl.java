@@ -23,7 +23,10 @@ public class CavalloServiceImpl extends PezzoModel {
 			if (this != null) {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
-
+				
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
 				if (this.getNome().equals("CB1") || this.getNome().equals("CB2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
@@ -283,6 +286,9 @@ public class CavalloServiceImpl extends PezzoModel {
 				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 
+				if(posizionePezzoRiga == null || posizionePezzoColonna == null) {
+					return mosseValide;
+				}
 				if (this.getNome().equals("CN1") || this.getNome().equals("CN2")) {
 					boolean trovato = false;
 					int tempRiga = posizionePezzoRiga;
