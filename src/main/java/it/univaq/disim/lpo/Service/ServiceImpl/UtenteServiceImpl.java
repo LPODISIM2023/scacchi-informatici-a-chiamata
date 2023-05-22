@@ -73,6 +73,15 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 				String input = scanner.nextLine();
 
+				if (input.isEmpty()) {
+					System.out.println("Non e' stato inserito alcun input.");
+					scegliPezzo(scacchiera, giocatore, partita);
+				}
+				if (input.length() != 3) {
+					System.out.println(
+							"L'input deve essere lungo 3 caratteri e non deve contenere spazi (Es. l'input deve essere digitato in questo modo: 'PB1'");
+					scegliPezzo(scacchiera, giocatore, partita);
+				}
 				if (presenzaSceltaB(input, pezzi) != true) {
 					System.out.println(
 							"Il PezzoScelto non è presente oppure si è sbagliato a digitare l'input, si prega di scegliere un altro pezzo.");
@@ -110,7 +119,15 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 						+ "\n si prega di scrivere il nome del pezzo IN MAIUSCOLO (Es. PB1).");
 
 				String input = scanner.nextLine();
-
+				if (input.isEmpty()) {
+					System.out.println("Non e' stato inserito alcun input.");
+					scegliPezzo(scacchiera, giocatore, partita);
+				}
+				if (input.length() != 3) {
+					System.out.println(
+							"L'input deve essere lungo 3 caratteri e non deve contenere spazi (Es. l'input deve essere digitato in questo modo: 'PB1'");
+					scegliPezzo(scacchiera, giocatore, partita);
+				}
 				if (presenzaSceltaN(input, pezzi) != true) {
 
 					System.out.println(
@@ -135,7 +152,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
-			} catch (NullPointerException e) {
+			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 			}
 		}
@@ -184,8 +201,8 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 							trovato = true;
 							giocatore2.turno(this, scacchieraNuova, partita);
 						} else {
-							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
+							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
 							giocatore2.turno(this, scacchieraNuova, partita);
 						}
 					}
@@ -224,7 +241,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 
 		} else {
-			;
+			
 			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
 
 			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
@@ -241,62 +258,6 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(re.getNome());
 			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
 
-// CONTROLLO SE IL PEZZO SI TROVA NEL RANGE DEL RE. IN QUESTO CASO NON SI HA LO SCACCO
-		
-//			if ((posizioneRigaAttuale + 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
-//				scacchiera.setScacchiera(table);
-//				scacchiera.stampaScacchiera(scacchiera);
-//				return scacchiera;
-//			} else {
-//				if ((posizioneRigaAttuale - 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
-//					scacchiera.setScacchiera(table);
-//					scacchiera.stampaScacchiera(scacchiera);
-//					return scacchiera;
-//				} else {
-//					if ((posizioneRigaAttuale + 1) == posizioneRigaRe
-//							&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//						scacchiera.setScacchiera(table);
-//						scacchiera.stampaScacchiera(scacchiera);
-//						return scacchiera;
-//					} else {
-//						if ((posizioneRigaAttuale - 1) == posizioneRigaRe
-//								&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//							scacchiera.setScacchiera(table);
-//							scacchiera.stampaScacchiera(scacchiera);
-//							return scacchiera;
-//						} else {
-//							if ((posizioneRigaAttuale - 1) == posizioneRigaRe
-//									&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//								scacchiera.setScacchiera(table);
-//								scacchiera.stampaScacchiera(scacchiera);
-//								return scacchiera;
-//							} else {
-//								if ((posizioneRigaAttuale + 1) == posizioneRigaRe
-//										&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//									scacchiera.setScacchiera(table);
-//									scacchiera.stampaScacchiera(scacchiera);
-//									return scacchiera;
-//								} else {
-//									if ((posizioneRigaAttuale) == posizioneRigaRe
-//											&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//										scacchiera.setScacchiera(table);
-//										scacchiera.stampaScacchiera(scacchiera);
-//										return scacchiera;
-//									} else {
-//										if ((posizioneRigaAttuale) == posizioneRigaRe
-//												&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//											scacchiera.setScacchiera(table);
-//											scacchiera.stampaScacchiera(scacchiera);
-//											return scacchiera;
-//										}
-//									}
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-
 			if (re.scaccoB(scacchieraCopia, posizioneRe) == true) {
 				System.out.println("Il tuo Re è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
 				scegliPezzo(scacchiera, giocatore, partita);
@@ -311,62 +272,6 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(re.getNome());
 			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(re.getNome());
 			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
-//			
-//// CONTROLLO SE IL PEZZO SI TROVA NEL RANGE DEL RE. IN QUESTO CASO NON SI HA LO SCACCO
-//			
-//			if ((posizioneRigaAttuale + 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
-//				scacchiera.setScacchiera(table);
-//				scacchiera.stampaScacchiera(scacchiera);
-//				return scacchiera;
-//			} else {
-//				if ((posizioneRigaAttuale - 1) == posizioneRigaRe && posizioneColonnaAttuale == posizioneColonnaRe) {
-//					scacchiera.setScacchiera(table);
-//					scacchiera.stampaScacchiera(scacchiera);
-//					return scacchiera;
-//				} else {
-//					if ((posizioneRigaAttuale + 1) == posizioneRigaRe
-//							&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//						scacchiera.setScacchiera(table);
-//						scacchiera.stampaScacchiera(scacchiera);
-//						return scacchiera;
-//					} else {
-//						if ((posizioneRigaAttuale - 1) == posizioneRigaRe
-//								&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//							scacchiera.setScacchiera(table);
-//							scacchiera.stampaScacchiera(scacchiera);
-//							return scacchiera;
-//						} else {
-//							if ((posizioneRigaAttuale - 1) == posizioneRigaRe
-//									&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//								scacchiera.setScacchiera(table);
-//								scacchiera.stampaScacchiera(scacchiera);
-//								return scacchiera;
-//							} else {
-//								if ((posizioneRigaAttuale + 1) == posizioneRigaRe
-//										&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//									scacchiera.setScacchiera(table);
-//									scacchiera.stampaScacchiera(scacchiera);
-//									return scacchiera;
-//								} else {
-//									if ((posizioneRigaAttuale) == posizioneRigaRe
-//											&& (posizioneColonnaAttuale + 1) == posizioneColonnaRe) {
-//										scacchiera.setScacchiera(table);
-//										scacchiera.stampaScacchiera(scacchiera);
-//										return scacchiera;
-//									} else {
-//										if ((posizioneRigaAttuale) == posizioneRigaRe
-//												&& (posizioneColonnaAttuale - 1) == posizioneColonnaRe) {
-//											scacchiera.setScacchiera(table);
-//											scacchiera.stampaScacchiera(scacchiera);
-//											return scacchiera;
-//										}
-//									}
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
 
 			if (re.scaccoN(scacchieraCopia, posizioneRe) == true) {
 				System.out.println(

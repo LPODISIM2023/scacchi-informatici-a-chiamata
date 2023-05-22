@@ -36,7 +36,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
 								if (temp.getNome().charAt(1) == 'N') {
-									String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
+									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
@@ -45,7 +45,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 								}
 							} else {
 								// Debug
-								String posizione = posizioneNuovaRiga + "" + posizioneNuovaColonna;
+								String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 								mosseValide.add(posizione);
 
 							}
@@ -63,7 +63,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(1) == 'B') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -90,7 +90,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga <= 8 && posizioneNuovaColonna <= 'H') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(1) == 'B') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;
@@ -119,7 +119,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 							if (temp != null) {
-								if (temp.getNome().charAt(1) == 'B') {
+								if (temp.getNome().charAt(1) == 'N') {
 									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
 									mosseValide.add(posizione);
 									trovato = true;

@@ -229,6 +229,38 @@ public class ReServiceImpl extends PezzoModel {
 							trovato = true;
 						}
 					}
+// SEZIONE DEL METODO CHE VERIFICA SE AD UNA CASELLA DI DISTANZA E' PRESENTE IL RE AVVERSARIO:
+//- In questo modo non seleziona come mossa valida quella davanti a se
+
+//					// CASO 1: RE VA IN AVANTI
+//					tempRiga = posizionePezzoRiga;
+//					tempColonna = posizionePezzoColonna;
+//					trovato = false;
+//					int posizioneNuovaRiga = tempRiga++;
+//					// char posizioneNuovaColonna = (char) (tempColonna);
+//					if (posizioneNuovaRiga <= '8' && (posizioneNuovaRiga + 1) >= 8) {
+//						PezzoModel temp = table.get(posizioneNuovaRiga + 1, tempColonna);
+//						if (temp != null) {
+//							if (temp.getNome().equals("RN1")) {
+//								trovato = true;
+//							}
+//						}
+//					}
+//					// CASO 2: RE VA INDIETRO
+//					tempRiga = posizionePezzoRiga;
+//					tempColonna = posizionePezzoColonna;
+//					trovato = false;
+//					posizioneNuovaRiga = tempRiga--;
+//					// char posizioneNuovaColonna = (char) (tempColonna);
+//					if (posizioneNuovaRiga >= '1' && (posizioneNuovaRiga - 1) >= 1) {
+//						PezzoModel temp = table.get(posizioneNuovaRiga - 1, tempColonna);
+//						if (temp != null) {
+//							if (temp.getNome().equals("RN1")) {
+//								trovato = true;
+//							}
+//						}
+//					}
+
 				}
 			}
 		} catch (
@@ -238,11 +270,19 @@ public class ReServiceImpl extends PezzoModel {
 			e.printStackTrace();
 		}
 
-		for (String s : mosseValide) {
-			if (scaccoN(scacchiera, s) == true) {
-				mosseValide.remove(s);
+		// Sezione che elimina le mosse che porta ad avere uno scacco;
+		try {
+			Iterator<String> iterator = mosseValide.iterator();
+			while (iterator.hasNext()) {
+				String s = iterator.next();
+				if (scaccoB(scacchiera, s) == true) {
+					iterator.remove();
+				}
 			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
 		}
 		return mosseValide;
 	}
@@ -515,10 +555,10 @@ public class ReServiceImpl extends PezzoModel {
 		try {
 			Iterator<String> iterator = mosseValide.iterator();
 			while (iterator.hasNext()) {
-			    String s = iterator.next();
-			    if (scaccoN(scacchiera, s) == true) {
-			        iterator.remove();
-			    }
+				String s = iterator.next();
+				if (scaccoN(scacchiera, s) == true) {
+					iterator.remove();
+				}
 			}
 
 		} catch (Exception e) {
@@ -530,11 +570,11 @@ public class ReServiceImpl extends PezzoModel {
 
 	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
 		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-		PezzoModel reB = scacchiera.getPezzoFromScacchieraByValue("RB1");
-		PezzoModel reN = scacchiera.getPezzoFromScacchieraByValue("RN1");
+//		PezzoModel reB = scacchiera.getPezzoFromScacchieraByValue("RB1");
+//		PezzoModel reN = scacchiera.getPezzoFromScacchieraByValue("RN1");
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
-		pezzi.remove(reB);
-		pezzi.remove(reN);
+//		pezzi.remove(reB);
+//		pezzi.remove(reN);
 		for (PezzoModel p : pezzi) {
 			if (p.getNome().charAt(1) == 'B') {
 
@@ -558,8 +598,6 @@ public class ReServiceImpl extends PezzoModel {
 		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
 		PezzoModel reB = scacchiera.getPezzoFromScacchieraByValue("RB1");
 		PezzoModel reN = scacchiera.getPezzoFromScacchieraByValue("RN1");
-		int posizioneRigaRB = scacchiera.getRigaPezzoFromScacchiera(reN.getNome());
-		char posizioneColonnaRB = scacchiera.getColonnaPezzoFromScacchiera(reN.getNome());
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 		pezzi.remove(reB);
 		pezzi.remove(reN);

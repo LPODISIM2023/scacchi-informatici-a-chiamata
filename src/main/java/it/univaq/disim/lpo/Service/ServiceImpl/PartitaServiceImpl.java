@@ -176,8 +176,10 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	public void scegliTipologiaPartita() {
 		try (Scanner scanner = new Scanner(System.in)) {
 
-			System.out.println("Scegli la tipologia della partita: \n" + "0 - Giocatore1 vs Giocatore 2;"
-					+ "\n 1 - Giocatore1 vs Computer;");
+			System.out.println("Scegli la tipologia della partita:"
+					+ "\n" + " 0 - Giocatore1 vs Giocatore 2;"
+					+ "\n 1 - Giocatore1 vs Computer;"
+					+ "\n 2 - Computer vs Computer");
 
 			String input = scanner.nextLine();
 
@@ -189,7 +191,7 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 				scacchiera.stampaScacchiera(scacchiera);
 				giocatore1.turno(giocatore2, scacchiera, this);
 
-			} else {
+			} else if (input.equals("1")) {
 
 				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
 
@@ -197,6 +199,16 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 				ScacchieraModel scacchiera = inizializzaScacchiera();
 				scacchiera.stampaScacchiera(scacchiera);
 				giocatore1.turno(giocatore2, scacchiera, this);
+			} else if ((input.equals("2"))) {
+				GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
+
+				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
+				giocatore1.turno(giocatore2, scacchiera, this);
+			} else if (input.isEmpty()) {
+				System.out.println("Non è stato inserito alcun input");
+				this.scegliTipologiaPartita();
 			}
 
 		} catch (NoSuchElementException e) {
