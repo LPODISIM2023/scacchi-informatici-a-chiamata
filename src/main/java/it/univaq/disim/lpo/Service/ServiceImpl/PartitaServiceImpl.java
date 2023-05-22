@@ -246,13 +246,13 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	public void patta() {
 
 		System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
-		return;
+		System.exit(0);
 	}
 
 	@Override
 	public void fine(GiocatoreModel giocatore) {
 		System.out.println("Partita Finita, ha vinto il giocatore: " + giocatore.getNomeGiocatore());
-		return;
+		System.exit(0);
 	}
 
 }

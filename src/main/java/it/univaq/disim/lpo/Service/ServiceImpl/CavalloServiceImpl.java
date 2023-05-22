@@ -242,8 +242,7 @@ public class CavalloServiceImpl extends PezzoModel {
 						int posizioneNuovaRiga = --tempRiga;
 						char posizioneNuovaColonna = (char) (tempColonna - 2);
 
-						if (posizioneNuovaRiga >= 8 && posizioneNuovaColonna >= 'A') {
-
+						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
 								if (temp.getNome().charAt(1) == 'N') {
@@ -263,9 +262,10 @@ public class CavalloServiceImpl extends PezzoModel {
 
 						} else {
 							trovato = true;
-
 						}
+
 					}
+
 				}
 			}
 		} catch (NullPointerException e) {
@@ -328,8 +328,9 @@ public class CavalloServiceImpl extends PezzoModel {
 					tempColonna = posizionePezzoColonna;
 					trovato = false;
 					while (trovato == false) {
-						int posizioneNuovaRiga = tempRiga - 2;
-						char posizioneNuovaColonna = --tempColonna;
+						int posizioneNuovaRiga = --tempRiga;
+						char posizioneNuovaColonna = (char) (tempColonna - 2);
+
 						if (posizioneNuovaRiga >= 1 && posizioneNuovaColonna >= 'A') {
 							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
 								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
@@ -338,6 +339,7 @@ public class CavalloServiceImpl extends PezzoModel {
 									mosseValide.add(posizione);
 									trovato = true;
 								} else {
+
 									trovato = true;
 								}
 							} else {
@@ -350,6 +352,7 @@ public class CavalloServiceImpl extends PezzoModel {
 						} else {
 							trovato = true;
 						}
+
 					}
 					tempRiga = posizionePezzoRiga;
 					tempColonna = posizionePezzoColonna;

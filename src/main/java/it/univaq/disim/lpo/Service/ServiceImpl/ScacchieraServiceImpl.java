@@ -87,69 +87,91 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 					this.getScacchiera().put(2, 'A', p);
 
 				} else if (p.getNome().equals("PB2")) {
+					
 					this.getScacchiera().put(2, 'B', p);
+					
 				} else if (p.getNome().equals("PB3")) {
 
 					this.getScacchiera().put(2, 'C', p);
 
 				} else if (p.getNome().equals("PB4")) {
+					
 					this.getScacchiera().put(2, 'D', p);
+					
 				} else if (p.getNome().equals("PB5")) {
 
 					this.getScacchiera().put(2, 'E', p);
 
 				} else if (p.getNome().equals("PB6")) {
+					
 					this.getScacchiera().put(2, 'F', p);
+					
 				} else if (p.getNome().equals("PB7")) {
 
 					this.getScacchiera().put(2, 'G', p);
 
 				} else if (p.getNome().equals("PB8")) {
+					
 					this.getScacchiera().put(2, 'H', p);
-				} else
-
-				if (p.getNome().equals("PN1")) {
+				
+				} else if (p.getNome().equals("PN1")) {
 
 					this.getScacchiera().put(7, 'A', p);
 
 				} else if (p.getNome().equals("PN2")) {
+				
 					this.getScacchiera().put(7, 'B', p);
+				
 				} else if (p.getNome().equals("PN3")) {
 
 					this.getScacchiera().put(7, 'C', p);
 
 				} else if (p.getNome().equals("PN4")) {
+				
 					this.getScacchiera().put(7, 'D', p);
+				
 				} else if (p.getNome().equals("PN5")) {
 
 					this.getScacchiera().put(7, 'E', p);
 
 				} else if (p.getNome().equals("PN6")) {
+				
 					this.getScacchiera().put(7, 'F', p);
+				
 				} else if (p.getNome().equals("PN7")) {
 
 					this.getScacchiera().put(7, 'G', p);
 
 				} else if (p.getNome().equals("PN8")) {
+					
 					this.getScacchiera().put(7, 'H', p);
+				
 				} else if (p.getNome().equals("AB1")) {
 
 					this.getScacchiera().put(1, 'C', p);
+				
 				} else if (p.getNome().equals("AB2")) {
+					
 					this.getScacchiera().put(1, 'F', p);
 
 				} else
 
 				if (p.getNome().equals("AN1")) {
+				
 					this.getScacchiera().put(8, 'C', p);
+				
 				} else if (p.getNome().equals("AN2")) {
+				
 					this.getScacchiera().put(8, 'F', p);
 
 				} else
 
 				if (p.getNome().equals("CB1")) {
+					
 					this.getScacchiera().put(1, 'B', p);
+				
 				} else if (p.getNome().equals("CB2")) {
+					
 					this.getScacchiera().put(1, 'G', p);
 
 				} else

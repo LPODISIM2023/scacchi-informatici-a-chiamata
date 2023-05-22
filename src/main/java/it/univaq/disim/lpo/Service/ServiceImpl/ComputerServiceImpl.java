@@ -20,11 +20,11 @@ public class ComputerServiceImpl extends GiocatoreModel {
 	@Override
 	public void turno(GiocatoreModel giocatore2, ScacchieraModel scacchiera, PartitaModel partita) {
 
-		if (this.getNomeGiocatore().equals("computer1")) {
+		if (PartitaModel.contatoreMosse >= 50) {
+			partita.patta();
+		} else {
+			if (this.getNomeGiocatore().equals("computer1")) {
 
-			if (scacchiera == null) {
-				partita.patta();
-			} else {
 				PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
 				ReServiceImpl re = (ReServiceImpl) pezzo;
 				String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
@@ -35,26 +35,25 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					}
 				}
 				scegliPezzo(scacchiera, giocatore2, partita);
-			}
-		} else {
-			if (scacchiera == null) {
-				partita.patta();
+
 			} else {
-				PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
-				ReServiceImpl re = (ReServiceImpl) pezzo;
-				String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
-						+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-				if (re.scaccoB(scacchiera, posizioneRe) == true) {
-					if (partita.scaccoMatto(scacchiera, this) == true) {
-						partita.fine(this);
+				
+					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
+					ReServiceImpl re = (ReServiceImpl) pezzo;
+					String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
+							+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+					if (re.scaccoB(scacchiera, posizioneRe) == true) {
+						if (partita.scaccoMatto(scacchiera, this) == true) {
+							partita.fine(this);
+						}
+
 					}
+					scegliPezzo(scacchiera, giocatore2, partita);
 
-				}
-				scegliPezzo(scacchiera, giocatore2, partita);
-
+				
 			}
-		}
 
+		}
 	}
 
 	@Override
@@ -88,10 +87,10 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				} else if (pezzo != null && pezzo.getNome().charAt(1) == 'B') {
 					scegliPezzo(scacchiera, giocatore, partita);
-				} else {
-					System.out.println("Sto avendo problemi con la scelta del pezzo, sono il " + this.getNomeGiocatore()
-							+ " e ho tentato di prendere il pezzo " + pezzo.getNome());
-					System.out.println(pezzi);
+				} else if (pezzo == null) {
+					System.out.println("Pezzo non valido");
+					this.scegliPezzo(scacchiera, giocatore, partita);
+
 				}
 			}
 		} catch (Exception e) {
@@ -173,18 +172,16 @@ public class ComputerServiceImpl extends GiocatoreModel {
 				String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
 
 				if (reB.scaccoB(scacchieraCopia, posizioneRe) == true) {
-					System.out.println("Il tuo Re è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
+					System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
 					PartitaModel.contatoreMosse--;
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
-					if (PartitaModel.contatoreMosse == 50) {
-						return null;
-					} else {
-						return scacchiera;
-					}
+
+					return scacchiera;
+
 				}
 			} catch (NullPointerException e) {
 				System.out.println("Il reB ha un riferimento nullo anche se non dovrebbe succedere");
@@ -202,20 +199,16 @@ public class ComputerServiceImpl extends GiocatoreModel {
 
 				if (reN.scaccoN(scacchieraCopia, posizioneRe) == true) {
 					System.out.println(
-							"Il tuo Re è ancora sotto scacco oppure Potrebbe andarci se sposti quel pezzo. Scegli un altro pezzo oppure muovi il re");
+							"Il tuo ReN è ancora sotto scacco oppure Potrebbe andarci se sposti quel pezzo. Scegli un altro pezzo oppure muovi il re");
 					PartitaModel.contatoreMosse--;
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
-					if (PartitaModel.contatoreMosse == 50) {
-						return null;
-					} else {
-						return scacchiera;
-					}
-
+					return scacchiera;
 				}
+
 			} catch (NullPointerException e) {
 				System.out.println("Il reN ha un riferimento nullo anche se non dovrebbe succedere");
 				e.getLocalizedMessage();

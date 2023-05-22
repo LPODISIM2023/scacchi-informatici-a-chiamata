@@ -226,6 +226,33 @@ public class ReginaServiceImpl extends PezzoModel {
 							trovato = true;
 						}
 					}
+					tempRiga = posizionePezzoRiga;
+					tempColonna = posizionePezzoColonna;
+					trovato = false;
+					while (tempColonna <= 'H' && trovato == false) {
+					//	int posizioneNuovaRiga = --tempRiga;
+						char posizioneNuovaColonna = (char) (--tempColonna);
+						if (posizioneNuovaColonna <= 'H') {
+							PezzoModel temp = table.get(tempRiga, posizioneNuovaColonna);
+							if (temp != null) {
+								if (temp.getNome().charAt(1) == 'N') {
+									String posizione = posizioneNuovaColonna + "" + tempRiga;
+									mosseValide.add(posizione);
+									trovato = true;
+								} else {
+
+									trovato = true;
+								}
+							} else {
+								String posizione = posizioneNuovaColonna + "" + tempRiga;
+								mosseValide.add(posizione);
+
+							}
+							
+						} else {
+							trovato = true;
+						}
+					}
 				}
 			
 				}
