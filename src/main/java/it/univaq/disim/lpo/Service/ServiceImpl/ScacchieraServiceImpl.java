@@ -78,142 +78,57 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 	}
 
 	@Override
-	public void creaScacchiera(List<PezzoModel> pezzi) {
-
-		try {
-			for (PezzoModel p : pezzi) {
-				if (p.getNome().equals("PB1")) {
-
-					this.getScacchiera().put(2, 'A', p);
-
-				} else if (p.getNome().equals("PB2")) {
-					
-					this.getScacchiera().put(2, 'B', p);
-					
-				} else if (p.getNome().equals("PB3")) {
-
-					this.getScacchiera().put(2, 'C', p);
-
-				} else if (p.getNome().equals("PB4")) {
-					
-					this.getScacchiera().put(2, 'D', p);
-					
-				} else if (p.getNome().equals("PB5")) {
-
-					this.getScacchiera().put(2, 'E', p);
-
-				} else if (p.getNome().equals("PB6")) {
-					
-					this.getScacchiera().put(2, 'F', p);
-					
-				} else if (p.getNome().equals("PB7")) {
-
-					this.getScacchiera().put(2, 'G', p);
-
-				} else if (p.getNome().equals("PB8")) {
-					
-					this.getScacchiera().put(2, 'H', p);
-				
-				} else if (p.getNome().equals("PN1")) {
-
-					this.getScacchiera().put(7, 'A', p);
-
-				} else if (p.getNome().equals("PN2")) {
-				
-					this.getScacchiera().put(7, 'B', p);
-				
-				} else if (p.getNome().equals("PN3")) {
-
-					this.getScacchiera().put(7, 'C', p);
-
-				} else if (p.getNome().equals("PN4")) {
-				
-					this.getScacchiera().put(7, 'D', p);
-				
-				} else if (p.getNome().equals("PN5")) {
-
-					this.getScacchiera().put(7, 'E', p);
-
-				} else if (p.getNome().equals("PN6")) {
-				
-					this.getScacchiera().put(7, 'F', p);
-				
-				} else if (p.getNome().equals("PN7")) {
-
-					this.getScacchiera().put(7, 'G', p);
-
-				} else if (p.getNome().equals("PN8")) {
-					
-					this.getScacchiera().put(7, 'H', p);
-				
-				} else if (p.getNome().equals("AB1")) {
-
-					this.getScacchiera().put(1, 'C', p);
-				
-				} else if (p.getNome().equals("AB2")) {
-					
-					this.getScacchiera().put(1, 'F', p);
-
-				} else
-
-				if (p.getNome().equals("AN1")) {
-				
-					this.getScacchiera().put(8, 'C', p);
-				
-				} else if (p.getNome().equals("AN2")) {
-				
-					this.getScacchiera().put(8, 'F', p);
-
-				} else
-
-				if (p.getNome().equals("CB1")) {
-					
-					this.getScacchiera().put(1, 'B', p);
-				
-				} else if (p.getNome().equals("CB2")) {
-					
-					this.getScacchiera().put(1, 'G', p);
-
-				} else
-
-				if (p.getNome().equals("CN1")) {
-					this.getScacchiera().put(8, 'B', p);
-				} else if (p.getNome().equals("CN2")) {
-					this.getScacchiera().put(8, 'G', p);
-
-				} else
-
-				if (p.getNome().equals("TB1")) {
-					this.getScacchiera().put(1, 'A', p);
-				} else if (p.getNome().equals("TB2")) {
-					this.getScacchiera().put(1, 'H', p);
-
-				} else
-
-				if (p.getNome().equals("TN1")) {
-					this.getScacchiera().put(8, 'A', p);
-				} else if (p.getNome().equals("TN2")) {
-					this.getScacchiera().put(8, 'H', p);
-				} else
-
-				if (p.getNome().equals("rB1")) {
-					this.getScacchiera().put(1, 'D', p);
-				} else if (p.getNome().equals("rN1")) {
-					this.getScacchiera().put(8, 'D', p);
-				} else
-
-				if (p.getNome().equals("RB1")) {
-					this.getScacchiera().put(1, 'E', p);
-				} else if (p.getNome().equals("RN1")) {
-					this.getScacchiera().put(8, 'E', p);
-				}
-			}
+	public void creaScacchiera(List<PezzoModel> pezzi){
+		try{
+			 //pedoniB
+			 this.getScacchiera().put(2, 'A', pezzi.get(0));
+			 this.getScacchiera().put(2, 'B', pezzi.get(1));
+			 this.getScacchiera().put(2, 'C', pezzi.get(2));
+			 this.getScacchiera().put(2, 'D', pezzi.get(3));
+			 this.getScacchiera().put(2, 'E', pezzi.get(4));
+			 this.getScacchiera().put(2, 'F', pezzi.get(5));
+			 this.getScacchiera().put(2, 'G', pezzi.get(6));
+			 this.getScacchiera().put(2, 'H', pezzi.get(7));
+             //alfiereB 
+             this.getScacchiera().put(1, 'C', pezzi.get(8));
+             this.getScacchiera().put(1, 'F', pezzi.get(9));
+             //torreB
+             this.getScacchiera().put(1, 'A', pezzi.get(10));
+             this.getScacchiera().put(1, 'H', pezzi.get(11));
+             //reB
+             this.getScacchiera().put(1, 'D', pezzi.get(13));
+             //rB
+             this.getScacchiera().put(1, 'E', pezzi.get(12));
+             //cavalloB
+             this.getScacchiera().put(1, 'B', pezzi.get(14));
+             this.getScacchiera().put(1, 'G', pezzi.get(15));
+             //pedoneN
+			 this.getScacchiera().put(7, 'A', pezzi.get(16));
+			 this.getScacchiera().put(7, 'B', pezzi.get(17));
+			 this.getScacchiera().put(7, 'C', pezzi.get(18));
+			 this.getScacchiera().put(7, 'D', pezzi.get(19));
+			 this.getScacchiera().put(7, 'E', pezzi.get(20));
+			 this.getScacchiera().put(7, 'F', pezzi.get(21));
+			 this.getScacchiera().put(7, 'G', pezzi.get(22));
+			 this.getScacchiera().put(7, 'H', pezzi.get(23));
+       		 //alfiereN
+             this.getScacchiera().put(8, 'C', pezzi.get(24));
+             this.getScacchiera().put(8, 'F', pezzi.get(25));
+             //torreN
+             this.getScacchiera().put(8, 'A', pezzi.get(26));
+             this.getScacchiera().put(8, 'H', pezzi.get(27));
+             //reN
+             this.getScacchiera().put(8, 'D', pezzi.get(29));
+             //reginaN
+             this.getScacchiera().put(8, 'E', pezzi.get(28));
+             //cavalloN
+             this.getScacchiera().put(8, 'B', pezzi.get(30));
+             this.getScacchiera().put(8, 'G', pezzi.get(31));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
-			e.getCause();
+		// TODO Auto-generated catch block
+		e.getMessage();
+		e.getCause();
 		}
-
 	}
 
 //  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
