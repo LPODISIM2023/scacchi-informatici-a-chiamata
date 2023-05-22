@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.GiocatoreModel;
@@ -63,7 +64,6 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	public void scegliPezzo(ScacchieraModel scacchiera, GiocatoreModel giocatore, PartitaModel partita) {
 		List<String> mosseValide;
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
-
 		if (this.getNomeGiocatore().equals("giocatore1")) {
 			try (Scanner scanner = new Scanner(System.in)) {
 
@@ -227,7 +227,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore) {
 
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		Table<Integer, Character, PezzoModel> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
 		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
 

@@ -3,6 +3,7 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.GiocatoreModel;
@@ -106,7 +107,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
 			ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2);
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -120,7 +121,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore) {
 
-		Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		Table<Integer, Character, PezzoModel> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
 		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
 
@@ -177,6 +178,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
+					// QUI SI SALVERANNO LE MOSSE SU FILE
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
 
@@ -204,6 +206,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
+					// QUI SI SALVERANNO LE MOSSE SU FILE
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
 					return scacchiera;
