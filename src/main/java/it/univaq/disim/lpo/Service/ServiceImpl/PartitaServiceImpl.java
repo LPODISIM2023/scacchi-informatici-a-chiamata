@@ -226,14 +226,14 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore) {
 		if (giocatore.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
-			List<String> temp = re.mosseValideB(scacchiera);
+			List<String> temp = re.mosseValide(scacchiera);
 			if (temp.isEmpty()) {
 				return true;
 			}
 
 		} else {
 			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RN1");
-			List<String> temp = re.mosseValideN(scacchiera);
+			List<String> temp = re.mosseValide(scacchiera);
 			if (temp.isEmpty()) {
 				return true;
 			}

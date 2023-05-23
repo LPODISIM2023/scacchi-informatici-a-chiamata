@@ -95,9 +95,9 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
              //torreB
              this.getScacchiera().put(1, 'A', pezzi.get(10));
              this.getScacchiera().put(1, 'H', pezzi.get(11));
-             //reB
-             this.getScacchiera().put(1, 'D', pezzi.get(13));
-             //rB
+             //REGINAB
+             //this.getScacchiera().put(1, 'D', pezzi.get(13));
+             //rEB
              this.getScacchiera().put(1, 'E', pezzi.get(12));
              //cavalloB
              this.getScacchiera().put(1, 'B', pezzi.get(14));
@@ -117,9 +117,9 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
              //torreN
              this.getScacchiera().put(8, 'A', pezzi.get(26));
              this.getScacchiera().put(8, 'H', pezzi.get(27));
-             //reN
+             //REGINAN
              this.getScacchiera().put(8, 'D', pezzi.get(29));
-             //reginaN
+             //reN
              this.getScacchiera().put(8, 'E', pezzi.get(28));
              //cavalloN
              this.getScacchiera().put(8, 'B', pezzi.get(30));

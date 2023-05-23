@@ -15,181 +15,122 @@ public class PedoneServiceImpl extends PezzoModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public List<String> mosseValideB(ScacchieraModel scacchiera) {
 
+	@Override
+	public List<String> mosseValide(ScacchieraModel scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-			if (this != null) {
-				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
-				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+			Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
+			Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
+			boolean blocco = false;
+			int dRiga = posizionePezzoRiga;
+			char dCol = posizionePezzoColonna;
+			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
+				return mosseValide;
+			}
 
-				if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
-					return mosseValide;
-				}
-				boolean trovato = false;
-
-				if (this.getNome().equals("PB1") || this.getNome().equals("PB2") || this.getNome().equals("PB3")
-						|| this.getNome().equals("PB4") || this.getNome().equals("PB5") || this.getNome().equals("PB6")
-						|| this.getNome().equals("PB7") || this.getNome().equals("PB8")) {
-					int tempRiga = posizionePezzoRiga;
-
-					while (trovato == false) {
-						int posizioneNuovaRiga = tempRiga + 1;
-
-						if (posizioneNuovaRiga <= 8) {
-
-							if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
-								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
-								if (temp.getNome().charAt(1) == 'N') {
-									trovato = true;
-								} else {
-									trovato = true;
-
-								}
-							} else {
-								// Debug
-								String posizione = posizionePezzoColonna + "" + posizioneNuovaRiga;
-								mosseValide.add(posizione);
-								trovato = true;
-
-							}
-
-							char tempColonna = posizionePezzoColonna;
-							char posizioneNuovaColonna = tempColonna++;
-							if (posizioneNuovaColonna <= 'H') {
-								if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-									PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
-									if (temp.getNome().charAt(1) == 'N') {
-										String posizione = posizionePezzoColonna + "" + posizioneNuovaRiga;
-										mosseValide.add(posizione);
-										trovato = true;
-									} else {
-										trovato = true;
-									}
-								} else {
-
-									trovato = true;
-								}
-							} else {
-								trovato = true;
-							}
-							tempColonna = posizionePezzoColonna;
-							posizioneNuovaColonna = tempColonna--;
-							if (posizioneNuovaColonna >= 'A') {
-
-								if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-									PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
-									if (temp.getNome().charAt(1) == 'N') {
-										String posizione = posizionePezzoColonna + "" + posizioneNuovaRiga;
-										mosseValide.add(posizione);
-										trovato = true;
-									} else {
-										trovato = true;
-									}
-								} else {
-
-									trovato = true;
-								}
-
-							} else {
-								trovato = true;
-							}
-						}else {
-							trovato = true;
-						}
-
+			if (this.getIsAlive() && this.getNome().charAt(0) == 'P') {
+				if (this.getNome().charAt(1) == 'B') {
+					blocco = false;
+					dRiga++;
+					dCol = (char) (dCol + 1);
+					if (dRiga <= 8 && dCol <= 'H') {
+						blocco = mossaPedoneObliquo(dRiga, dCol, mosseValide, table, blocco);
+					}
+				} else {
+					blocco = false;
+					dRiga--;
+					dCol = (char) (dCol + 1);
+					if (dRiga >= 1 && dCol <= 'H') {
+						blocco = mossaPedoneObliquo(dRiga, dCol, mosseValide, table, blocco);
 					}
 				}
+				dRiga = posizionePezzoRiga;
+				dCol = posizionePezzoColonna;
+				if (this.getNome().charAt(1) == 'B') {
+					blocco = false;
+					dRiga++;
+					dCol = (char) (dCol - 1);
+					if (dRiga <= 8 && dCol >= 'A') {
+						blocco = mossaPedoneObliquo(dRiga, dCol, mosseValide, table, blocco);
+					}
+				} else {
+					blocco = false;
+					dRiga--;
+					dCol = (char) (dCol - 1);
+					if (dRiga >= 1 && dCol >= 'A') {
+						blocco = mossaPedoneObliquo(dRiga, dCol, mosseValide, table, blocco);
+					}
+				}
+
+				// MOVIMENTI VERTICALI
+				dRiga = posizionePezzoRiga;
+				dCol = posizionePezzoColonna;
+
+				if (this.getNome().charAt(1) == 'B') {            
+					blocco = false;
+					dRiga++;
+					if (dRiga <= 8) {
+						blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
+					}
+				} else {
+					blocco = false;
+					dRiga--;
+					if (dRiga >= 1) {
+						blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
+					}
+				}
+
 			}
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return mosseValide;
+
 	}
 
-	public List<String> mosseValideN(ScacchieraModel scacchiera) {
+	public boolean mossaPedoneObliquo(int riga, char colonna, List<String> mosse,
+			Table<Integer, Character, PezzoModel> t, boolean blocco) {
+		PezzoModel temp = t.get(riga, colonna);
+		if (temp != null) {
 
-		List<String> mosseValide = new ArrayList<>();
-		try {
-			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-			if (this != null) {
-				Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
-				Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
-
-				if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
-					return mosseValide;
-				}
-				if (this.getNome().equals("PN1") || this.getNome().equals("PN2") || this.getNome().equals("PN3")
-						|| this.getNome().equals("PN4") || this.getNome().equals("PN5") || this.getNome().equals("PN6")
-						|| this.getNome().equals("PN7") || this.getNome().equals("PN8")) {
-					boolean trovato = false;
-					int tempRiga = posizionePezzoRiga;
-
-					while (trovato == false) {
-						int posizioneNuovaRiga = tempRiga - 1;
-						if (posizioneNuovaRiga >= 1) {
-							
-							if (table.get(posizioneNuovaRiga, posizionePezzoColonna) != null) {
-								PezzoModel temp = table.get(posizioneNuovaRiga, posizionePezzoColonna);
-								if (temp.getNome().charAt(1) == 'B') {
-									trovato = true;
-								} else {
-									trovato = true;
-
-								}
-							} else {
-								// Debug
-								String posizione = posizionePezzoColonna + "" + posizioneNuovaRiga;
-								mosseValide.add(posizione);
-								trovato = true;
-
-							}
-							char tempColonna = posizionePezzoColonna;
-							char posizioneNuovaColonna = (char) (tempColonna + 1);
-							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
-								if (temp.getNome().charAt(1) == 'B') {
-									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
-									mosseValide.add(posizione);
-									trovato = true;
-								} else {
-									trovato = true;
-								}
-							} else {
-
-								trovato = true;
-							}
-
-							tempColonna = posizionePezzoColonna;
-							posizioneNuovaColonna = (char) (tempColonna - 1);
-							if (table.get(posizioneNuovaRiga, posizioneNuovaColonna) != null) {
-								PezzoModel temp = table.get(posizioneNuovaRiga, posizioneNuovaColonna);
-								if (temp.getNome().charAt(1) == 'B') {
-									String posizione = posizioneNuovaColonna + "" + posizioneNuovaRiga;
-									mosseValide.add(posizione);
-									trovato = true;
-								} else {
-									trovato = true;
-								}
-							} else {
-
-								trovato = true;
-							}
-
-						} else {
-							trovato = true;
-						}
-					}
-				}
+			if (this.getNome().charAt(1) != temp.getNome().charAt(1)) {
+				String posizione = colonna + "" + riga;
+				mosse.add(posizione);
+				blocco = true;
+				return blocco;
+			} else {
+				blocco = true;
+				return blocco;
 			}
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			blocco = true;
+			return blocco;
 		}
-		return mosseValide;
+
+	}
+
+	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, PezzoModel> t,
+			boolean blocco) {
+
+		PezzoModel temp = t.get(riga, colonna);
+		if (temp != null) {
+			if (this.getNome().charAt(1) != temp.getNome().charAt(1)) {
+				blocco = true;
+				return blocco;
+			} else {
+				blocco = true;
+				return blocco;
+			}
+		} else {
+			String posizione = colonna + "" + riga;
+			mosse.add(posizione);
+			blocco = true;
+			return blocco;
+		}
+
 	}
 
 }

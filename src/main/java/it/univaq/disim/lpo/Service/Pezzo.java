@@ -6,10 +6,9 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public interface Pezzo {
 
-	
-	List<String> mosseValideB(ScacchieraModel scacchiera);
-	
-	public List<String> mosseValideN(ScacchieraModel scacchiera);
+	// iF PEDONE NERO = *-1, ELSE NON FAI NIENTE;
+	public List<String> mosseValide(ScacchieraModel scacchiera);
+
 
 	
 

@@ -28,11 +28,11 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		} else {
 			if (this.getNomeGiocatore().equals("giocatore1")) {
 
-				PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
+				PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
 				ReServiceImpl re = (ReServiceImpl) pezzo;
 				String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
 						+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-				if (re.scaccoN(scacchiera, posizioneRe) == true) {
+				if (re.scaccoB(scacchiera, posizioneRe) == true) {
 					if (partita.scaccoMatto(scacchiera, this) == true) {
 						partita.fine(this);
 					}
@@ -41,11 +41,11 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 
 			} else {
 				
-					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RB1");
+					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue("RN1");
 					ReServiceImpl re = (ReServiceImpl) pezzo;
 					String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
 							+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-					if (re.scaccoB(scacchiera, posizioneRe) == true) {
+					if (re.scaccoN(scacchiera, posizioneRe) == true) {
 						if (partita.scaccoMatto(scacchiera, this) == true) {
 							partita.fine(this);
 						}
@@ -96,7 +96,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
-					mosseValide = pezzo.mosseValideB(scacchiera);
+					mosseValide = pezzo.mosseValide(scacchiera);
 					if (mosseValide.isEmpty()) {
 						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome()
 								+ ". \n Si prega di scegliere unaltro pezzo.");
@@ -143,7 +143,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
-					mosseValide = pezzo.mosseValideN(scacchiera);
+					mosseValide = pezzo.mosseValide(scacchiera);
 					if (mosseValide.isEmpty()) {
 						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome()
 								+ ". \n Si prega di scegliere unaltro pezzo.");

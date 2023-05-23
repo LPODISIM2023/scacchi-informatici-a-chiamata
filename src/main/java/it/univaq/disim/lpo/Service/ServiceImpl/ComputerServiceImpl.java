@@ -68,7 +68,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 				pezzo = scacchiera.getPezzoFromScacchieraByValue(pezzi.get(random.nextInt(pezzi.size())).getNome());
 				if (pezzo != null && pezzo.getNome().charAt(1) == 'B') {
 					System.out.println(this.getNomeGiocatore() + ": " + "Ho scelto il pezzo " + pezzo.getNome());
-					List<String> mosseValide = pezzo.mosseValideB(scacchiera);
+					List<String> mosseValide = pezzo.mosseValide(scacchiera);
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				} else if (pezzo != null && pezzo.getNome().charAt(1) == 'N') {
 					scegliPezzo(scacchiera, giocatore, partita);
@@ -85,7 +85,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 				pezzo = scacchiera.getPezzoFromScacchieraByValue(pezzi.get(random.nextInt(pezzi.size())).getNome());
 				if (pezzo != null && pezzo.getNome().charAt(1) == 'N') {
 					System.out.println(this.getNomeGiocatore() + ": " + "Ho scelto il pezzo " + pezzo.getNome());
-					List<String> mosseValide = pezzo.mosseValideN(scacchiera);
+					List<String> mosseValide = pezzo.mosseValide(scacchiera);
 					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				} else if (pezzo != null && pezzo.getNome().charAt(1) == 'B') {
 					scegliPezzo(scacchiera, giocatore, partita);
@@ -108,12 +108,13 @@ public class ComputerServiceImpl extends GiocatoreModel {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
 			ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2);
 			try {
-				Thread.sleep(1);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			giocatore2.turno(this, scacchieraNuova, partita);
 		} else {
+			System.out.println("Lista mosse per il pezzo " + pezzo.getNome() + "e' vuota");
 			this.scegliPezzo(scacchiera, giocatore2, partita);
 		}
 	}
