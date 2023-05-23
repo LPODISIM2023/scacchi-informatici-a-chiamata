@@ -707,11 +707,11 @@ public class ReServiceImpl extends PezzoModel {
 
 	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
 		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-//		PezzoModel reB = scacchiera.getPezzoFromScacchieraByValue("RB1");
-//		PezzoModel reN = scacchiera.getPezzoFromScacchieraByValue("RN1");
+		PezzoModel reB = scacchiera.getPezzoFromScacchieraByValue("RB1");
+		PezzoModel reN = scacchiera.getPezzoFromScacchieraByValue("RN1");
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
-//		pezzi.remove(reB);
-//		pezzi.remove(reN);
+	pezzi.remove(reB);
+		pezzi.remove(reN);
 		for (PezzoModel p : pezzi) {
 			if (p.getNome().charAt(1) == 'B') {
 

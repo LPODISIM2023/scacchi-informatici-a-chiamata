@@ -270,7 +270,7 @@ public class UtenteServiceImpl extends GiocatoreModel implements Giocatore {
 		// Verifica se dopo aver spostato un pezzo il re è andato sottoscacco oppure si
 		// è tolto dallo scacco
 		ScacchieraModel scacchieraCopia = new ScacchieraServiceImpl(table);
-		if (this.getNomeGiocatore().equals("computer1")) {
+		if (this.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel pezzoRe = scacchieraCopia.getPezzoFromScacchieraByValue("RB1");
 			try {
 				ReServiceImpl reB = (ReServiceImpl) pezzoRe;

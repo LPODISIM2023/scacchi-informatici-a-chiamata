@@ -21,7 +21,8 @@ public class ComputerServiceImpl extends GiocatoreModel {
 	@Override
 	public void turno(GiocatoreModel giocatore2, ScacchieraModel scacchiera, PartitaModel partita) {
 
-		if (PartitaModel.contatoreMosse >= 50) {
+		if (PartitaModel.contatoreMosse == 50) {
+			PartitaModel.contatoreMosse = 0;
 			partita.patta();
 		} else {
 			if (this.getNomeGiocatore().equals("computer1")) {
@@ -121,6 +122,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
 			GiocatoreModel giocatore) {
 
+
 		Table<Integer, Character, PezzoModel> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
 		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
@@ -178,7 +180,6 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
-					// QUI SI SALVERANNO LE MOSSE SU FILE
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
 
@@ -206,7 +207,6 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scacchiera.stampaScacchiera(scacchiera);
 					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
-					// QUI SI SALVERANNO LE MOSSE SU FILE
 					scacchiera.setScacchiera(table);
 					scacchiera.stampaScacchiera(scacchiera);
 					return scacchiera;
