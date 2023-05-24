@@ -185,6 +185,18 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		}
 	}
 
+	@Override
+	public void getUltimaScacchiera(String pathLog, ScacchieraModel scacchiera) {
+		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
+				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
+
+			oggettoOutput.writeObject(scacchiera);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 }
 

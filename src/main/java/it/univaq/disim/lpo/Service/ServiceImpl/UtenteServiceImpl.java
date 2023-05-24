@@ -120,7 +120,7 @@ public class UtenteServiceImpl extends GiocatoreModel {
 						+ "\n si prega di scrivere il nome del pezzo IN MAIUSCOLO (Es. PB1).");
 
 				String input = scanner.nextLine();
-				if (input.isEmpty()) {
+				if (input.isEmpty()) {   
 					System.out.println("Non e' stato inserito alcun input.");
 					scegliPezzo(scacchiera, giocatore, partita, logFile);
 				}

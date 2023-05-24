@@ -190,7 +190,7 @@ public class PartitaServiceImpl extends PartitaModel {
 			if (input.equals("0")) {
 			
 				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
+					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log, true);){
 					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
 					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
 					ScacchieraModel scacchiera = inizializzaScacchiera();
@@ -221,10 +221,10 @@ public class PartitaServiceImpl extends PartitaModel {
 				
 				try (
 					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
-					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+					
+					GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
+					GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
 					ScacchieraModel scacchiera = inizializzaScacchiera();
-					scacchiera.stampaScacchiera(scacchiera);
 					giocatore1.turno(giocatore2, scacchiera, this, path + log);
 					    
 					} catch (IOException e) {
