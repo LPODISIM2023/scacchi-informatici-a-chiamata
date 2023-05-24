@@ -8,9 +8,9 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public interface Scacchiera extends Serializable{
 
-	public void getUltimaScacchiera(String pathLog, ScacchieraModel scacchiera);
 
-	void salvaScacchiera(String logPath, ScacchieraModel scacchiera);
+
+	void salvaScacchiera(ScacchieraModel scacchiera);
 	Integer getRigaPezzoFromScacchiera(String nomePezzo);
 
 	Character getColonnaPezzoFromScacchiera(String nomePezzo);
@@ -23,5 +23,9 @@ public interface Scacchiera extends Serializable{
 
 	//  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
 	void stampaScacchiera(ScacchieraModel scacchiera);
+
+	ScacchieraModel getUltimaScacchiera();
+
+	ScacchieraModel getScacchieraPrecedente();
 
 }

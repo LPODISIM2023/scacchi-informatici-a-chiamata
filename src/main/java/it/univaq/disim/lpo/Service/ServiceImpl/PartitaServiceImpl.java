@@ -183,8 +183,7 @@ public class PartitaServiceImpl extends PartitaModel {
 		DateTimeFormatter formattazioneData = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
 		String dataFormattata = dataOra.format(formattazioneData);
 		String path = "src/main/resources/files/";
-		String log = "Log-" + dataFormattata + ".txt";		
-		File file = new File("log");
+		String log = "Log-" + dataFormattata + ".txt";
 		try (Scanner scanner = new Scanner(System.in)) {
 
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
@@ -193,49 +192,28 @@ public class PartitaServiceImpl extends PartitaModel {
 			String input = scanner.nextLine();
 
 			if (input.equals("0")) {
-			
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log, true);){
-					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					scacchiera.stampaScacchiera(scacchiera);
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
 
-			
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+				GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else if (input.equals("1")) {
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
-					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					scacchiera.stampaScacchiera(scacchiera);
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
+
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
+				giocatore1.turno(giocatore2, scacchiera, this);
+
 			} else if ((input.equals("2"))) {
-				
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
-					
-					GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
-					GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
+
+				GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
+				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
+				ScacchieraModel scacchiera = inizializzaScacchiera();
+				giocatore1.turno(giocatore2, scacchiera, this);
+
 			} else if (input.isEmpty()) {
 				System.out.println("Non è stato inserito alcun input");
 				this.scegliTipologiaPartita();

@@ -1,7 +1,11 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -173,39 +177,98 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		return pezzi;
 	}
 
+	// Metodi di gestione a livello file di scacchiere.
 	@Override
-	public void salvaScacchiera(String pathLog, ScacchieraModel scacchiera) {
-		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
+	public void salvaScacchiera(ScacchieraModel scacchiera) {
+		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		try (FileOutputStream outputFile = new FileOutputStream(scacchieraPath, true);
 				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
 
 			oggettoOutput.writeObject(scacchiera);
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void getUltimaScacchiera(String pathLog, ScacchieraModel scacchiera) {
-		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
-				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
-
-			oggettoOutput.writeObject(scacchiera);
-
-		} catch (IOException e) {
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	@Override
+	public ScacchieraModel getUltimaScacchiera() {
+		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
+				ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
+
+			ScacchieraModel scacchieraTemp;
+			scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject();
+			return scacchieraTemp;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public ScacchieraModel getScacchieraPrecedente() {
+		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		
+		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
+				ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
+			ScacchieraModel scacchieraTemp;
+			rimuoviPrimoOggetto();
+			scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject();
+			return scacchieraTemp;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void rimuoviPrimoOggetto() {
+		List<ScacchieraModel> scacchiere = new ArrayList<>();
+
+		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);		
+			ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
+			
+			ScacchieraModel scacchieraTemp;
+			boolean primoElemento = true;
+			while ((scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject()) != null) {
+				if (!primoElemento) {
+					scacchiere.add(scacchieraTemp);
+				} else {
+					primoElemento = false;
+				}
+
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try (FileOutputStream outputFile = new FileOutputStream(scacchieraPath);
+				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
+			
+			for(ScacchieraModel s : scacchiere) {
+                (oggettoOutput).writeObject(s);
+
+			}
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
-/*
- * Ho due file log e partita log si crea ogni volta che runno il codie. Dentro
- * deve contenere le scacchiere. Partita.txt ha il nome della partita e l'ultima
- * scacchiera. partita è collegata col log. La classe Mossa mi serve per gestire
- * il log;
- * 
- * Nel metodo muovi faccio il salvataggio della mossa;
- * 
- */
