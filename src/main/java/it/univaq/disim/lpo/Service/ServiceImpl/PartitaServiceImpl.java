@@ -1,8 +1,12 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.google.common.collect.HashBasedTable;
@@ -12,9 +16,8 @@ import it.univaq.disim.lpo.Model.GiocatoreModel;
 import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
-import it.univaq.disim.lpo.Service.Partita;
 
-public class PartitaServiceImpl extends PartitaModel implements Partita {
+public class PartitaServiceImpl extends PartitaModel {
 	public PartitaServiceImpl(String nomePartita) {
 		super(nomePartita);
 		// TODO Auto-generated constructor stub
@@ -173,38 +176,61 @@ public class PartitaServiceImpl extends PartitaModel implements Partita {
 
 	@Override
 	public void scegliTipologiaPartita() {
+		Random random = new Random();
+		String path = "src/main/resources/files/";
+		String log = "Log" + random.nextInt() + ".txt";		
+		File file = new File("log");
 		try (Scanner scanner = new Scanner(System.in)) {
 
-			System.out.println("Scegli la tipologia della partita:"
-					+ "\n" + " 0 - Giocatore1 vs Giocatore 2;"
-					+ "\n 1 - Giocatore1 vs Computer;"
-					+ "\n 2 - Computer vs Computer");
+			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
+					+ "\n 1 - Giocatore1 vs Computer;" + "\n 2 - Computer vs Computer");
 
 			String input = scanner.nextLine();
 
 			if (input.equals("0")) {
-				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+			
+				try (
+					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
+					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+					ScacchieraModel scacchiera = inizializzaScacchiera();
+					scacchiera.stampaScacchiera(scacchiera);
+					giocatore1.turno(giocatore2, scacchiera, this, path + log);
+					    
+					} catch (IOException e) {
+					    System.out.println("File non creato correttamente");
+					    e.printStackTrace();
+					}
 
-				GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
-				ScacchieraModel scacchiera = inizializzaScacchiera();
-				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this);
+			
 
 			} else if (input.equals("1")) {
-
-				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-
-				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
-				ScacchieraModel scacchiera = inizializzaScacchiera();
-				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this);
+				try (
+					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
+					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+					GiocatoreModel giocatore2 = new UtenteServiceImpl("computer");
+					ScacchieraModel scacchiera = inizializzaScacchiera();
+					scacchiera.stampaScacchiera(scacchiera);
+					giocatore1.turno(giocatore2, scacchiera, this, path + log);
+					    
+					} catch (IOException e) {
+					    System.out.println("File non creato correttamente");
+					    e.printStackTrace();
+					}
 			} else if ((input.equals("2"))) {
-				GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
-
-				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
-				ScacchieraModel scacchiera = inizializzaScacchiera();
-				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this);
+				
+				try (
+					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
+					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+					ScacchieraModel scacchiera = inizializzaScacchiera();
+					scacchiera.stampaScacchiera(scacchiera);
+					giocatore1.turno(giocatore2, scacchiera, this, path + log);
+					    
+					} catch (IOException e) {
+					    System.out.println("File non creato correttamente");
+					    e.printStackTrace();
+					}
 			} else if (input.isEmpty()) {
 				System.out.println("Non è stato inserito alcun input");
 				this.scegliTipologiaPartita();

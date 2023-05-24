@@ -1,5 +1,8 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,56 +81,56 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 	}
 
 	@Override
-	public void creaScacchiera(List<PezzoModel> pezzi){
-		try{
-			 //pedoniB
-			 this.getScacchiera().put(2, 'A', pezzi.get(0));
-			 this.getScacchiera().put(2, 'B', pezzi.get(1));
-			 this.getScacchiera().put(2, 'C', pezzi.get(2));
-			 this.getScacchiera().put(2, 'D', pezzi.get(3));
-			 this.getScacchiera().put(2, 'E', pezzi.get(4));
-			 this.getScacchiera().put(2, 'F', pezzi.get(5));
-			 this.getScacchiera().put(2, 'G', pezzi.get(6));
-			 this.getScacchiera().put(2, 'H', pezzi.get(7));
-             //alfiereB 
-             this.getScacchiera().put(1, 'C', pezzi.get(8));
-             this.getScacchiera().put(1, 'F', pezzi.get(9));
-             //torreB
-             this.getScacchiera().put(1, 'A', pezzi.get(10));
-             this.getScacchiera().put(1, 'H', pezzi.get(11));
-             //REGINAB
-             //this.getScacchiera().put(1, 'D', pezzi.get(13));
-             //rEB
-             this.getScacchiera().put(1, 'E', pezzi.get(12));
-             //cavalloB
-             this.getScacchiera().put(1, 'B', pezzi.get(14));
-             this.getScacchiera().put(1, 'G', pezzi.get(15));
-             //pedoneN
-			 this.getScacchiera().put(7, 'A', pezzi.get(16));
-			 this.getScacchiera().put(7, 'B', pezzi.get(17));
-			 this.getScacchiera().put(7, 'C', pezzi.get(18));
-			 this.getScacchiera().put(7, 'D', pezzi.get(19));
-			 this.getScacchiera().put(7, 'E', pezzi.get(20));
-			 this.getScacchiera().put(7, 'F', pezzi.get(21));
-			 this.getScacchiera().put(7, 'G', pezzi.get(22));
-			 this.getScacchiera().put(7, 'H', pezzi.get(23));
-       		 //alfiereN
-             this.getScacchiera().put(8, 'C', pezzi.get(24));
-             this.getScacchiera().put(8, 'F', pezzi.get(25));
-             //torreN
-             this.getScacchiera().put(8, 'A', pezzi.get(26));
-             this.getScacchiera().put(8, 'H', pezzi.get(27));
-             //REGINAN
-             this.getScacchiera().put(8, 'D', pezzi.get(29));
-             //reN
-             this.getScacchiera().put(8, 'E', pezzi.get(28));
-             //cavalloN
-             this.getScacchiera().put(8, 'B', pezzi.get(30));
-             this.getScacchiera().put(8, 'G', pezzi.get(31));
+	public void creaScacchiera(List<PezzoModel> pezzi) {
+		try {
+			// pedoniB
+			this.getScacchiera().put(2, 'A', pezzi.get(0));
+			this.getScacchiera().put(2, 'B', pezzi.get(1));
+			this.getScacchiera().put(2, 'C', pezzi.get(2));
+			this.getScacchiera().put(2, 'D', pezzi.get(3));
+			this.getScacchiera().put(2, 'E', pezzi.get(4));
+			this.getScacchiera().put(2, 'F', pezzi.get(5));
+			this.getScacchiera().put(2, 'G', pezzi.get(6));
+			this.getScacchiera().put(2, 'H', pezzi.get(7));
+			// alfiereB
+			this.getScacchiera().put(1, 'C', pezzi.get(8));
+			this.getScacchiera().put(1, 'F', pezzi.get(9));
+			// torreB
+			this.getScacchiera().put(1, 'A', pezzi.get(10));
+			this.getScacchiera().put(1, 'H', pezzi.get(11));
+			// REGINAB
+			this.getScacchiera().put(1, 'D', pezzi.get(13));
+			// rEB
+			this.getScacchiera().put(1, 'E', pezzi.get(12));
+			// cavalloB
+			this.getScacchiera().put(1, 'B', pezzi.get(14));
+			this.getScacchiera().put(1, 'G', pezzi.get(15));
+			// pedoneN
+			this.getScacchiera().put(7, 'A', pezzi.get(16));
+			this.getScacchiera().put(7, 'B', pezzi.get(17));
+			this.getScacchiera().put(7, 'C', pezzi.get(18));
+			this.getScacchiera().put(7, 'D', pezzi.get(19));
+			this.getScacchiera().put(7, 'E', pezzi.get(20));
+			this.getScacchiera().put(7, 'F', pezzi.get(21));
+			this.getScacchiera().put(7, 'G', pezzi.get(22));
+			this.getScacchiera().put(7, 'H', pezzi.get(23));
+			// alfiereN
+			this.getScacchiera().put(8, 'C', pezzi.get(24));
+			this.getScacchiera().put(8, 'F', pezzi.get(25));
+			// torreN
+			this.getScacchiera().put(8, 'A', pezzi.get(26));
+			this.getScacchiera().put(8, 'H', pezzi.get(27));
+			// REGINAN
+			this.getScacchiera().put(8, 'D', pezzi.get(29));
+			// reN
+			this.getScacchiera().put(8, 'E', pezzi.get(28));
+			// cavalloN
+			this.getScacchiera().put(8, 'B', pezzi.get(30));
+			this.getScacchiera().put(8, 'G', pezzi.get(31));
 		} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.getMessage();
-		e.getCause();
+			// TODO Auto-generated catch block
+			e.getMessage();
+			e.getCause();
 		}
 	}
 
@@ -157,6 +160,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 			e.getMessage();
 		}
 	}
+
 	@Override
 	public List<PezzoModel> getPezziFromScacchiera() {
 		Table<Integer, Character, PezzoModel> table = this.getScacchiera();
@@ -168,5 +172,28 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		}
 		return pezzi;
 	}
+
+	@Override
+	public void salvaScacchiera(String pathLog, ScacchieraModel scacchiera) {
+		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
+				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
+
+			oggettoOutput.writeObject(scacchiera);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 }
+
+/*
+ * Ho due file log e partita log si crea ogni volta che runno il codie. Dentro
+ * deve contenere le scacchiere. Partita.txt ha il nome della partita e l'ultima
+ * scacchiera. partita è collegata col log. La classe Mossa mi serve per gestire
+ * il log;
+ * 
+ * Nel metodo muovi faccio il salvataggio della mossa;
+ * 
+ */

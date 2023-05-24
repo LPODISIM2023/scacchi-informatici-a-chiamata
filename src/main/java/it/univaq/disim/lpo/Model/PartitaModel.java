@@ -1,10 +1,11 @@
 package it.univaq.disim.lpo.Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import it.univaq.disim.lpo.Service.Partita;
 
-public abstract class PartitaModel implements Partita {
+public abstract class PartitaModel implements Partita, Serializable {
 	private String nomePartita;
 	public static int contatoreMosse = 0;
 

@@ -108,7 +108,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
 			ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2);
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -1,12 +1,14 @@
 package it.univaq.disim.lpo.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
-public interface Scacchiera {
+public interface Scacchiera extends Serializable{
 
+	void salvaScacchiera(String logPath, ScacchieraModel scacchiera);
 	Integer getRigaPezzoFromScacchiera(String nomePezzo);
 
 	Character getColonnaPezzoFromScacchiera(String nomePezzo);
