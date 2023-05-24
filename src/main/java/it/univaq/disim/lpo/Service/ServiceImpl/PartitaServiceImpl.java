@@ -3,6 +3,9 @@ package it.univaq.disim.lpo.Service.ServiceImpl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -176,9 +179,11 @@ public class PartitaServiceImpl extends PartitaModel {
 
 	@Override
 	public void scegliTipologiaPartita() {
-		Random random = new Random();
+		LocalDateTime dataOra = LocalDateTime.now();
+		DateTimeFormatter formattazioneData = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
+		String dataFormattata = dataOra.format(formattazioneData);
 		String path = "src/main/resources/files/";
-		String log = "Log" + random.nextInt() + ".txt";		
+		String log = "Log-" + dataFormattata + ".txt";		
 		File file = new File("log");
 		try (Scanner scanner = new Scanner(System.in)) {
 
@@ -208,7 +213,7 @@ public class PartitaServiceImpl extends PartitaModel {
 				try (
 					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
 					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new UtenteServiceImpl("computer");
+					GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
 					ScacchieraModel scacchiera = inizializzaScacchiera();
 					scacchiera.stampaScacchiera(scacchiera);
 					giocatore1.turno(giocatore2, scacchiera, this, path + log);

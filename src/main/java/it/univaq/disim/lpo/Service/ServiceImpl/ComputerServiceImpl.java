@@ -182,6 +182,7 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scegliPezzo(scacchiera, giocatore, partita, logFile);
 				} else {
 					scacchiera.setScacchiera(table);
+					
 					scacchiera.stampaScacchiera(scacchiera);
 
 					return scacchiera;
@@ -209,6 +210,8 @@ public class ComputerServiceImpl extends GiocatoreModel {
 					scegliPezzo(scacchiera, giocatore, partita, logFile);
 				} else {
 					scacchiera.setScacchiera(table);
+					scacchiera.salvaScacchiera(logFile, scacchiera);
+
 					scacchiera.stampaScacchiera(scacchiera);
 					return scacchiera;
 				}
