@@ -9,11 +9,31 @@ import it.univaq.disim.lpo.Service.Scacchiera;
 
 
 public abstract class ScacchieraModel implements Scacchiera, Serializable{
-
+	static int contatoreTurni;
 	private Table<Integer, Character, PezzoModel> scacchiera;
-
-	public ScacchieraModel(Table<Integer, Character, PezzoModel> scacchiera) {
+	private int idScacchiera;
+	private int idPartita;
+	
+	public ScacchieraModel(Table<Integer, Character, PezzoModel> scacchiera, int idScacchiera, int idPartita) {
 		this.scacchiera = scacchiera;
+		this.idScacchiera  = idScacchiera;
+		this.idPartita = idPartita;
+	}
+
+	public int getIdScacchiera() {
+		return idScacchiera;
+	}
+
+	public void setIdScacchiera(int idScacchiera) {
+		this.idScacchiera = idScacchiera;
+	}
+
+	public int getIdPartita() {
+		return idPartita;
+	}
+
+	public void setIdPartita(int idPartita) {
+		this.idPartita = idPartita;
 	}
 
 	public Table<Integer, Character, PezzoModel> getScacchiera() {
