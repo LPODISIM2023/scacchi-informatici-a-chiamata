@@ -13,6 +13,7 @@ public class main {
 		DateTimeFormatter formattazioneData = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
 		String dataFormattata = dataOra.format(formattazioneData);
 		PartitaModel partita = new PartitaServiceImpl("Partita-"+ dataFormattata, 0);
+		partita.scegliTipologiaPartita();
 	}
 
 }
