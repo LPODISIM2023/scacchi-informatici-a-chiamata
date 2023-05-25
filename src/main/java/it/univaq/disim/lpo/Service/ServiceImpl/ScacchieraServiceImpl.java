@@ -234,13 +234,14 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		return null;
 	}
 
+	
+	
 	public void rimuoviPrimoOggetto() {
 		List<ScacchieraModel> scacchiere = new ArrayList<>();
 
 		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);		
-			ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
-			
+			ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)){ 
 			ScacchieraModel scacchieraTemp;
 			boolean primoElemento = true;
 			while ((scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject()) != null) {
