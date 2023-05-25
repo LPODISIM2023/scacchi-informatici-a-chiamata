@@ -226,7 +226,7 @@ public class PartitaServiceImpl extends PartitaModel {
 
 	}
 
-	@Override
+/*	@Override
 	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore) {
 		if (giocatore.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
@@ -245,7 +245,7 @@ public class PartitaServiceImpl extends PartitaModel {
 
 		return false;
 	}
-
+*/
 	public void salvaPartita() {
 		
 		

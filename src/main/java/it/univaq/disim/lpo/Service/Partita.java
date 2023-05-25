@@ -8,7 +8,7 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 public interface Partita extends Serializable{
 
 	void resa();
-	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore);
+//	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore);
 	public void patta();
 	public void scegliTipologiaPartita();
 	public void fine(GiocatoreModel giocatore);
