@@ -6,14 +6,12 @@ import java.util.Objects;
 import it.univaq.disim.lpo.Service.Partita;
 
 public abstract class PartitaModel implements Partita, Serializable {
-	public static int contatoreMosse = 0;
 	private String nomePartita;
-	private int id;
+	public static int contatoreMosse = 0;
 
-	public PartitaModel(String nomePartita, int id) {
+	public PartitaModel(String nomePartita) {
 		super();
 		this.nomePartita = nomePartita;
-		this.id = id;
 	}
 
 	public String getNomePartita() {
@@ -44,14 +42,6 @@ public abstract class PartitaModel implements Partita, Serializable {
 	@Override
 	public String toString() {
 		return "PartitaModel [nomePartita=" + nomePartita + "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int setId(int id) {
-		return this.id = id;
 	}
 	
 }

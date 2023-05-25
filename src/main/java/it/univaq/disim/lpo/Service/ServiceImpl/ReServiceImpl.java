@@ -125,12 +125,12 @@ public class ReServiceImpl extends PezzoModel {
 		}
 
 	}
-	
-public boolean scacco(ScacchieraModel scacchiera, String posizioneRe, char colore) {
-		
+
+	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 		for (PezzoModel p : pezzi) {
-			if (p.getNome().charAt(1) == colore) {
+			if (p.getNome().charAt(1) == 'B') {
 
 				List<String> temp = p.mosseValide(scacchiera);
 				if (!(pezzi.isEmpty()) && temp != null) {
@@ -147,5 +147,28 @@ public boolean scacco(ScacchieraModel scacchiera, String posizioneRe, char color
 		return false;
 
 	}
-}
 
+	public boolean scaccoB(ScacchieraModel scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
+
+		for (PezzoModel p : pezzi) {
+			if (p.getNome().charAt(1) == 'N') {
+
+				List<String> temp = p.mosseValide(scacchiera);
+				if (!(pezzi.isEmpty()) && temp != null) {
+					for (String s : temp) {
+						if (s.equals(posizioneRe)) {
+							return true;
+
+						}
+
+					}
+				}
+			}
+		}
+		return false;
+
+	}
+
+}
