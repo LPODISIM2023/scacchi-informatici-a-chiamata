@@ -17,8 +17,8 @@ import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public class ScacchieraServiceImpl extends ScacchieraModel {
 
-	public ScacchieraServiceImpl(Table<Integer, Character, PezzoModel> scacchiera) {
-		super(scacchiera);
+	public ScacchieraServiceImpl(Table<Integer, Character, PezzoModel> scacchiera, int idScacchiera, int idPartita) {
+		super(scacchiera, idScacchiera, idPartita);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -218,7 +218,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		
 		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
-				ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
+			ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
 			ScacchieraModel scacchieraTemp;
 			rimuoviPrimoOggetto();
 			scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject();
@@ -241,10 +241,10 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 
 		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);		
-			ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)){ 
+			ObjectInputStream oggettoInput = new ObjectInputStream(outputFile)){ 
 			ScacchieraModel scacchieraTemp;
 			boolean primoElemento = true;
-			while ((scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject()) != null) {
+			while ((scacchieraTemp = (ScacchieraModel) oggettoInput.readObject()) != null) {
 				if (!primoElemento) {
 					scacchiere.add(scacchieraTemp);
 				} else {
@@ -263,7 +263,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
 			
 			for(ScacchieraModel s : scacchiere) {
-                (oggettoOutput).writeObject(s);
+                oggettoOutput.writeObject(s);
 
 			}
 			
