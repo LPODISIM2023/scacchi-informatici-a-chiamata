@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ScacchieraModel;
 
 public class AlfiereServiceImpl extends PezzoModel {
 	public AlfiereServiceImpl(String nome, boolean isAlive) {
@@ -35,7 +34,7 @@ public class AlfiereServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -96,6 +95,8 @@ public class AlfiereServiceImpl extends PezzoModel {
 		return mosseValide;
 	
 	}
+
+
 
 	
 }

@@ -18,9 +18,8 @@ public class UtenteServiceImpl extends GiocatoreModel {
 		super(nomeGiocatore);
 		// TODO Auto-generated constructor stub
 	}
-
 	@Override
-	public void turno(GiocatoreModel giocatore2, ScacchieraModel scacchiera, PartitaModel partita, String logFile) {
+	public void turno(GiocatoreModel giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
 
 		if (PartitaModel.contatoreMosse >= 50) {
 			partita.patta();
@@ -36,7 +35,7 @@ public class UtenteServiceImpl extends GiocatoreModel {
 						partita.fine(this);
 					}
 				}
-				scegliPezzo(scacchiera, giocatore2, partita, logFile);
+				scegliPezzo(scacchiera, giocatore2, partita);
 
 			} else {
 				
@@ -50,7 +49,7 @@ public class UtenteServiceImpl extends GiocatoreModel {
 						}
 
 					}
-					scegliPezzo(scacchiera, giocatore2, partita, logFile);
+					scegliPezzo(scacchiera, giocatore2, partita);
 
 				
 			}
@@ -60,7 +59,7 @@ public class UtenteServiceImpl extends GiocatoreModel {
 	}
 
 	@Override
-	public void scegliPezzo(ScacchieraModel scacchiera, GiocatoreModel giocatore, PartitaModel partita, String logFile) {
+	public void scegliPezzo(ScacchieraServiceImpl scacchiera, GiocatoreModel giocatore, PartitaServiceImpl partita) {
 		List<String> mosseValide;
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 		if (this.getNomeGiocatore().equals("giocatore1")) {
@@ -76,34 +75,34 @@ public class UtenteServiceImpl extends GiocatoreModel {
 
 				if (input.isEmpty()) {
 					System.out.println("Non e' stato inserito alcun input.");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				}
 				if (input.length() != 3) {
 					System.out.println(
 							"L'input deve essere lungo 3 caratteri e non deve contenere spazi (Es. l'input deve essere digitato in questo modo: 'PB1'");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				}
 				if (presenzaSceltaB(input, pezzi) != true) {
 					System.out.println(
 							"Il PezzoScelto non è presente oppure si è sbagliato a digitare l'input, si prega di scegliere un altro pezzo.");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 
 				} else {
 					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
 					String risposta = scanner.nextLine();
 					if (risposta.equals("N")) {
-						scegliPezzo(scacchiera, giocatore, partita, logFile);
+						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValide(scacchiera);
 					if (mosseValide.isEmpty()) {
 						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome()
 								+ ". \n Si prega di scegliere unaltro pezzo.");
-						scegliPezzo(scacchiera, giocatore, partita, logFile);
+						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
 					System.out.println(mosseValide);
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita, logFile);
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
 			} catch (NullPointerException e) {
@@ -122,35 +121,35 @@ public class UtenteServiceImpl extends GiocatoreModel {
 				String input = scanner.nextLine();
 				if (input.isEmpty()) {   
 					System.out.println("Non e' stato inserito alcun input.");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				}
 				if (input.length() != 3) {
 					System.out.println(
 							"L'input deve essere lungo 3 caratteri e non deve contenere spazi (Es. l'input deve essere digitato in questo modo: 'PB1'");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				}
 				if (presenzaSceltaN(input, pezzi) != true) {
 
 					System.out.println(
 							"Il PezzoScelto non è presente oppure si è sbagliato a digitare l'input, si prega di scegliere un altro pezzo.");
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 
 				} else {
 					System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
 					String risposta = scanner.nextLine();
 					if (risposta.equals("N")) {
-						scegliPezzo(scacchiera, giocatore, partita, logFile);
+						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					PezzoModel pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 					mosseValide = pezzo.mosseValide(scacchiera);
 					if (mosseValide.isEmpty()) {
 						System.out.println("Non sono presenti mosse valide per " + pezzo.getNome()
 								+ ". \n Si prega di scegliere unaltro pezzo.");
-						scegliPezzo(scacchiera, giocatore, partita, logFile);
+						scegliPezzo(scacchiera, giocatore, partita);
 					}
 					System.out.println("Posizioni Valide " + pezzo.getNome() + ": ");
 					System.out.println(mosseValide);
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita, logFile);
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 				}
 
 			} catch (NoSuchElementException e) {
@@ -185,9 +184,9 @@ public class UtenteServiceImpl extends GiocatoreModel {
 	}
 
 	@Override
-	public void scegliMossa(ScacchieraModel scacchiera, List<String> mosseValide, PezzoModel pezzo,
-			GiocatoreModel giocatore2, PartitaModel partita, String logFile) {
-
+	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, PezzoModel pezzo,
+			GiocatoreModel giocatore2, PartitaServiceImpl partita) {
+	
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean trovato = false;
 			System.out.println("Scegli la Mossa da eseguire: ");
@@ -198,20 +197,20 @@ public class UtenteServiceImpl extends GiocatoreModel {
 				for (String s : mosseValide) {
 					if (s.equals(input)) {
 						if (this.getNomeGiocatore().equals("giocatore1")) {
-							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2, logFile);
+							ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
 							trovato = true;
-							giocatore2.turno(this, scacchieraNuova, partita, logFile);
+							giocatore2.turno(this, scacchieraNuova, partita);
 						} else {
 							trovato = true;
-							ScacchieraModel scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2, logFile);
-							giocatore2.turno(this, scacchieraNuova, partita, logFile);
+							ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita, giocatore2);
+							giocatore2.turno(this, scacchieraNuova, partita);
 						}
 					}
 				}
 
 				if (trovato == false) {
 					System.out.println("Mossa Non Valida, scegli un'altra mossa");
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore2, partita, logFile);
+					scegliMossa(scacchiera, mosseValide, pezzo, giocatore2, partita);
 				}
 
 			} catch (NoSuchElementException e) {
@@ -223,8 +222,8 @@ public class UtenteServiceImpl extends GiocatoreModel {
 	}
 
 	@Override
-	public ScacchieraModel muovi(PezzoModel pezzo, ScacchieraModel scacchiera, String input, PartitaModel partita,
-			GiocatoreModel giocatore, String logFile) {
+	public ScacchieraServiceImpl muovi(PezzoModel pezzo, ScacchieraServiceImpl scacchiera, String input,
+	PartitaServiceImpl partita, GiocatoreModel giocatore) {
 
 		Table<Integer, Character, PezzoModel> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
@@ -268,7 +267,7 @@ public class UtenteServiceImpl extends GiocatoreModel {
 		}
 		// Verifica se dopo aver spostato un pezzo il re è andato sottoscacco oppure si
 		// è tolto dallo scacco
-		ScacchieraModel scacchieraCopia = new ScacchieraServiceImpl(table);
+		ScacchieraServiceImpl scacchieraCopia = new ScacchieraServiceImpl(table);
 		if (this.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel pezzoRe = scacchieraCopia.getPezzoFromScacchieraByValue("RB1");
 			try {
@@ -281,10 +280,10 @@ public class UtenteServiceImpl extends GiocatoreModel {
 					System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
 					PartitaModel.contatoreMosse--;
 					scacchiera.stampaScacchiera(scacchiera);
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
 					scacchiera.setScacchiera(table);
-					scacchiera.salvaScacchiera(logFile, scacchiera);
+					scacchiera.salvaScacchiera(scacchiera);
 					scacchiera.stampaScacchiera(scacchiera);
 
 					return scacchiera;
@@ -309,10 +308,10 @@ public class UtenteServiceImpl extends GiocatoreModel {
 							"Il tuo ReN è ancora sotto scacco oppure Potrebbe andarci se sposti quel pezzo. Scegli un altro pezzo oppure muovi il re");
 					PartitaModel.contatoreMosse--;
 					scacchiera.stampaScacchiera(scacchiera);
-					scegliPezzo(scacchiera, giocatore, partita, logFile);
+					scegliPezzo(scacchiera, giocatore, partita);
 				} else {
 					scacchiera.setScacchiera(table);
-					scacchiera.salvaScacchiera(logFile, scacchiera);
+					scacchiera.salvaScacchiera(scacchiera);
 					scacchiera.stampaScacchiera(scacchiera);
 					return scacchiera;
 				}
@@ -326,4 +325,5 @@ public class UtenteServiceImpl extends GiocatoreModel {
 		return null;
 
 	}
+
 }

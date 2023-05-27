@@ -1,8 +1,10 @@
 package it.univaq.disim.lpo.Model;
 
-import it.univaq.disim.lpo.Service.Pezzo;
+import java.util.List;
 
-public abstract class PezzoModel implements Pezzo{
+import it.univaq.disim.lpo.Service.ServiceImpl.ScacchieraServiceImpl;
+
+public abstract class PezzoModel{
 	private String nome;
 	private boolean isAlive;
 
@@ -62,6 +64,9 @@ public abstract class PezzoModel implements Pezzo{
 				+ getClass() + "]";
 
 	}
+	
+	abstract public List<String> mosseValide(ScacchieraServiceImpl scacchiera);
+
 
 	
 }

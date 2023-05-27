@@ -38,7 +38,7 @@ public class CavalloServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();

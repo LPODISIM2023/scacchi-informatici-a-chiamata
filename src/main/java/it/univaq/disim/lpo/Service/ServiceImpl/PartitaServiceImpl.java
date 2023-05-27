@@ -1,8 +1,12 @@
 package it.univaq.disim.lpo.Service.ServiceImpl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,17 +21,17 @@ import it.univaq.disim.lpo.Model.PartitaModel;
 import it.univaq.disim.lpo.Model.PezzoModel;
 import it.univaq.disim.lpo.Model.ScacchieraModel;
 
-public class PartitaServiceImpl extends PartitaModel {
+public class PartitaServiceImpl extends PartitaModel implements Serializable {
 	public PartitaServiceImpl(String nomePartita) {
 		super(nomePartita);
 		// TODO Auto-generated constructor stub
 	}
 
-	ScacchieraModel inizializzaScacchiera() {
+	ScacchieraServiceImpl inizializzaScacchiera() {
 
 		// Sezione Creazione della scacchiera e Dei Pezzi
 		Table<Integer, Character, PezzoModel> scacchiera = HashBasedTable.create();
-		ScacchieraModel scacchieraDaGioco = new ScacchieraServiceImpl(scacchiera);
+		ScacchieraServiceImpl scacchieraDaGioco = new ScacchieraServiceImpl(scacchiera);
 		// PedoneModel
 		List<PezzoModel> pezzi = new ArrayList<>();
 		PezzoModel pedoneB1 = new PedoneServiceImpl("PB1", true);
@@ -174,12 +178,11 @@ public class PartitaServiceImpl extends PartitaModel {
 	// Metodo Da inserire nella Classe Giocatore.
 	// E' stato implementato qui solo per prova.
 
-	@Override
 	public void scegliTipologiaPartita() {
 		Random random = new Random();
 		String path = "src/main/resources/files/";
-		String log = "Log" + random.nextInt() + ".txt";		
-		File file = new File("log");
+		String log = "Log" + random.nextInt() + ".txt";
+
 		try (Scanner scanner = new Scanner(System.in)) {
 
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
@@ -188,49 +191,28 @@ public class PartitaServiceImpl extends PartitaModel {
 			String input = scanner.nextLine();
 
 			if (input.equals("0")) {
-			
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log, true);){
-					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					scacchiera.stampaScacchiera(scacchiera);
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
 
-			
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+				GiocatoreModel giocatore2 = new UtenteServiceImpl("giocatore2");
+				ScacchieraServiceImpl scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else if (input.equals("1")) {
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
-					GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
-					GiocatoreModel giocatore2 = new UtenteServiceImpl("computer");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					scacchiera.stampaScacchiera(scacchiera);
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
+
+				GiocatoreModel giocatore1 = new UtenteServiceImpl("giocatore1");
+				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer");
+				ScacchieraServiceImpl scacchiera = inizializzaScacchiera();
+				scacchiera.stampaScacchiera(scacchiera);
+				giocatore1.turno(giocatore2, scacchiera, this);
+
 			} else if ((input.equals("2"))) {
-				
-				try (
-					FileOutputStream logMosse = new FileOutputStream("src/main/resources/files/" + log);){
-					
-					GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
-					GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
-					ScacchieraModel scacchiera = inizializzaScacchiera();
-					giocatore1.turno(giocatore2, scacchiera, this, path + log);
-					    
-					} catch (IOException e) {
-					    System.out.println("File non creato correttamente");
-					    e.printStackTrace();
-					}
+
+				GiocatoreModel giocatore1 = new ComputerServiceImpl("computer1");
+				GiocatoreModel giocatore2 = new ComputerServiceImpl("computer2");
+				ScacchieraServiceImpl scacchiera = inizializzaScacchiera();
+				giocatore1.turno(giocatore2, scacchiera, this);
+
 			} else if (input.isEmpty()) {
 				System.out.println("Non è stato inserito alcun input");
 				this.scegliTipologiaPartita();
@@ -242,14 +224,12 @@ public class PartitaServiceImpl extends PartitaModel {
 
 	}
 
-	@Override
 	public void resa() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public boolean scaccoMatto(ScacchieraModel scacchiera, GiocatoreModel giocatore) {
+	public boolean scaccoMatto(ScacchieraServiceImpl scacchiera, GiocatoreModel giocatore) {
 		if (giocatore.getNomeGiocatore().equals("giocatore1")) {
 			PezzoModel re = scacchiera.getPezzoFromScacchieraByValue("RB1");
 			List<String> temp = re.mosseValide(scacchiera);
@@ -268,17 +248,45 @@ public class PartitaServiceImpl extends PartitaModel {
 		return false;
 	}
 
-	@Override
 	public void patta() {
 
 		System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
 		System.exit(0);
 	}
 
-	@Override
 	public void fine(GiocatoreModel giocatore) {
 		System.out.println("Partita Finita, ha vinto il giocatore: " + giocatore.getNomeGiocatore());
 		System.exit(0);
 	}
 
+	public void salvaPartita() {
+
+		String partitaPath = new File("src/main/resources/files/partita.txt").getAbsolutePath();
+		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+
+		try ( // DeserializzazioneScacchiera
+				FileInputStream inputFile = new FileInputStream(scacchieraPath);
+				ObjectInputStream oggettoInput = new ObjectInputStream(inputFile);
+				// Serializzazione Partita e Scacchiera
+				FileOutputStream outputFile = new FileOutputStream(partitaPath, true);
+				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
+
+			// Serializzazione Partita
+			oggettoOutput.writeObject(this);
+
+			ScacchieraModel scacchieraTemp;
+			while ((scacchieraTemp = (ScacchieraModel) oggettoInput.readObject()) != null) {
+				// Serializzazione Scacchiera
+				oggettoOutput.writeObject(scacchieraTemp);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

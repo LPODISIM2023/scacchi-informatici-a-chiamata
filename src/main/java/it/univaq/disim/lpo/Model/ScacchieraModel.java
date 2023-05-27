@@ -1,14 +1,10 @@
 package it.univaq.disim.lpo.Model;
 
-import java.io.Serializable;
-
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Service.Scacchiera;
 
 
-
-public abstract class ScacchieraModel implements Scacchiera, Serializable{
+public class ScacchieraModel {
 
 	private Table<Integer, Character, PezzoModel> scacchiera;
 

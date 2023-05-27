@@ -1,11 +1,13 @@
 package it.univaq.disim.lpo.Model;
 
 
+import java.util.List;
 import java.util.Objects;
 
-import it.univaq.disim.lpo.Service.Giocatore;
+import it.univaq.disim.lpo.Service.ServiceImpl.PartitaServiceImpl;
+import it.univaq.disim.lpo.Service.ServiceImpl.ScacchieraServiceImpl;
 
-public abstract class GiocatoreModel implements Giocatore {
+public abstract class GiocatoreModel {
 	private String nomeGiocatore;
 
 	public GiocatoreModel(String nomeGiocatore) {
@@ -38,5 +40,10 @@ public abstract class GiocatoreModel implements Giocatore {
 		GiocatoreModel other = (GiocatoreModel) obj;
 		return Objects.equals(nomeGiocatore, other.nomeGiocatore);
 	}
-
+	public abstract void scegliPezzo(ScacchieraServiceImpl scacchiera, GiocatoreModel giocatore, PartitaServiceImpl partita);
+	public abstract void turno(GiocatoreModel giocatore, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita);
+	abstract public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, PezzoModel pezzo,
+			GiocatoreModel giocatore2, PartitaServiceImpl partita);
+	abstract public ScacchieraServiceImpl muovi(PezzoModel pezzo, ScacchieraServiceImpl scacchiera, String input, PartitaServiceImpl partita,
+			GiocatoreModel giocatore);
 }

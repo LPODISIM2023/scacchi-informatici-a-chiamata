@@ -16,7 +16,7 @@ public class ReServiceImpl extends PezzoModel {
 	}
 
 	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
 			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
@@ -126,7 +126,7 @@ public class ReServiceImpl extends PezzoModel {
 
 	}
 
-	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
+	public boolean scaccoN(ScacchieraServiceImpl scacchiera, String posizioneRe) {
 		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 		for (PezzoModel p : pezzi) {
@@ -148,7 +148,7 @@ public class ReServiceImpl extends PezzoModel {
 
 	}
 
-	public boolean scaccoB(ScacchieraModel scacchiera, String posizioneRe) {
+	public boolean scaccoB(ScacchieraServiceImpl scacchiera, String posizioneRe) {
 		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
 		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
 
