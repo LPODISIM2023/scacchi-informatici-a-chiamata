@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import ServiceImpl.ContainerPartite;
+import ServiceImpl.ContainerPartiteServiceImpl;
 import ServiceImpl.PartitaServiceImpl;
 import it.univaq.disim.lpo.Model.Giocatore;
 
@@ -69,9 +69,9 @@ public class Runner implements Serializable {
 		try (FileInputStream inputStream = new FileInputStream(partitaPath);
 				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
 
-			ContainerPartite obj;
+			ContainerPartiteServiceImpl obj;
 			while (inputStream.available() > 0) {
-				obj = (ContainerPartite) objectStream.readObject();
+				obj = (ContainerPartiteServiceImpl) objectStream.readObject();
 				partite.addAll(obj.getListaPartite());
 				System.out.println(obj.getListaPartite());
 			}

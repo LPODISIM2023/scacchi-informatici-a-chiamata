@@ -33,7 +33,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 
 	@Override
-	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartite container) {
+	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartiteServiceImpl container) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
 
@@ -77,7 +77,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartite container) {
+			List<Pezzo> pezzi, ContainerPartiteServiceImpl container) {
 		List<String> mosseValide;
 		pezzi = this.getPezzi();
 		try (Scanner scanner = new Scanner(System.in)) {
@@ -129,7 +129,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo,
-			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartite container) {
+			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartiteServiceImpl container) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean trovato = false;
@@ -162,7 +162,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartite container) {
+			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartiteServiceImpl container) {
 
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer contatoreMosse = partita.getContatoreMosse();

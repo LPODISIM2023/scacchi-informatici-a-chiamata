@@ -3,18 +3,18 @@ package ServiceImpl;
 import java.io.Serializable;
 import java.util.List;
 
-public class ContainerPartite implements Serializable{
+public class ContainerPartiteServiceImpl implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6994320030686351568L;
 	private List<PartitaServiceImpl> listaPartite;
-	public ContainerPartite() {
+	public ContainerPartiteServiceImpl() {
 		
 	}
 	
-	public ContainerPartite(List<PartitaServiceImpl> listaPartite) {
+	public ContainerPartiteServiceImpl(List<PartitaServiceImpl> listaPartite) {
 		this.listaPartite = listaPartite;
 		
 	}

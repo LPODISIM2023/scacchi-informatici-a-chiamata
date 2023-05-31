@@ -32,7 +32,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 		super();
 	}
 	@Override
-	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartite container) {
+	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartiteServiceImpl container) {
 		List<Pezzo> pezzi = new ArrayList<>();
 		pezzi = this.getPezzi();
 		if (Partita.contatorePatta >= 50) {
@@ -59,7 +59,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartite container) {
+			List<Pezzo> pezzi, ContainerPartiteServiceImpl container) {
 		try {
 
 			Random random = new Random();
@@ -80,7 +80,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 	@Override
 	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo,
-			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartite container) {
+			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartiteServiceImpl container) {
 		Random random = new Random();
 		if (!mosseValide.isEmpty()) {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
@@ -99,7 +99,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartite container) {
+			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartiteServiceImpl container) {
 
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer contatoreMosse = partita.getContatoreMosse();

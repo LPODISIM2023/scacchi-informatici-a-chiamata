@@ -253,14 +253,14 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 
 	public void scegliTipologiaPartita() {
 		List<PartitaServiceImpl> listaPartite = new ArrayList<>();
-		ContainerPartite container = new ContainerPartite(listaPartite);
+		ContainerPartiteServiceImpl container = new ContainerPartiteServiceImpl(listaPartite);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
 
 		try (FileInputStream inputStream = new FileInputStream(partitaPath);
 				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
 
 			while (inputStream.available() > 0) {
-				container = (ContainerPartite) objectStream.readObject();
+				container = (ContainerPartiteServiceImpl) objectStream.readObject();
 				listaPartite.addAll(container.getListaPartite());
 				container.setListaPartite(listaPartite);
 
@@ -380,7 +380,7 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 	}
 
 	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1, Giocatore giocatore2,
-			ContainerPartite container) {
+			ContainerPartiteServiceImpl container) {
 		List<PartitaServiceImpl> lista = new ArrayList<>();
 		lista = container.getListaPartite();
 		partita.setScacchiera(scacchiera);
