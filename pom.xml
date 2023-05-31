@@ -26,7 +26,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
 				<configuration>
-					<mainClass>it.univaq.disim.lpo.Controller.main</mainClass>
+					<mainClass>it.univaq.disim.lpo.Controller.Runner</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
