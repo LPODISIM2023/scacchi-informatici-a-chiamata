@@ -1,25 +1,22 @@
-package it.univaq.disim.lpo.Service.ServiceImpl;
+package it.univaq.disim.lpo.Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ScacchieraModel;
+import ServiceImpl.ScacchieraServiceImpl;
 
-public class ReServiceImpl extends PezzoModel {
+public class Re extends Pezzo {
 
-	public ReServiceImpl(String nome, boolean isAlive) {
-		super(nome, isAlive);
-		// TODO Auto-generated constructor stub
+	public Re(String nome, boolean isAlive, char colore) {
+		super(nome, isAlive, colore);
 	}
 
-	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+			Table<Integer, Character, Pezzo> table = scacchiera.getScacchiera();
 			Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 			Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 			boolean blocco = false;
@@ -102,10 +99,10 @@ public class ReServiceImpl extends PezzoModel {
 		return mosseValide;
 	}
 
-	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, PezzoModel> t,
+	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, Pezzo> t,
 			boolean blocco) {
 
-		PezzoModel temp = t.get(riga, colonna);
+		Pezzo temp = t.get(riga, colonna);
 		if (temp != null) {
 
 			if (this.getNome().charAt(1) != temp.getNome().charAt(1)) {
@@ -126,49 +123,21 @@ public class ReServiceImpl extends PezzoModel {
 
 	}
 
-	public boolean scaccoN(ScacchieraModel scacchiera, String posizioneRe) {
-		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
-		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
-		for (PezzoModel p : pezzi) {
-			if (p.getNome().charAt(1) == 'B') {
+	public boolean scacco(ScacchieraServiceImpl scacchiera, String posizioneRe, Giocatore giocatore2) {
 
-				List<String> temp = p.mosseValide(scacchiera);
-				if (!(pezzi.isEmpty()) && temp != null) {
-					for (String s : temp) {
-						if (s.equals(posizioneRe)) {
-							return true;
-
-						}
+		List<Pezzo> pezzi = giocatore2.getPezzi();
+		for (Pezzo p : pezzi) {
+			List<String> temp = p.mosseValide(scacchiera);
+			if (!(pezzi.isEmpty()) && temp != null) {
+				for (String s : temp) {
+					if (s.equals(posizioneRe)) {
+						return true;
 
 					}
+
 				}
 			}
 		}
 		return false;
-
 	}
-
-	public boolean scaccoB(ScacchieraModel scacchiera, String posizioneRe) {
-		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
-		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
-
-		for (PezzoModel p : pezzi) {
-			if (p.getNome().charAt(1) == 'N') {
-
-				List<String> temp = p.mosseValide(scacchiera);
-				if (!(pezzi.isEmpty()) && temp != null) {
-					for (String s : temp) {
-						if (s.equals(posizioneRe)) {
-							return true;
-
-						}
-
-					}
-				}
-			}
-		}
-		return false;
-
-	}
-
 }

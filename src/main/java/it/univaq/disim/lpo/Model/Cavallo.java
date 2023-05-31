@@ -1,24 +1,26 @@
-package it.univaq.disim.lpo.Service.ServiceImpl;
+package it.univaq.disim.lpo.Model;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ScacchieraModel;
+import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Pezzo;
+import it.univaq.disim.lpo.Model.Scacchiera;
 
-public class CavalloServiceImpl extends PezzoModel {
+public class Cavallo extends Pezzo {
 
-	public CavalloServiceImpl(String nome, boolean isAlive) {
-		super(nome, isAlive);
+	public Cavallo(String nome, boolean isAlive, char colore) {
+		super(nome, isAlive, colore);
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, PezzoModel> t,
+	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, Pezzo> t,
 			boolean blocco) {
 
-		PezzoModel temp = t.get(riga, colonna);
+		Pezzo temp = t.get(riga, colonna);
 		if (temp != null) {
 			if (this.getNome().charAt(1) != temp.getNome().charAt(1)) {
 				String posizione = colonna + "" + riga;
@@ -37,11 +39,10 @@ public class CavalloServiceImpl extends PezzoModel {
 		}
 	}
 
-	@Override
-	public List<String> mosseValide(ScacchieraModel scacchiera) {
-		List<String> mosseValide = new ArrayList<>();
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
+	List<String> mosseValide = new ArrayList<>();
 		try {
-			Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+			Table<Integer, Character, Pezzo> table = scacchiera.getScacchiera();
 			Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());
 			Character posizionePezzoColonna = scacchiera.getColonnaPezzoFromScacchiera(this.getNome());
 			boolean blocco = false;

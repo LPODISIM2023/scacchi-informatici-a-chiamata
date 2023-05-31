@@ -1,6 +1,10 @@
-package it.univaq.disim.lpo.Service.ServiceImpl;
+package ServiceImpl;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -8,22 +12,22 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.PezzoModel;
-import it.univaq.disim.lpo.Model.ScacchieraModel;
+import it.univaq.disim.lpo.Model.Pezzo;
+import it.univaq.disim.lpo.Model.Scacchiera;
 
-public class ScacchieraServiceImpl extends ScacchieraModel {
+public class ScacchieraServiceImpl extends Scacchiera {
 
-	public ScacchieraServiceImpl(Table<Integer, Character, PezzoModel> scacchiera) {
+	public ScacchieraServiceImpl(Table<Integer, Character, Pezzo> scacchiera) {
 		super(scacchiera);
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	
 	public Integer getRigaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
 			for (Integer riga = 1; riga <= 8; riga++) {
-				for (PezzoModel p : this.getScacchiera().row(riga).values()) {
+				for (Pezzo p : this.getScacchiera().row(riga).values()) {
 					if (p != null) {
 						if (p.getNome().equals(nomePezzo)) {
 							return riga;
@@ -39,12 +43,12 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		return null;
 	}
 
-	@Override
+	
 	public Character getColonnaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
 			for (Character colonna = 'A'; colonna <= 'H'; colonna++) {
-				for (PezzoModel p : this.getScacchiera().column(colonna).values()) {
+				for (Pezzo p : this.getScacchiera().column(colonna).values()) {
 					if (p != null) {
 						if (p.getNome().equals(nomePezzo)) {
 							return colonna;
@@ -60,11 +64,11 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		return null;
 	}
 
-	@Override
-	public PezzoModel getPezzoFromScacchieraByValue(String nomePezzo) {
+	
+	public Pezzo getPezzoFromScacchieraByValue(String nomePezzo) {
 		try {
 			for (Integer riga = 1; riga <= 8; riga++) {
-				for (PezzoModel p : this.getScacchiera().row(riga).values()) {
+				for (Pezzo p : this.getScacchiera().row(riga).values()) {
 					if (p != null) {
 						if (p.getNome().equals(nomePezzo)) {
 							return p;
@@ -80,9 +84,12 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 		return null;
 	}
 
-	@Override
-	public void creaScacchiera(List<PezzoModel> pezzi) {
+	
+	public ScacchieraServiceImpl creaScacchiera(List<Pezzo> pezziB, List<Pezzo> pezziN ) {
 		try {
+			List<Pezzo> pezzi = new ArrayList<>();
+			pezzi.addAll(pezziB);
+			pezzi.addAll(pezziN);
 			// pedoniB
 			this.getScacchiera().put(2, 'A', pezzi.get(0));
 			this.getScacchiera().put(2, 'B', pezzi.get(1));
@@ -92,6 +99,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 			this.getScacchiera().put(2, 'F', pezzi.get(5));
 			this.getScacchiera().put(2, 'G', pezzi.get(6));
 			this.getScacchiera().put(2, 'H', pezzi.get(7));
+			
 			// alfiereB
 			this.getScacchiera().put(1, 'C', pezzi.get(8));
 			this.getScacchiera().put(1, 'F', pezzi.get(9));
@@ -127,16 +135,19 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 			// cavalloN
 			this.getScacchiera().put(8, 'B', pezzi.get(30));
 			this.getScacchiera().put(8, 'G', pezzi.get(31));
+			
+			return this;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.getMessage();
 			e.getCause();
 		}
+		return null;
 	}
 
 //  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
-	@Override
-	public void stampaScacchiera(ScacchieraModel scacchiera) {
+	
+	public void stampaScacchiera(Scacchiera scacchiera) {
 		try {
 			for (int riga = 1; riga <= 8; riga++) {
 
@@ -144,7 +155,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 
 				for (char colonna = 'A'; colonna <= 'H'; colonna++) {
 
-					PezzoModel pezzo = scacchiera.getScacchiera().get(riga, colonna);
+					Pezzo pezzo = scacchiera.getScacchiera().get(riga, colonna);
 					if (pezzo == null) {
 						System.out.print("--" + "  ");
 					} else {
@@ -156,37 +167,35 @@ public class ScacchieraServiceImpl extends ScacchieraModel {
 			}
 			System.out.println("  A   B   C   D   E   F   G   H");
 		} catch (Exception e) {
-			e.getCause();
-			e.getMessage();
+			System.out.println(e.getCause());
+			System.out.println(e.getMessage());
 		}
 	}
 
-	@Override
-	public List<PezzoModel> getPezziFromScacchiera() {
-		Table<Integer, Character, PezzoModel> table = this.getScacchiera();
-		List<PezzoModel> pezzi = new ArrayList<>();
+	
+	public List<Pezzo> getPezziFromScacchiera() {
+		Table<Integer, Character, Pezzo> table = this.getScacchiera();
+		List<Pezzo> pezzi = new ArrayList<>();
 		for (int i = 1; i <= 8; i++) {
-			for (PezzoModel p : table.row(i).values()) {
+			for (Pezzo p : table.row(i).values()) {
 				pezzi.add(p);
 			}
 		}
 		return pezzi;
 	}
 
-	@Override
-	public void salvaScacchiera(String pathLog, ScacchieraModel scacchiera) {
-		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
-				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
-
-			oggettoOutput.writeObject(scacchiera);
-
+	
+	public void salvaMossa(String mossa, Pezzo pezzo) {
+		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {			
+			writer.write("Mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa +"\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public void getUltimaScacchiera(String pathLog, ScacchieraModel scacchiera) {
+	
+	public void getUltimaScacchiera(String pathLog, Scacchiera scacchiera) {
 		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
 				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
 

@@ -4,23 +4,20 @@ import java.io.Serializable;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Service.Scacchiera;
 
+public abstract class Scacchiera implements Serializable{
 
+	private Table<Integer, Character, Pezzo> scacchiera;
 
-public abstract class ScacchieraModel implements Scacchiera, Serializable{
-
-	private Table<Integer, Character, PezzoModel> scacchiera;
-
-	public ScacchieraModel(Table<Integer, Character, PezzoModel> scacchiera) {
+	public Scacchiera(Table<Integer, Character, Pezzo> scacchiera) {
 		this.scacchiera = scacchiera;
 	}
 
-	public Table<Integer, Character, PezzoModel> getScacchiera() {
+	public Table<Integer, Character, Pezzo> getScacchiera() {
 		return this.scacchiera;
 	}
 
-	public void setScacchiera(Table<Integer, Character, PezzoModel> scacchiera) {
+	public void setScacchiera(Table<Integer, Character, Pezzo> scacchiera) {
 		this.scacchiera = scacchiera;
 	}
 	
@@ -41,7 +38,7 @@ public abstract class ScacchieraModel implements Scacchiera, Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ScacchieraModel other = (ScacchieraModel) obj;
+		Scacchiera other = (Scacchiera) obj;
 		if (scacchiera == null) {
 			if (other.scacchiera != null)
 				return false;

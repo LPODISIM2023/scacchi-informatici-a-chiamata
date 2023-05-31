@@ -1,18 +1,32 @@
 package it.univaq.disim.lpo.Model;
 
-import it.univaq.disim.lpo.Service.Pezzo;
+import java.util.List;
 
-public abstract class PezzoModel implements Pezzo{
+import ServiceImpl.ScacchieraServiceImpl;
+
+public abstract class Pezzo{
 	private String nome;
 	private boolean isAlive;
+	private char colore;
 
-	public PezzoModel(String nome, boolean isAlive) {
+	public Pezzo(String nome, boolean isAlive, char colore) {
 		super();
 		this.nome = nome;
 		this.isAlive = isAlive;
+		this.colore = colore;
 	}
 
 	
+	public char getColore() {
+		return colore;
+	}
+
+
+	public void setColore(char colore) {
+		this.colore = colore;
+	}
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -47,7 +61,7 @@ public abstract class PezzoModel implements Pezzo{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PezzoModel other = (PezzoModel) obj;
+		Pezzo other = (Pezzo) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -62,6 +76,7 @@ public abstract class PezzoModel implements Pezzo{
 				+ getClass() + "]";
 
 	}
-
 	
+	abstract public List<String> mosseValide(ScacchieraServiceImpl scacchiera);
+
 }

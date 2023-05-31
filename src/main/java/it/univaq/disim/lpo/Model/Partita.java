@@ -1,15 +1,12 @@
 package it.univaq.disim.lpo.Model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-import it.univaq.disim.lpo.Service.Partita;
-
-public abstract class PartitaModel implements Partita, Serializable {
+public abstract class Partita{
 	private String nomePartita;
 	public static int contatoreMosse = 0;
 
-	public PartitaModel(String nomePartita) {
+	public Partita(String nomePartita) {
 		super();
 		this.nomePartita = nomePartita;
 	}
@@ -35,7 +32,7 @@ public abstract class PartitaModel implements Partita, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PartitaModel other = (PartitaModel) obj;
+		Partita other = (Partita) obj;
 		return Objects.equals(nomePartita, other.nomePartita);
 	}
 
