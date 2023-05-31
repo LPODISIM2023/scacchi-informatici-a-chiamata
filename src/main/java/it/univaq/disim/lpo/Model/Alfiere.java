@@ -8,9 +8,13 @@ import com.google.common.collect.Table;
 import ServiceImpl.ScacchieraServiceImpl;
 
 public class Alfiere extends Pezzo {
-	public Alfiere(String nome, boolean isAlive, char colore) {
-		super(nome, isAlive,colore);
+
+
+	public Alfiere(String nome, Integer valore) {
+		super(nome, valore);
+		// TODO Auto-generated constructor stub
 	}
+
 
 	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, Pezzo> t,
 			boolean blocco) {
@@ -46,7 +50,7 @@ public class Alfiere extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'A') {
+			if (this.getNome().charAt(0) == 'A') {
 				blocco = false;
 				dRiga++;
 				dCol = (char)(dCol + 1);

@@ -9,9 +9,11 @@ import ServiceImpl.ScacchieraServiceImpl;
 
 public class Re extends Pezzo {
 
-	public Re(String nome, boolean isAlive, char colore) {
-		super(nome, isAlive, colore);
+	public Re(String nome, Integer valore) {
+		super(nome, valore);
+		// TODO Auto-generated constructor stub
 	}
+
 
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
@@ -25,7 +27,7 @@ public class Re extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'R') {
+			if (this.getNome().charAt(0) == 'R') {
 				blocco = false;
 				dRiga++;
 				dCol = (char) (dCol + 1);

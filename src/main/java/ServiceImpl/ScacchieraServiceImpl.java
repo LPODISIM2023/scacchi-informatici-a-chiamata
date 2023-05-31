@@ -1,12 +1,10 @@
 package ServiceImpl;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +13,21 @@ import com.google.common.collect.Table;
 import it.univaq.disim.lpo.Model.Pezzo;
 import it.univaq.disim.lpo.Model.Scacchiera;
 
-public class ScacchieraServiceImpl extends Scacchiera {
+public class ScacchieraServiceImpl extends Scacchiera implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6974402625519565886L;
+
+	public ScacchieraServiceImpl() {
+		super();
+	}
 	public ScacchieraServiceImpl(Table<Integer, Character, Pezzo> scacchiera) {
 		super(scacchiera);
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public Integer getRigaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
@@ -43,7 +48,6 @@ public class ScacchieraServiceImpl extends Scacchiera {
 		return null;
 	}
 
-	
 	public Character getColonnaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
@@ -64,7 +68,6 @@ public class ScacchieraServiceImpl extends Scacchiera {
 		return null;
 	}
 
-	
 	public Pezzo getPezzoFromScacchieraByValue(String nomePezzo) {
 		try {
 			for (Integer riga = 1; riga <= 8; riga++) {
@@ -84,8 +87,7 @@ public class ScacchieraServiceImpl extends Scacchiera {
 		return null;
 	}
 
-	
-	public ScacchieraServiceImpl creaScacchiera(List<Pezzo> pezziB, List<Pezzo> pezziN ) {
+	public ScacchieraServiceImpl creaScacchiera(List<Pezzo> pezziB, List<Pezzo> pezziN) {
 		try {
 			List<Pezzo> pezzi = new ArrayList<>();
 			pezzi.addAll(pezziB);
@@ -99,7 +101,7 @@ public class ScacchieraServiceImpl extends Scacchiera {
 			this.getScacchiera().put(2, 'F', pezzi.get(5));
 			this.getScacchiera().put(2, 'G', pezzi.get(6));
 			this.getScacchiera().put(2, 'H', pezzi.get(7));
-			
+
 			// alfiereB
 			this.getScacchiera().put(1, 'C', pezzi.get(8));
 			this.getScacchiera().put(1, 'F', pezzi.get(9));
@@ -135,7 +137,7 @@ public class ScacchieraServiceImpl extends Scacchiera {
 			// cavalloN
 			this.getScacchiera().put(8, 'B', pezzi.get(30));
 			this.getScacchiera().put(8, 'G', pezzi.get(31));
-			
+
 			return this;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -146,7 +148,7 @@ public class ScacchieraServiceImpl extends Scacchiera {
 	}
 
 //  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
-	
+
 	public void stampaScacchiera(Scacchiera scacchiera) {
 		try {
 			for (int riga = 1; riga <= 8; riga++) {
@@ -172,7 +174,6 @@ public class ScacchieraServiceImpl extends Scacchiera {
 		}
 	}
 
-	
 	public List<Pezzo> getPezziFromScacchiera() {
 		Table<Integer, Character, Pezzo> table = this.getScacchiera();
 		List<Pezzo> pezzi = new ArrayList<>();
@@ -184,29 +185,15 @@ public class ScacchieraServiceImpl extends Scacchiera {
 		return pezzi;
 	}
 
-	
 	public void salvaMossa(String mossa, Pezzo pezzo) {
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {			
-			writer.write("Mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa +"\n");
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {
+			writer.write("Mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
-	public void getUltimaScacchiera(String pathLog, Scacchiera scacchiera) {
-		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
-				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
-
-			oggettoOutput.writeObject(scacchiera);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	
 }
 
 /*

@@ -6,15 +6,15 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
-import it.univaq.disim.lpo.Model.Pezzo;
-import it.univaq.disim.lpo.Model.Scacchiera;
 
 public class Pedone extends Pezzo {
 
-	public Pedone(String nome, boolean isAlive, char colore) {
-		super(nome, isAlive, colore);
+	public Pedone(String nome, Integer valore) {
+		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
@@ -30,7 +30,7 @@ public class Pedone extends Pezzo {
 				return mosseValide;
 			}
 
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'P') {
+			if (this.getNome().charAt(0) == 'P') {
 				if (this.getNome().charAt(1) == 'B') {
 					blocco = false;
 					dRiga++;

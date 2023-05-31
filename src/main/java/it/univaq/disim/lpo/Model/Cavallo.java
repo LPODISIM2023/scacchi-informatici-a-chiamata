@@ -7,15 +7,15 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
-import it.univaq.disim.lpo.Model.Pezzo;
-import it.univaq.disim.lpo.Model.Scacchiera;
 
 public class Cavallo extends Pezzo {
 
-	public Cavallo(String nome, boolean isAlive, char colore) {
-		super(nome, isAlive, colore);
+	public Cavallo(String nome, Integer valore) {
+		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	public boolean aggiungiMossa(int riga, char colonna, List<String> mosse, Table<Integer, Character, Pezzo> t,
 			boolean blocco) {
@@ -51,7 +51,7 @@ public class Cavallo extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'C') {
+			if ( this.getNome().charAt(0) == 'C') {
 				blocco = false;
 				dRiga = dRiga + 2;
 				dCol = (char)(dCol + 1);

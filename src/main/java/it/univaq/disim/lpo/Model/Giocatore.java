@@ -4,8 +4,18 @@ package it.univaq.disim.lpo.Model;
 import java.util.List;
 import java.util.Objects;
 
+import ServiceImpl.ContainerPartite;
+import ServiceImpl.PartitaServiceImpl;
+import ServiceImpl.ScacchieraServiceImpl;
 
-public abstract class Giocatore  {
+
+public abstract class Giocatore{
+	/**
+	 * 
+	 */
+	/**
+	 * 
+	 */
 	private String nomeGiocatore;
 	private Pezzo re;
 	private List<Pezzo> pedoni;
@@ -18,7 +28,9 @@ public abstract class Giocatore  {
 		this.pezzi = pezzi;
 	}
 
-
+	public Giocatore() {
+		
+	}
 	public List<Pezzo> getPedoni() {
 		return pedoni;
 	}
@@ -78,5 +90,11 @@ public abstract class Giocatore  {
 
 
 
+	abstract public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita,
+			ContainerPartite container);
+		
+	}
 
-}
+
+
+

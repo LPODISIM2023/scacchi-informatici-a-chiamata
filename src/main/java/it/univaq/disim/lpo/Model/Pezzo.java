@@ -4,28 +4,29 @@ import java.util.List;
 
 import ServiceImpl.ScacchieraServiceImpl;
 
-public abstract class Pezzo{
+public abstract class Pezzo {
 	private String nome;
-	private boolean isAlive;
-	private char colore;
+	private Integer valore;
 
-	public Pezzo(String nome, boolean isAlive, char colore) {
+	public Integer getValore() {
+		return valore;
+	}
+
+
+
+	public void setValore(Integer valore) {
+		this.valore = valore;
+	}
+
+
+
+	public Pezzo(String nome, Integer valore) {
 		super();
 		this.nome = nome;
-		this.isAlive = isAlive;
-		this.colore = colore;
+		this.valore = valore;
 	}
 
 	
-	public char getColore() {
-		return colore;
-	}
-
-
-	public void setColore(char colore) {
-		this.colore = colore;
-	}
-
 
 	public String getNome() {
 		return nome;
@@ -36,15 +37,6 @@ public abstract class Pezzo{
 		this.nome = nome;
 	}
 
-	public boolean getIsAlive() {
-		return this.isAlive;
-	}
-
-	
-	public void setAlive(boolean isAlive) {
-		this.isAlive = isAlive;
-	}
-	
 	
 	public int hashCode() {
 		final int prime = 31;

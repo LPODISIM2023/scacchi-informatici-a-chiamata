@@ -6,15 +6,19 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
-import it.univaq.disim.lpo.Model.Pezzo;
-import it.univaq.disim.lpo.Model.Scacchiera;
 
 public class Torre extends Pezzo {
 
-	public Torre(String nome, boolean isAlive, char colore) {
-		super(nome, isAlive, colore);
+	/**
+	 * 
+	 */
+
+	public Torre(String nome, Integer valore) {
+		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
@@ -28,7 +32,7 @@ public class Torre extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'T') {
+			if (this.getNome().charAt(0) == 'T') {
 			    // MOVIMENTI VERTICALI
 				dRiga = posizionePezzoRiga;
 				dCol = posizionePezzoColonna;

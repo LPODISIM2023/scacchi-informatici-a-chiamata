@@ -1,6 +1,6 @@
 package ServiceImpl;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,21 +11,31 @@ import com.google.common.collect.Table;
 import Service.ILogic;
 import it.univaq.disim.lpo.Model.Giocatore;
 import it.univaq.disim.lpo.Model.Partita;
-import it.univaq.disim.lpo.Model.Pedone;
 import it.univaq.disim.lpo.Model.Pezzo;
 import it.univaq.disim.lpo.Model.Re;
-import it.univaq.disim.lpo.Model.Scacchiera;
 
-public class ComputerServiceImpl extends Giocatore implements ILogic {
-	public ComputerServiceImpl(String nomeGiocatore, List<Pezzo> pezzi, Re re, List<Pezzo> pedoni) {
+public class ComputerServiceImpl extends Giocatore implements ILogic, Serializable {
+
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -17276626306650323L;
+
+	public ComputerServiceImpl(String nomeGiocatore, Re re, List<Pezzo> pedoni, List<Pezzo> pezzi) {
 		super(nomeGiocatore, re, pedoni, pezzi);
+		// TODO Auto-generated constructor stub
 	}
 
+	public ComputerServiceImpl() {
+		super();
+	}
 	@Override
-	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
+	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartite container) {
 		List<Pezzo> pezzi = new ArrayList<>();
 		pezzi = this.getPezzi();
-		if (Partita.contatoreMosse >= 50) {
+		if (Partita.contatorePatta >= 50) {
 			partita.patta();
 		} else {
 
@@ -37,10 +47,11 @@ public class ComputerServiceImpl extends Giocatore implements ILogic {
 					if (partita.scaccoMatto(scacchiera, giocatore2, this) == true) {
 						partita.fine(giocatore2);
 					}
-					System.out.println("Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
+					System.out.println(
+							"Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
 				}
 			}
-			scegliPezzo(scacchiera, giocatore2, partita, pezzi);
+			scegliPezzo(scacchiera, giocatore2, partita, pezzi, container);
 
 		}
 
@@ -48,20 +59,20 @@ public class ComputerServiceImpl extends Giocatore implements ILogic {
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi) {
+			List<Pezzo> pezzi, ContainerPartite container) {
 		try {
-			
-				Random random = new Random();
-				Pezzo pezzo;
-				pezzo = scacchiera.getPezzoFromScacchieraByValue(pezzi.get(random.nextInt(pezzi.size())).getNome());
-				if (pezzo != null) {
-					System.out.println(this.getNomeGiocatore() + ": " + "Ho scelto il pezzo " + pezzo.getNome());
-					List<String> mosseValide = pezzo.mosseValide(scacchiera);
-					scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
-				} else {
-					throw new NullPointerException();
-				}
-			
+
+			Random random = new Random();
+			Pezzo pezzo;
+			pezzo = scacchiera.getPezzoFromScacchieraByValue(pezzi.get(random.nextInt(pezzi.size())).getNome());
+			if (pezzo != null) {
+				System.out.println(this.getNomeGiocatore() + ": " + "Ho scelto il pezzo " + pezzo.getNome());
+				List<String> mosseValide = pezzo.mosseValide(scacchiera);
+				scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita, container);
+			} else {
+				throw new NullPointerException();
+			}
+
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
@@ -69,27 +80,30 @@ public class ComputerServiceImpl extends Giocatore implements ILogic {
 
 	@Override
 	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo,
-			Giocatore giocatore2, PartitaServiceImpl partita) {
+			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartite container) {
 		Random random = new Random();
 		if (!mosseValide.isEmpty()) {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
-			ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2);
+			ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2, container);
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			((ILogic) giocatore2).turno(this, scacchieraNuova, partita);
+			giocatore2.turno(this, scacchieraNuova, partita, container);
 		} else {
 			System.out.println("Lista mosse per il pezzo " + pezzo.getNome() + "e' vuota");
-			this.scegliPezzo(scacchiera, giocatore2, partita, this.getPezzi());
+			this.scegliPezzo(scacchiera, giocatore2, partita, this.getPezzi(), container);
 		}
 	}
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore) {
+			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartite container) {
+
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
+		Integer contatoreMosse = partita.getContatoreMosse();
+		Integer punteggio;
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
 		Character posizioneColonnaAttuale = scacchiera.getColonnaPezzoFromScacchiera(pezzo.getNome());
 
@@ -98,8 +112,8 @@ public class ComputerServiceImpl extends Giocatore implements ILogic {
 		Character posizioneColonnaNuova = (char) input.charAt(0);
 		Pezzo pezzoMorto = table.get(posizioneRigaNuova, posizioneColonnaNuova);
 		String posizioneNuova = posizioneColonnaNuova + "" + posizioneRigaNuova;
+
 		if (pezzoMorto != null) {
-			pezzoMorto.setAlive(false);
 
 			System.out.println("Ho mangiato il pezzo: " + table.get(posizioneRigaNuova, posizioneColonnaNuova).getNome()
 					+ " utilizzando " + pezzo.getNome());
@@ -109,64 +123,69 @@ public class ComputerServiceImpl extends Giocatore implements ILogic {
 			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 
 			// Aggiornamento lista pezzi nel caso in cui si è rimosso un pezzo
-
 			List<Pezzo> pezzi = new ArrayList<>();
 			pezzi = giocatore.getPezzi();
 			pezzi.remove(pezzoMorto);
 			giocatore.setPezzi(pezzi);
 
-			Partita.contatoreMosse = 0;
-			System.out.println(Partita.contatoreMosse);
+			// Aggiornamento valori della partita dopo aver mangiato
+			Partita.contatorePatta = 0;
+			System.out.println(Partita.contatorePatta);
+			partita.setContatoreMosse(contatoreMosse++);
+			partita.setNumeroPezzi(this.getPezzi().size() + giocatore.getPezzi().size());
+			punteggio = partita.punteggioTotale(this.getPezzi(), giocatore.getPezzi());
+			partita.setPunteggio(punteggio);
 
 		} else {
 
 			table.put(posizioneRigaNuova, posizioneColonnaNuova, pezzo);
 			System.out.println(this.getNomeGiocatore() + ": " + "Ho mosso il pezzo " + pezzo.getNome()
 					+ " in posizione " + posizioneColonnaNuova + "" + posizioneRigaNuova);
-			
-				if ((this.getPedoni().contains(pezzo))) {
-					Partita.contatoreMosse = 0;
-					System.out.println(Partita.contatoreMosse);
-				}
 
-			Partita.contatoreMosse++;
-			System.out.println(Partita.contatoreMosse);
-			table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			if ((this.getPedoni().contains(pezzo))) {
+				Partita.contatorePatta = 0;
+				System.out.println(Partita.contatorePatta);
+				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+
+			} else {
+				Partita.contatorePatta++;
+				System.out.println(Partita.contatorePatta);
+				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
+			}
 
 		}
 		// Verifica se dopo aver spostato un pezzo il re è andato sottoscacco oppure si
 		// è tolto dallo scacco
 		ScacchieraServiceImpl scacchieraCopia = new ScacchieraServiceImpl(table);
-		
-			Re pezzoRe = (Re) this.getRe();
-			
-			try {
-				if(pezzoRe == null) {
-					throw new NullPointerException();
-				}
-				Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(pezzoRe.getNome());
-				Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(pezzoRe.getNome());
-				String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
-				// Il giocatore rappresenta giocatore2;
-				if (pezzoRe.scacco(scacchieraCopia, posizioneRe, giocatore) == true) {
-					System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
-					Partita.contatoreMosse--;
-					scacchiera.stampaScacchiera(scacchiera);
-					scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
-				} else {
-					scacchiera.setScacchiera(table);
-					scacchiera.salvaMossa(posizioneNuova, pezzo);
-					scacchiera.stampaScacchiera(scacchiera);
 
-					return scacchiera;
+		Re pezzoRe = (Re) this.getRe();
 
-				}
-			} catch (NullPointerException e) {
-				System.out.println("Il reB ha un riferimento nullo anche se non dovrebbe succedere");
+		try {
+			if (pezzoRe == null) {
+				throw new NullPointerException();
 			}
+			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(pezzoRe.getNome());
+			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(pezzoRe.getNome());
+			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
+			// Il giocatore rappresenta giocatore2;
+			if (pezzoRe.scacco(scacchieraCopia, posizioneRe, giocatore) == true) {
+				System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
+				Partita.contatorePatta--;
+				partita.setContatoreMosse(contatoreMosse--);
+				scacchiera.stampaScacchiera(scacchiera);
+				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi(), container);
+			} else {
+				scacchiera.setScacchiera(table);
+				scacchiera.salvaMossa(posizioneNuova, pezzo);
+				scacchiera.stampaScacchiera(scacchiera);
+
+				return scacchiera;
+
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Il reB ha un riferimento nullo anche se non dovrebbe succedere");
+		}
 
 		return null;
 	}
-
-
 }

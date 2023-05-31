@@ -6,15 +6,14 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
-import it.univaq.disim.lpo.Model.Pezzo;
-import it.univaq.disim.lpo.Model.Scacchiera;
 
 public class Regina extends Pezzo {
 
-	public Regina(String nome, boolean isAlive,char colore) {
-		super(nome, isAlive, colore);
+	public Regina(String nome, Integer valore) {
+		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
+
 
 	
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
@@ -29,7 +28,7 @@ public class Regina extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getIsAlive() && this.getNome().charAt(0) == 'r') {
+			if (this.getNome().charAt(0) == 'r') {
 				blocco = false;
 				dRiga++;
 				dCol = (char)(dCol + 1);
