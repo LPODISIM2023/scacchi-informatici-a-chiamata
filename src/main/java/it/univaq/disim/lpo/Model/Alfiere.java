@@ -5,11 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Alfiere.java
 import ServiceImpl.ScacchieraServiceImpl;
-=======
-import it.univaq.disim.lpo.Model.PezzoModel;
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/AlfiereServiceImpl.java
 
 public class Alfiere extends Pezzo {
 	public Alfiere(String nome, boolean isAlive, char colore) {
@@ -37,11 +33,7 @@ public class Alfiere extends Pezzo {
 		return blocco;
 	}
 
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Alfiere.java
 	
-=======
-	@Override
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/AlfiereServiceImpl.java
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -103,8 +95,6 @@ public class Alfiere extends Pezzo {
 		return mosseValide;
 	
 	}
-
-
 
 	
 }

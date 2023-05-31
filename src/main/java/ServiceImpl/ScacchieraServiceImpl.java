@@ -1,19 +1,12 @@
 package ServiceImpl;
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 
 import java.io.BufferedWriter;
 import java.io.File;
-=======
-import java.io.File;
-import java.io.FileInputStream;
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,21 +15,14 @@ import com.google.common.collect.Table;
 import it.univaq.disim.lpo.Model.Pezzo;
 import it.univaq.disim.lpo.Model.Scacchiera;
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 public class ScacchieraServiceImpl extends Scacchiera {
-=======
-public class ScacchieraServiceImpl extends ScacchieraModel implements Serializable {
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 
 	public ScacchieraServiceImpl(Table<Integer, Character, Pezzo> scacchiera) {
 		super(scacchiera);
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
-=======
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 	public Integer getRigaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
@@ -57,10 +43,7 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 		return null;
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
-=======
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 	public Character getColonnaPezzoFromScacchiera(String nomePezzo) {
 
 		try {
@@ -81,12 +64,8 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 		return null;
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
 	public Pezzo getPezzoFromScacchieraByValue(String nomePezzo) {
-=======
-	public PezzoModel getPezzoFromScacchieraByValue(String nomePezzo) {
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 		try {
 			for (Integer riga = 1; riga <= 8; riga++) {
 				for (Pezzo p : this.getScacchiera().row(riga).values()) {
@@ -105,12 +84,8 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 		return null;
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
 	public ScacchieraServiceImpl creaScacchiera(List<Pezzo> pezziB, List<Pezzo> pezziN ) {
-=======
-	public void creaScacchiera(List<PezzoModel> pezzi) {
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 		try {
 			List<Pezzo> pezzi = new ArrayList<>();
 			pezzi.addAll(pezziB);
@@ -171,12 +146,8 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 	}
 
 //  METODO PER LA STAMPA DELLA SCACCHIERA. DA VERIFICARE SE SI AGGIORNA 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
 	public void stampaScacchiera(Scacchiera scacchiera) {
-=======
-	public void stampaScacchiera(ScacchieraModel scacchiera) {
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 		try {
 			for (int riga = 1; riga <= 8; riga++) {
 
@@ -201,16 +172,10 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 		}
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
 	public List<Pezzo> getPezziFromScacchiera() {
 		Table<Integer, Character, Pezzo> table = this.getScacchiera();
 		List<Pezzo> pezzi = new ArrayList<>();
-=======
-	public List<PezzoModel> getPezziFromScacchiera() {
-		Table<Integer, Character, PezzoModel> table = this.getScacchiera();
-		List<PezzoModel> pezzi = new ArrayList<>();
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 		for (int i = 1; i <= 8; i++) {
 			for (Pezzo p : table.row(i).values()) {
 				pezzi.add(p);
@@ -219,113 +184,37 @@ public class ScacchieraServiceImpl extends ScacchieraModel implements Serializab
 		return pezzi;
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
 	public void salvaMossa(String mossa, Pezzo pezzo) {
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {			
 			writer.write("Mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa +"\n");
-=======
-	public void salvaScacchiera(ScacchieraServiceImpl scacchiera) {
-		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		try (FileOutputStream outputFile = new FileOutputStream(scacchieraPath, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	public void getUltimaScacchiera(String pathLog, Scacchiera scacchiera) {
+		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
 				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
 
 			oggettoOutput.writeObject(scacchiera);
 
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
 	}
 
-<<<<<<< HEAD:src/main/java/ServiceImpl/ScacchieraServiceImpl.java
 	
-	public void getUltimaScacchiera(String pathLog, Scacchiera scacchiera) {
-		try (FileOutputStream outputFile = new FileOutputStream(pathLog);
-=======
-	public ScacchieraModel getUltimaScacchiera() {
-		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
-				ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
-
-			ScacchieraModel scacchieraTemp;
-			scacchieraTemp = (ScacchieraModel) oggettoOutput.readObject();
-			return scacchieraTemp;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public ScacchieraServiceImpl getScacchieraPrecedente() {
-		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-
-		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
-				ObjectInputStream oggettoOutput = new ObjectInputStream(outputFile)) {
-			ScacchieraServiceImpl scacchieraTemp;
-			rimuoviPrimoOggetto();
-			scacchieraTemp = (ScacchieraServiceImpl) oggettoOutput.readObject();
-			return scacchieraTemp;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public void rimuoviPrimoOggetto() {
-		List<ScacchieraServiceImpl> scacchiere = new ArrayList<>();
-
-		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		try (FileInputStream outputFile = new FileInputStream(scacchieraPath);
-				ObjectInputStream oggettoInput = new ObjectInputStream(outputFile)) {
-			ScacchieraServiceImpl scacchieraTemp;
-			boolean primoElemento = true;
-			while ((scacchieraTemp = (ScacchieraServiceImpl) oggettoInput.readObject()) != null) {
-				if (!primoElemento) {
-					scacchiere.add(scacchieraTemp);
-				} else {
-					primoElemento = false;
-				}
-
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		try (FileOutputStream outputFile = new FileOutputStream(scacchieraPath);
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ScacchieraServiceImpl.java
-				ObjectOutputStream oggettoOutput = new ObjectOutputStream(outputFile)) {
-
-			for (ScacchieraModel s : scacchiere) {
-				oggettoOutput.writeObject(s);
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void eliminaLogScacchiere() {
-		String scacchieraPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		File file = new File(scacchieraPath);
-		if (file.exists()) {
-			file.delete();
-		}
-	}
 }
+
+/*
+ * Ho due file log e partita log si crea ogni volta che runno il codie. Dentro
+ * deve contenere le scacchiere. Partita.txt ha il nome della partita e l'ultima
+ * scacchiera. partita è collegata col log. La classe Mossa mi serve per gestire
+ * il log;
+ * 
+ * Nel metodo muovi faccio il salvataggio della mossa;
+ * 
+ */

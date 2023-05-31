@@ -17,10 +17,6 @@ public class Pedone extends Pezzo {
 	}
 
 
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Pedone.java
-=======
-	@Override
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/PedoneServiceImpl.java
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {

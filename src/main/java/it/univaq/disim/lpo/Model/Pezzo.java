@@ -2,15 +2,9 @@ package it.univaq.disim.lpo.Model;
 
 import java.util.List;
 
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Pezzo.java
 import ServiceImpl.ScacchieraServiceImpl;
 
 public abstract class Pezzo{
-=======
-import it.univaq.disim.lpo.Service.ServiceImpl.ScacchieraServiceImpl;
-
-public abstract class PezzoModel{
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Model/PezzoModel.java
 	private String nome;
 	private boolean isAlive;
 	private char colore;
@@ -82,13 +76,6 @@ public abstract class PezzoModel{
 				+ getClass() + "]";
 
 	}
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Pezzo.java
-=======
-	
-	abstract public List<String> mosseValide(ScacchieraServiceImpl scacchiera);
-
-
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Model/PezzoModel.java
 	
 	abstract public List<String> mosseValide(ScacchieraServiceImpl scacchiera);
 

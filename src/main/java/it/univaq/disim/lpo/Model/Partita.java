@@ -2,11 +2,7 @@ package it.univaq.disim.lpo.Model;
 
 import java.util.Objects;
 
-<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Partita.java
 public abstract class Partita{
-=======
-public class PartitaModel {
->>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Model/PartitaModel.java
 	private String nomePartita;
 	public static int contatoreMosse = 0;
 
