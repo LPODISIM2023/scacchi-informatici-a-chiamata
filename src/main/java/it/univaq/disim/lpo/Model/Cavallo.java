@@ -39,8 +39,14 @@ public class Cavallo extends Pezzo {
 		}
 	}
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Cavallo.java
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 	List<String> mosseValide = new ArrayList<>();
+=======
+	@Override
+	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
+		List<String> mosseValide = new ArrayList<>();
+>>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/CavalloServiceImpl.java
 		try {
 			Table<Integer, Character, Pezzo> table = scacchiera.getScacchiera();
 			Integer posizionePezzoRiga = scacchiera.getRigaPezzoFromScacchiera(this.getNome());

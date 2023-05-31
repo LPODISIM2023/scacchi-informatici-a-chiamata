@@ -13,6 +13,10 @@ public class Re extends Pezzo {
 		super(nome, isAlive, colore);
 	}
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Re.java
+=======
+	@Override
+>>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ReServiceImpl.java
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
 		try {
@@ -123,7 +127,15 @@ public class Re extends Pezzo {
 
 	}
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Re.java
 	public boolean scacco(ScacchieraServiceImpl scacchiera, String posizioneRe, Giocatore giocatore2) {
+=======
+	public boolean scaccoN(ScacchieraServiceImpl scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera();
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
+		for (PezzoModel p : pezzi) {
+			if (p.getNome().charAt(1) == 'B') {
+>>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ReServiceImpl.java
 
 		List<Pezzo> pezzi = giocatore2.getPezzi();
 		for (Pezzo p : pezzi) {
@@ -140,4 +152,32 @@ public class Re extends Pezzo {
 		}
 		return false;
 	}
+<<<<<<< HEAD:src/main/java/it/univaq/disim/lpo/Model/Re.java
 }
+=======
+
+	public boolean scaccoB(ScacchieraServiceImpl scacchiera, String posizioneRe) {
+		// Table<Integer, Character, PezzoModel> table = scacchiera.getScacchiera()
+		List<PezzoModel> pezzi = scacchiera.getPezziFromScacchiera();
+
+		for (PezzoModel p : pezzi) {
+			if (p.getNome().charAt(1) == 'N') {
+
+				List<String> temp = p.mosseValide(scacchiera);
+				if (!(pezzi.isEmpty()) && temp != null) {
+					for (String s : temp) {
+						if (s.equals(posizioneRe)) {
+							return true;
+
+						}
+
+					}
+				}
+			}
+		}
+		return false;
+
+	}
+
+}
+>>>>>>> 4c59298aef891a7f400a9272fc50384910487c85:src/main/java/it/univaq/disim/lpo/Service/ServiceImpl/ReServiceImpl.java
