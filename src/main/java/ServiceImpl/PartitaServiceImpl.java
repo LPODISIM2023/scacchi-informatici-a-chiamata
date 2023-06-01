@@ -1,6 +1,5 @@
 package ServiceImpl;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,10 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import com.google.common.collect.HashBasedTable;
@@ -19,39 +19,26 @@ import com.google.common.collect.Table;
 
 import it.univaq.disim.lpo.Model.Alfiere;
 import it.univaq.disim.lpo.Model.Cavallo;
-import it.univaq.disim.lpo.Model.Giocatore;
-import it.univaq.disim.lpo.Model.Partita;
 import it.univaq.disim.lpo.Model.Pedone;
-import it.univaq.disim.lpo.Model.Pezzo;
 import it.univaq.disim.lpo.Model.Re;
 import it.univaq.disim.lpo.Model.Regina;
 import it.univaq.disim.lpo.Model.Torre;
+import it.univaq.disim.lpo.Model.Beans.ContainerPartite;
+import it.univaq.disim.lpo.Model.Beans.Giocatore;
+import it.univaq.disim.lpo.Model.Beans.Partita;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
-public class PartitaServiceImpl extends Partita implements Serializable {
+public class PartitaServiceImpl extends Partita {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3421389270663756285L;
-
-	/**
-	 * 
-	 */
-
-	/**
-	 * 
-	 */
-
-	/**
-	 * 
-	 */
 	public PartitaServiceImpl() {
 		super();
 	}
 
 	public PartitaServiceImpl(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
-			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio) {
-		super(nomePartita, idPartita, scacchiera, giocatore1, giocatore2, contatoreMosse, numeroPezzi, punteggio);
+			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio,
+			List<ScacchieraServiceImpl> scacchiere, Integer contatoreUndo) {
+		super(nomePartita, idPartita, scacchiera, giocatore1, giocatore2, contatoreMosse, numeroPezzi, punteggio,
+				scacchiere, contatoreUndo);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -61,7 +48,7 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 		int punteggioIniziale;
 		Table<Integer, Character, Pezzo> scacchiera = HashBasedTable.create(8, 8);
 		ScacchieraServiceImpl scacchieraDaGioco = new ScacchieraServiceImpl(scacchiera);
-
+		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
 		// PedoneModel
 		List<Pezzo> pezziB = new ArrayList<>();
 		List<Pezzo> pedoniB = new ArrayList<>();
@@ -228,7 +215,11 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 
 		// Creazione scacchiera e settaggio valori iniziali della partita
 		scacchieraDaGioco = scacchieraDaGioco.creaScacchiera(pezziB, pezziN);
+		this.setScacchiera(scacchieraDaGioco);
+		
 		scacchieraDaGioco.stampaScacchiera(scacchieraDaGioco);
+		scacchiere.add(scacchieraDaGioco);
+		this.addElementToList(scacchieraDaGioco);
 		this.setNumeroPezzi(pezziB.size() + pezziN.size());
 		punteggioIniziale = this.punteggioTotale(pezziB, pezziN);
 		this.setPunteggio(punteggioIniziale);
@@ -254,9 +245,8 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 
 	public void scegliTipologiaPartita() {
 
-		
 		List<PartitaServiceImpl> listaPartite = new ArrayList<>();
-		ContainerPartiteServiceImpl container = new ContainerPartiteServiceImpl(listaPartite);
+		ContainerPartite container = new ContainerPartite(listaPartite);
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
@@ -361,7 +351,7 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 	}
 
 	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
-			Giocatore giocatore2, ContainerPartiteServiceImpl container) {
+			Giocatore giocatore2, ContainerPartite container) {
 		List<PartitaServiceImpl> lista = new ArrayList<>();
 		lista = container.getListaPartite();
 		partita.setScacchiera(scacchiera);
@@ -370,6 +360,7 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 		lista.add(this);
 		container.setListaPartite(lista);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
+		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 
 		// Blocco di codice che serve per il merging delle liste vecchie con la lista
 		// nuova.
@@ -377,8 +368,9 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
 
 			while (inputStream.available() > 0) {
-				container = (ContainerPartiteServiceImpl) objectStream.readObject();
-				System.out.println("Nel file sono presenti altre partite, quindi aggiungerò questa partita assieme alle altre");
+				container = (ContainerPartite) objectStream.readObject();
+				System.out.println(
+						"Nel file sono presenti altre partite, quindi aggiungerò questa partita assieme alle altre");
 
 				lista.addAll(container.getListaPartite());
 				container.setListaPartite(lista);
@@ -403,6 +395,10 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 
 			serializzazioneOutput.writeObject(container);
 			System.out.println("Partita Salvata!");
+			File file = new File(logPath);
+			if (file.exists()) {
+				file.delete();
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -410,5 +406,63 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void addElementToList(ScacchieraServiceImpl scacchiera) {
+		ScacchieraServiceImpl scacchiera1 = new ScacchieraServiceImpl(scacchiera.getScacchiera());
+		List<ScacchieraServiceImpl> lista = this.getScacchiere();
+		int sizeMax = 5;
+		if (lista != null) {
+			if (lista.size() < sizeMax) {
+				lista.add(scacchiera1);
+			} else {
+				List<ScacchieraServiceImpl> listaAppoggio = new LinkedList<>();
+				Iterator<ScacchieraServiceImpl> itr = lista.listIterator();
+				while (itr.hasNext()) {
+					itr.next();
+					if (itr.hasNext()) {
+						listaAppoggio.add(itr.next());
+					}
+				}
+				listaAppoggio.add(scacchiera);
+				lista = listaAppoggio;
+			}
+		} else {
+			lista = new LinkedList<>();
+			lista.add(scacchiera1);
+		}
+		this.setScacchiere(lista);
+	}
+
+	
+	public ScacchieraServiceImpl rifaiMossa() {
+		int max = 5;
+		Integer contatore = this.getContatoreUndo();
+
+		List<ScacchieraServiceImpl> lista = new LinkedList<>();
+		lista =  this.getScacchiere();
+		try {
+			if (contatore != null && lista != null) {
+				if (contatore <= max && lista.size() > 1) {
+
+					contatore++;
+					this.setContatoreUndo(contatore);
+					int penultimoElemento = lista.size() - 2;
+					lista.remove(lista.size()-1);
+					return lista.get(penultimoElemento);
+					
+				} else {
+					throw new NullPointerException();
+				}
+
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Non puoi tornare più indietro di così");
+			return lista.get(0);
+		} catch (Exception e) {
+
+		}
+		return null;
+
 	}
 }

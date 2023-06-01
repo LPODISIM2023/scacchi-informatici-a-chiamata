@@ -6,9 +6,18 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class Alfiere extends Pezzo {
 
+
+	/**
+	 * 
+	 */
+
+	public Alfiere() {
+		super();
+	}
 
 	public Alfiere(String nome, Integer valore) {
 		super(nome, valore);
@@ -50,7 +59,6 @@ public class Alfiere extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getNome().charAt(0) == 'A') {
 				blocco = false;
 				dRiga++;
 				dCol = (char)(dCol + 1);
@@ -91,7 +99,7 @@ public class Alfiere extends Pezzo {
 					dRiga--;
 					dCol = (char) (dCol + 1);
 				}
-			}
+			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

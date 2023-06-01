@@ -1,10 +1,16 @@
-package it.univaq.disim.lpo.Model;
+package it.univaq.disim.lpo.Model.Beans;
+
+import java.io.Serializable;
 
 import com.google.common.collect.Table;
 
 
-public abstract class Scacchiera {
+public class Scacchiera implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2841724450382372184L;
 	private Table<Integer, Character, Pezzo> scacchiera;
 
 	public Scacchiera(Table<Integer, Character, Pezzo> scacchiera) {
@@ -14,7 +20,7 @@ public abstract class Scacchiera {
 	}
 
 	public Scacchiera() {
-		
+		super();
 	}
 
 

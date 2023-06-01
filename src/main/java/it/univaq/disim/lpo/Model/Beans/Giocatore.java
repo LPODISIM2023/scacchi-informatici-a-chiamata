@@ -1,15 +1,19 @@
-package it.univaq.disim.lpo.Model;
+package it.univaq.disim.lpo.Model.Beans;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import ServiceImpl.ContainerPartiteServiceImpl;
 import ServiceImpl.PartitaServiceImpl;
 import ServiceImpl.ScacchieraServiceImpl;
 
 
-public abstract class Giocatore{
+public abstract class Giocatore implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3251441791103565264L;
 	/**
 	 * 
 	 */
@@ -20,7 +24,8 @@ public abstract class Giocatore{
 	private Pezzo re;
 	private List<Pezzo> pedoni;
 	private List<Pezzo> pezzi;
-	public Giocatore(String nomeGiocatore, Re re, List<Pezzo> pedoni, List<Pezzo> pezzi) {
+	
+	public Giocatore(String nomeGiocatore, Pezzo re, List<Pezzo> pedoni, List<Pezzo> pezzi) {
 		super();
 		this.nomeGiocatore = nomeGiocatore;
 		this.re = re;
@@ -29,7 +34,7 @@ public abstract class Giocatore{
 	}
 
 	public Giocatore() {
-		
+		super();
 	}
 	public List<Pezzo> getPedoni() {
 		return pedoni;
@@ -91,7 +96,7 @@ public abstract class Giocatore{
 
 
 	abstract public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita,
-			ContainerPartiteServiceImpl container);
+			ContainerPartite container);
 		
 	}
 

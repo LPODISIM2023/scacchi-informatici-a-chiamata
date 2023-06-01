@@ -2,21 +2,21 @@ package Service;
 
 import java.util.List;
 
-import ServiceImpl.ContainerPartiteServiceImpl;
 import ServiceImpl.PartitaServiceImpl;
 import ServiceImpl.ScacchieraServiceImpl;
-import it.univaq.disim.lpo.Model.Giocatore;
-import it.univaq.disim.lpo.Model.Pezzo;
+import it.univaq.disim.lpo.Model.Beans.ContainerPartite;
+import it.univaq.disim.lpo.Model.Beans.Giocatore;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public interface ILogic {
 
 	void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo, Giocatore giocatore2,
-			PartitaServiceImpl partita, ContainerPartiteServiceImpl container);
+			PartitaServiceImpl partita, ContainerPartite container);
 
 	ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input, PartitaServiceImpl partita,
-			Giocatore giocatore, ContainerPartiteServiceImpl container);
+			Giocatore giocatore, ContainerPartite container);
 
 	void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartiteServiceImpl container);
+			List<Pezzo> pezzi, ContainerPartite container);
 
 }

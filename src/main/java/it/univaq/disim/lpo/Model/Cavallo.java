@@ -7,8 +7,18 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
-public class Cavallo extends Pezzo {
+public class Cavallo extends Pezzo{
+
+	
+/**
+	 * 
+	 */
+
+	public Cavallo() {
+		super();
+	}
 
 	public Cavallo(String nome, Integer valore) {
 		super(nome, valore);
@@ -51,7 +61,6 @@ public class Cavallo extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if ( this.getNome().charAt(0) == 'C') {
 				blocco = false;
 				dRiga = dRiga + 2;
 				dCol = (char)(dCol + 1);
@@ -97,7 +106,7 @@ public class Cavallo extends Pezzo {
 				dCol = posizionePezzoColonna;
 				blocco = false;
 				dRiga = dRiga - 2;
-				dCol = (char)(dCol + 2);
+				dCol = (char)(dCol + 1);
 				while (dRiga >= 1 && dCol <= 'H' && blocco == false) {
 					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
 					dRiga = dRiga - 2;
@@ -108,7 +117,7 @@ public class Cavallo extends Pezzo {
 				dCol = posizionePezzoColonna;
 				blocco = false;
 				dRiga = dRiga - 2;
-				dCol = (char)(dCol - 2);
+				dCol = (char)(dCol - 1);
 				while (dRiga >= 1 && dCol >= 'A' && blocco == false) {
 					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
 					dRiga = dRiga - 2;
@@ -136,7 +145,7 @@ public class Cavallo extends Pezzo {
 					dRiga = dRiga - 1;
 					dCol = (char)(dCol - 2);
 				}
-			}
+			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

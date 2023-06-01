@@ -14,9 +14,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import ServiceImpl.ContainerPartiteServiceImpl;
 import ServiceImpl.PartitaServiceImpl;
-import it.univaq.disim.lpo.Model.Giocatore;
+import ServiceImpl.PartiteSortMosseServiceImpl;
+import ServiceImpl.PartiteSortNumPezziServiceImpl;
+import ServiceImpl.PartiteSortPunteggioServiceImpl;
+import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Beans.ContainerPartite;
 
 public class Runner implements Serializable {
 
@@ -38,19 +41,21 @@ public class Runner implements Serializable {
 	 */
 
 	public static void main(String[] args) {
-		
+
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Cosa vuoi fare? \n 1-Nuova Partita; \n 2-Carica Partita");
 			Integer input = scanner.nextInt();
-			
+
 			if (input == 2) {
-				menùPartita();
+				scegliPartita();
+
 			} else if (input == 1) {
 				LocalDateTime data = LocalDateTime.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				String dataFormattata = data.format(formatter);
 
-				PartitaServiceImpl partita = new PartitaServiceImpl("Partita-" + dataFormattata, 0, null, null, null, 0, null, null);
+				PartitaServiceImpl partita = new PartitaServiceImpl("Partita-" + dataFormattata, 0, null, null, null, 0,
+						null, null, null, 0);
 				partita.scegliTipologiaPartita();
 			} else {
 				throw new NoSuchElementException();
@@ -62,16 +67,16 @@ public class Runner implements Serializable {
 
 	}
 
-	public static void menùPartita() {
+	public static void scegliPartita() {
 
 		List<PartitaServiceImpl> partite = new ArrayList<>();
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
 		try (FileInputStream inputStream = new FileInputStream(partitaPath);
 				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
 
-			ContainerPartiteServiceImpl obj;
+			ContainerPartite obj;
 			while (inputStream.available() > 0) {
-				obj = (ContainerPartiteServiceImpl) objectStream.readObject();
+				obj = (ContainerPartite) objectStream.readObject();
 				partite.addAll(obj.getListaPartite());
 				System.out.println(obj.getListaPartite());
 			}
@@ -87,6 +92,8 @@ public class Runner implements Serializable {
 			e.printStackTrace();
 		}
 
+		List<PartitaServiceImpl> partiteSort = new ArrayList<>();
+
 		try (Scanner scanner = new Scanner(System.in)) {
 
 			System.out.println(
@@ -97,54 +104,72 @@ public class Runner implements Serializable {
 			Integer input = scanner.nextInt();
 			if (input == 1) {
 
-				Collections.sort(partite, null);
+				Collections.sort(partite, new PartiteSortMosseServiceImpl<PartitaServiceImpl>());
+
 				int cont = 0;
-				
-				for(PartitaServiceImpl p : partite) {
-					System.out.printf("%d-"+ p.getNomePartita(), cont++);					
+				for (PartitaServiceImpl p : partite) {
+					cont += 1;
+					p.setIdPartita(cont);
+					System.out.printf("%d-" + p.getNomePartita() + " Numero mosse: " + p.getContatoreMosse() + "\n",
+							p.getIdPartita());
+					partiteSort.add(p);
 				}
-				
+
 			} else if (input == 2) {
 
-				Collections.sort(partite, null);
+				Collections.sort(partite, new PartiteSortNumPezziServiceImpl<PartitaServiceImpl>());
 				int cont = 0;
-				for(PartitaServiceImpl p : partite) {
-					System.out.printf("%d-"+ p.getNomePartita(), cont++);					
+				for (PartitaServiceImpl p : partite) {
+					cont += 1;
+					p.setIdPartita(cont);
+					System.out.printf("%d-" + p.getNomePartita() + " Numero Pezzi: " + p.getNumeroPezzi() + "\n",
+							p.getIdPartita());
+					partiteSort.add(p);
 				}
-				
+
 			} else if (input == 3) {
+
+				Collections.sort(partite, new PartiteSortPunteggioServiceImpl<PartitaServiceImpl>());
 				int cont = 0;
-				Collections.sort(partite, null);
-				for(PartitaServiceImpl p : partite) {
-					System.out.printf("%d-"+ p.getNomePartita(), cont++);					
-				}
-				
-			}
-		}
-	}
-
-	public static void caricaPartita() {
-		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
-		int idPartita = Integer.parseInt(input);
-		try (FileInputStream deSerializzazione = new FileInputStream(partitaPath);
-				ObjectInputStream deSerializzazioneInput = new ObjectInputStream(deSerializzazione)) {
-			PartitaServiceImpl obj;
-			while ((obj = (PartitaServiceImpl) deSerializzazioneInput.readObject()) != null) {
-
-				if (idPartita == obj.getIdPartita()) {
-					Giocatore giocatore1 = obj.getGiocatore1();
-					Giocatore giocatore2 = obj.getGiocatore2();
-					giocatore1.turno(giocatore2, obj.getScacchiera(), obj, container);
-
+				for (PartitaServiceImpl p : partite) {
+					cont += 1;
+					p.setIdPartita(cont);
+					System.out.printf("%d-" + p.getNomePartita() + " Punteggio: " + p.getPunteggio() + "\n",
+							p.getIdPartita());
+					partiteSort.add(p);
 				}
 
+			} else {
+				throw new NoSuchElementException();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Adesso scegli la partita da voler caricare.\nDigita un numero tra quelli visibili");
+			input = scanner.nextInt();
+			caricaPartita(input, partiteSort);
+
+		} catch (
+
+		NoSuchElementException e) {
+
+			System.out.println("Non è stato inserito alcun input, riavvia il programma");
+
 		}
+
 	}
 
+	public static <E extends PartitaServiceImpl> void caricaPartita(Integer idPartita, List<E> lista) {
+
+		try {
+			for (E p : lista) {
+				if (idPartita == p.getIdPartita()) {
+					ScacchieraServiceImpl scacchiera = p.getScacchiera();
+					scacchiera.stampaScacchiera(scacchiera);
+					p.getGiocatore1().turno(p.getGiocatore2(), p.getScacchiera(), p, null);
+				}
+			}
+		} catch (NoSuchElementException e) {
+			System.out.println("L'input è sbagliato. Riavvia il programma");
+
+		}
+	}
 }

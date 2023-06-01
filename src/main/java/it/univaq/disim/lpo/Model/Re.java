@@ -6,14 +6,23 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Beans.Giocatore;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class Re extends Pezzo {
 
+	/**
+	 * 
+	 */
+	
 	public Re(String nome, Integer valore) {
 		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
 
+	public Re() {
+		super();
+	}
 
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
@@ -27,7 +36,6 @@ public class Re extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getNome().charAt(0) == 'R') {
 				blocco = false;
 				dRiga++;
 				dCol = (char) (dCol + 1);
@@ -93,7 +101,7 @@ public class Re extends Pezzo {
 				if (dCol >= 'A') {
 					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
 				}
-			}
+			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

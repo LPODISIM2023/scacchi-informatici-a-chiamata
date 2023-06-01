@@ -1,13 +1,25 @@
-package it.univaq.disim.lpo.Model;
+package it.univaq.disim.lpo.Model.Beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import ServiceImpl.ScacchieraServiceImpl;
 
-public abstract class Pezzo {
+public abstract class Pezzo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1450479585094058989L;
+	/**
+	 * 
+	 */
 	private String nome;
 	private Integer valore;
 
+	public Pezzo() {
+		
+	}
+	
 	public Integer getValore() {
 		return valore;
 	}

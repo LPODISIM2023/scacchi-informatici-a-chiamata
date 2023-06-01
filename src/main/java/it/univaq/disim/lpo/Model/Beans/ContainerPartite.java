@@ -1,20 +1,22 @@
-package ServiceImpl;
+package it.univaq.disim.lpo.Model.Beans;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ContainerPartiteServiceImpl implements Serializable{
+import ServiceImpl.PartitaServiceImpl;
+
+public class ContainerPartite implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6994320030686351568L;
 	private List<PartitaServiceImpl> listaPartite;
-	public ContainerPartiteServiceImpl() {
+	public ContainerPartite() {
 		
 	}
 	
-	public ContainerPartiteServiceImpl(List<PartitaServiceImpl> listaPartite) {
+	public ContainerPartite(List<PartitaServiceImpl> listaPartite) {
 		this.listaPartite = listaPartite;
 		
 	}

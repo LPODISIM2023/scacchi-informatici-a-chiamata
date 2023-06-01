@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.common.collect.Table;
 
 import ServiceImpl.ScacchieraServiceImpl;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class Torre extends Pezzo {
 
@@ -13,12 +14,17 @@ public class Torre extends Pezzo {
 	 * 
 	 */
 
+	/**
+	 * 
+	 */
+	public Torre() {
+		super();
+	}
+
 	public Torre(String nome, Integer valore) {
 		super(nome, valore);
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	public List<String> mosseValide(ScacchieraServiceImpl scacchiera) {
 		List<String> mosseValide = new ArrayList<>();
@@ -32,49 +38,47 @@ public class Torre extends Pezzo {
 			if (posizionePezzoRiga == null || posizionePezzoColonna == null) {
 				return mosseValide;
 			}
-			if (this.getNome().charAt(0) == 'T') {
-			    // MOVIMENTI VERTICALI
-				dRiga = posizionePezzoRiga;
-				dCol = posizionePezzoColonna;
-				blocco = false;
+			// MOVIMENTI VERTICALI
+			dRiga = posizionePezzoRiga;
+			dCol = posizionePezzoColonna;
+			blocco = false;
+			dRiga++;
+			while (dRiga <= 8 && blocco == false) {
+				blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
 				dRiga++;
-				while (dRiga <= 8 && blocco == false) {
-					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
-					dRiga++;
-				}
-				dRiga = posizionePezzoRiga;
-				dCol = posizionePezzoColonna;
-				blocco = false;
-				dRiga--;
-				while (dRiga >= 1 && blocco == false) {
-					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
-					dRiga--;
-				}
-				// MOVIMENTI ORIZZONTALI
-				dRiga = posizionePezzoRiga;
-				dCol = posizionePezzoColonna;
-				blocco = false;
-				dCol = (char)(dCol + 1);
-				while (dCol <= 'H' && blocco == false) {
-					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
-					dCol = (char) (dCol + 1);
-				}
-				
-				dRiga = posizionePezzoRiga;
-				dCol = posizionePezzoColonna;
-				blocco = false;
-				dCol = (char)(dCol - 1);
-				while (dCol >= 'A' && blocco == false) {
-					blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
-					dCol = (char) (dCol + 1);
-				}
 			}
+			dRiga = posizionePezzoRiga;
+			dCol = posizionePezzoColonna;
+			blocco = false;
+			dRiga--;
+			while (dRiga >= 1 && blocco == false) {
+				blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
+				dRiga--;
+			}
+			// MOVIMENTI ORIZZONTALI
+			dRiga = posizionePezzoRiga;
+			dCol = posizionePezzoColonna;
+			blocco = false;
+			dCol = (char) (dCol + 1);
+			while (dCol <= 'H' && blocco == false) {
+				blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
+				dCol = (char) (dCol + 1);
+			}
+
+			dRiga = posizionePezzoRiga;
+			dCol = posizionePezzoColonna;
+			blocco = false;
+			dCol = (char) (dCol - 1);
+			while (dCol >= 'A' && blocco == false) {
+				blocco = aggiungiMossa(dRiga, dCol, mosseValide, table, blocco);
+				dCol = (char) (dCol + 1);
+			}
+
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return mosseValide;
-
 
 	}
 
@@ -98,9 +102,5 @@ public class Torre extends Pezzo {
 		}
 		return blocco;
 	}
-
-
-	
-
 
 }

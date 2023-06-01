@@ -4,25 +4,25 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.Pezzo;
-import it.univaq.disim.lpo.Model.Scacchiera;
+import it.univaq.disim.lpo.Model.Beans.Pezzo;
+import it.univaq.disim.lpo.Model.Beans.Scacchiera;
 
-public class ScacchieraServiceImpl extends Scacchiera implements Serializable{
+public class ScacchieraServiceImpl extends Scacchiera{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6974402625519565886L;
+	
 
 	public ScacchieraServiceImpl() {
 		super();
 	}
+	
 	public ScacchieraServiceImpl(Table<Integer, Character, Pezzo> scacchiera) {
 		super(scacchiera);
 		// TODO Auto-generated constructor stub

@@ -1,11 +1,13 @@
-package it.univaq.disim.lpo.Model;
+package it.univaq.disim.lpo.Model.Beans;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import ServiceImpl.ScacchieraServiceImpl;
 
-public abstract class Partita implements Serializable {
+public class Partita implements Serializable {
 	/**
 	 * 
 	 */
@@ -22,11 +24,12 @@ public abstract class Partita implements Serializable {
 	private Giocatore giocatore2;
 	private Integer numeroPezzi;
 	private Integer punteggio;
-
+	private List<ScacchieraServiceImpl> scacchiere;
+	private Integer contatoreUndo;
 	
-
 	public Partita(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
-			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio) {
+			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio,  List<ScacchieraServiceImpl> scacchiere,
+			Integer contatoreUndo) {
 		super();
 		this.nomePartita = nomePartita;
 		this.idPartita = idPartita;
@@ -36,7 +39,26 @@ public abstract class Partita implements Serializable {
 		this.contatoreMosse = contatoreMosse;
 		this.numeroPezzi = numeroPezzi;
 		this.punteggio = punteggio;
+		this.scacchiere = scacchiere;
+		this.contatoreUndo = contatoreUndo;
 	}
+
+	public Integer getContatoreUndo() {
+		return contatoreUndo;
+	}
+
+	public void setContatoreUndo(Integer contatoreUndo) {
+		this.contatoreUndo = contatoreUndo;
+	}
+
+	public void setScacchiere(List<ScacchieraServiceImpl> scacchiere) {
+		this.scacchiere = scacchiere;
+	}
+
+	public List<ScacchieraServiceImpl> getScacchiere() {
+		return scacchiere;
+	}
+	
 
 	public Partita() {
 
