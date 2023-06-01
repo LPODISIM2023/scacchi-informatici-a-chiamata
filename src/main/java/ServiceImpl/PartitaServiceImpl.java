@@ -36,9 +36,10 @@ public class PartitaServiceImpl extends Partita {
 
 	public PartitaServiceImpl(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio,
-			List<ScacchieraServiceImpl> scacchiere, Integer contatoreUndo) {
+			List<ScacchieraServiceImpl> scacchiere, Integer contatoreUndo, boolean scaccoMatto, boolean patta,
+			boolean resa) {
 		super(nomePartita, idPartita, scacchiera, giocatore1, giocatore2, contatoreMosse, numeroPezzi, punteggio,
-				scacchiere, contatoreUndo);
+				scacchiere, contatoreUndo, scaccoMatto, patta, resa);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -216,7 +217,7 @@ public class PartitaServiceImpl extends Partita {
 		// Creazione scacchiera e settaggio valori iniziali della partita
 		scacchieraDaGioco = scacchieraDaGioco.creaScacchiera(pezziB, pezziN);
 		this.setScacchiera(scacchieraDaGioco);
-		
+
 		scacchieraDaGioco.stampaScacchiera(scacchieraDaGioco);
 		scacchiere.add(scacchieraDaGioco);
 		this.addElementToList(scacchieraDaGioco);
@@ -294,8 +295,10 @@ public class PartitaServiceImpl extends Partita {
 	}
 
 	public void resa(Giocatore giocatore) {
-		System.out.println("Il giocatore " + giocatore.getNomeGiocatore() + " si è arreso");
-		System.exit(0);
+		if (!this.isResa()) {
+			this.setResa(true);
+			System.out.println("Il giocatore " + giocatore.getNomeGiocatore() + " si è arreso");
+		}
 	}
 
 	public boolean scaccoMatto(ScacchieraServiceImpl scacchiera, Giocatore giocatore2, Giocatore giocatore1) {
@@ -327,7 +330,10 @@ public class PartitaServiceImpl extends Partita {
 
 	public void patta() {
 
-		System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
+		if (!this.isPatta()) {
+			this.setPatta(true);
+			System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
+		}
 		File file;
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 
@@ -336,11 +342,14 @@ public class PartitaServiceImpl extends Partita {
 		if (file.exists()) {
 			file.delete();
 		}
-		System.exit(0);
 	}
 
 	public void fine(Giocatore giocatore) {
-		System.out.println("Partita Finita, ha vinto il giocatore: " + giocatore.getNomeGiocatore());
+
+		if (!this.isScaccoMatto()) {
+			this.setScaccoMatto(true);
+			System.out.println("Partita finita, ha vinto " + giocatore.getNomeGiocatore());
+		}
 		File file;
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		file = new File(logPath);
@@ -434,13 +443,12 @@ public class PartitaServiceImpl extends Partita {
 		this.setScacchiere(lista);
 	}
 
-	
 	public ScacchieraServiceImpl rifaiMossa() {
 		int max = 5;
 		Integer contatore = this.getContatoreUndo();
 
 		List<ScacchieraServiceImpl> lista = new LinkedList<>();
-		lista =  this.getScacchiere();
+		lista = this.getScacchiere();
 		try {
 			if (contatore != null && lista != null) {
 				if (contatore <= max && lista.size() > 1) {
@@ -448,9 +456,9 @@ public class PartitaServiceImpl extends Partita {
 					contatore++;
 					this.setContatoreUndo(contatore);
 					int penultimoElemento = lista.size() - 2;
-					lista.remove(lista.size()-1);
+					lista.remove(lista.size() - 1);
 					return lista.get(penultimoElemento);
-					
+
 				} else {
 					throw new NullPointerException();
 				}

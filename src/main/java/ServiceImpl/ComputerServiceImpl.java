@@ -181,7 +181,6 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
-				scacchiere.remove(scacchiere.size());
 				partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi(), container);
 			} else {

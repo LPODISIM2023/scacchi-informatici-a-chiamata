@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,21 +29,20 @@ public class Runner implements Serializable {
 	 */
 	private static final long serialVersionUID = 5655076700094621901L;
 
-	/**
-	 * 
-	 */
 
-	/**
-	 * 
-	 */
-
-	/**
-	 * 
-	 */
 
 	public static void main(String[] args) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
+			
+			try {
+	            System.setOut(new java.io.PrintStream(System.out, true, "UTF-8"));
+	            System.setErr(new java.io.PrintStream(System.err, true, "UTF-8"));
+	        } catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        }
+
+			
 			System.out.println("Cosa vuoi fare? \n 1-Nuova Partita; \n 2-Carica Partita");
 			Integer input = scanner.nextInt();
 
@@ -55,7 +55,7 @@ public class Runner implements Serializable {
 				String dataFormattata = data.format(formatter);
 
 				PartitaServiceImpl partita = new PartitaServiceImpl("Partita-" + dataFormattata, 0, null, null, null, 0,
-						null, null, null, 0);
+						null, null, null, 0, false, false, false);
 				partita.scegliTipologiaPartita();
 			} else {
 				throw new NoSuchElementException();
