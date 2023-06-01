@@ -1,5 +1,6 @@
 package ServiceImpl;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +27,7 @@ import it.univaq.disim.lpo.Model.Re;
 import it.univaq.disim.lpo.Model.Regina;
 import it.univaq.disim.lpo.Model.Torre;
 
-public class PartitaServiceImpl extends Partita implements Serializable{
+public class PartitaServiceImpl extends Partita implements Serializable {
 
 	/**
 	 * 
@@ -44,10 +45,10 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 	/**
 	 * 
 	 */
-	public PartitaServiceImpl(){
+	public PartitaServiceImpl() {
 		super();
 	}
-	
+
 	public PartitaServiceImpl(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio) {
 		super(nomePartita, idPartita, scacchiera, giocatore1, giocatore2, contatoreMosse, numeroPezzi, punteggio);
@@ -252,30 +253,34 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 	}
 
 	public void scegliTipologiaPartita() {
+
+		// Blocco di codice che serve per il merging delle liste vecchie con la lista
+		// nuova.
 		List<PartitaServiceImpl> listaPartite = new ArrayList<>();
 		ContainerPartiteServiceImpl container = new ContainerPartiteServiceImpl(listaPartite);
-		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
-
-		try (FileInputStream inputStream = new FileInputStream(partitaPath);
-				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
-
-			while (inputStream.available() > 0) {
-				container = (ContainerPartiteServiceImpl) objectStream.readObject();
-				listaPartite.addAll(container.getListaPartite());
-				container.setListaPartite(listaPartite);
-
-			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
+//
+//		try (FileInputStream inputStream = new FileInputStream(partitaPath);
+//				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
+//			
+//			
+//				while (inputStream.available() > 0) {
+//					container = (ContainerPartiteServiceImpl) objectStream.readObject();
+//					listaPartite.addAll(container.getListaPartite());
+//					container.setListaPartite(listaPartite);
+//
+//				}
+//			
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Il file delle partite è vuoto");
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
@@ -379,8 +384,8 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 		System.exit(0);
 	}
 
-	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1, Giocatore giocatore2,
-			ContainerPartiteServiceImpl container) {
+	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
+			Giocatore giocatore2, ContainerPartiteServiceImpl container) {
 		List<PartitaServiceImpl> lista = new ArrayList<>();
 		lista = container.getListaPartite();
 		partita.setScacchiera(scacchiera);
@@ -389,12 +394,44 @@ public class PartitaServiceImpl extends Partita implements Serializable{
 		lista.add(this);
 		container.setListaPartite(lista);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
+
+		// Blocco di codice che serve per il merging delle liste vecchie con la lista
+		// nuova.
+		try (FileInputStream inputStream = new FileInputStream(partitaPath);
+				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
+
+			while (inputStream.available() > 0) {
+				container = (ContainerPartiteServiceImpl) objectStream.readObject();
+				System.out.println("Nel file sono presenti altre partite, quindi aggiungerò questa partita assieme alle altre");
+
+				lista.addAll(container.getListaPartite());
+				container.setListaPartite(lista);
+
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Il file delle partita è vuoto, salvataggio del file in corso...");
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try (FileOutputStream serializzazione = new FileOutputStream(partitaPath);
 				ObjectOutputStream serializzazioneOutput = new ObjectOutputStream(serializzazione)) {
 
+			Thread.sleep(1500);
+
 			serializzazioneOutput.writeObject(container);
+			System.out.println("Partita Salvata!");
 
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
