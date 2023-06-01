@@ -254,33 +254,9 @@ public class PartitaServiceImpl extends Partita implements Serializable {
 
 	public void scegliTipologiaPartita() {
 
-		// Blocco di codice che serve per il merging delle liste vecchie con la lista
-		// nuova.
+		
 		List<PartitaServiceImpl> listaPartite = new ArrayList<>();
 		ContainerPartiteServiceImpl container = new ContainerPartiteServiceImpl(listaPartite);
-//		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
-//
-//		try (FileInputStream inputStream = new FileInputStream(partitaPath);
-//				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
-//			
-//			
-//				while (inputStream.available() > 0) {
-//					container = (ContainerPartiteServiceImpl) objectStream.readObject();
-//					listaPartite.addAll(container.getListaPartite());
-//					container.setListaPartite(listaPartite);
-//
-//				}
-//			
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Il file delle partite è vuoto");
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
