@@ -1,0 +1,2 @@
+Turno 1: giocatore1 ha mosso il pezzo PB1 in posizione A3
+Turno 2: computer ha mosso il pezzo PN4 in posizione D6

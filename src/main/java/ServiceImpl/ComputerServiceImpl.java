@@ -34,7 +34,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 		super();
 	}
 	@Override
-	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita, ContainerPartite container) {
+	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
 		List<Pezzo> pezzi = new ArrayList<>();
 		pezzi = this.getPezzi();
 		if (Partita.contatorePatta >= 50) {
@@ -53,7 +53,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 							"Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
 				}
 			}
-			scegliPezzo(scacchiera, giocatore2, partita, pezzi, container);
+			scegliPezzo(scacchiera, giocatore2, partita, pezzi);
 
 		}
 
@@ -61,7 +61,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartite container) {
+			List<Pezzo> pezzi) {
 		try {
 
 			Random random = new Random();
@@ -70,7 +70,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 			if (pezzo != null) {
 				System.out.println(this.getNomeGiocatore() + ": " + "Ho scelto il pezzo " + pezzo.getNome());
 				List<String> mosseValide = pezzo.mosseValide(scacchiera);
-				scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita, container);
+				scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 			} else {
 				throw new NullPointerException();
 			}
@@ -82,26 +82,26 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 	@Override
 	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo,
-			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartite container) {
+			Giocatore giocatore2, PartitaServiceImpl partita) {
 		Random random = new Random();
 		if (!mosseValide.isEmpty()) {
 			String posizione = mosseValide.get(random.nextInt(0, mosseValide.size()));
-			ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2, container);
+			ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, posizione, partita, giocatore2);
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			giocatore2.turno(this, scacchieraNuova, partita, container);
+			giocatore2.turno(this, scacchieraNuova, partita);
 		} else {
 			System.out.println("Lista mosse per il pezzo " + pezzo.getNome() + "e' vuota");
-			this.scegliPezzo(scacchiera, giocatore2, partita, this.getPezzi(), container);
+			this.scegliPezzo(scacchiera, giocatore2, partita, this.getPezzi());
 		}
 	}
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartite container) {
+			PartitaServiceImpl partita, Giocatore giocatore) {
 
 		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
 		scacchiere = partita.getScacchiere();
@@ -182,11 +182,11 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
 				partita.setScacchiere(scacchiere);
-				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi(), container);
+				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
 				scacchiera.setScacchiera(table);
 				partita.addElementToList(scacchiera);
-				scacchiera.salvaMossa(posizioneNuova, pezzo);
+				partita.salvaMossa(posizioneNuova, pezzo, this);
 				scacchiera.stampaScacchiera(scacchiera);
 
 				return scacchiera;

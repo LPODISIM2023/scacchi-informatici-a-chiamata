@@ -1,9 +1,11 @@
 package ServiceImpl;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import org.w3c.dom.events.EventException;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -246,9 +249,6 @@ public class PartitaServiceImpl extends Partita {
 
 	public void scegliTipologiaPartita() {
 
-		List<PartitaServiceImpl> listaPartite = new ArrayList<>();
-		ContainerPartite container = new ContainerPartite(listaPartite);
-
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Scegli la tipologia della partita:" + "\n" + " 0 - Giocatore1 vs Giocatore 2;"
 					+ "\n 1 - Giocatore1 vs Computer;" + "\n 2 - Computer vs Computer");
@@ -262,7 +262,7 @@ public class PartitaServiceImpl extends Partita {
 				ScacchieraServiceImpl scacchiera = new ScacchieraServiceImpl(null);
 				scacchiera = inizializzaPartita(giocatore1, giocatore2);
 				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this, container);
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else if (input.equals("1")) {
 				Giocatore giocatore1 = new UtenteServiceImpl("giocatore1", null, null, null);
@@ -270,7 +270,7 @@ public class PartitaServiceImpl extends Partita {
 				ScacchieraServiceImpl scacchiera = new ScacchieraServiceImpl(null);
 				scacchiera = inizializzaPartita(giocatore1, giocatore2);
 				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this, container);
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else if ((input.equals("2"))) {
 
@@ -279,7 +279,7 @@ public class PartitaServiceImpl extends Partita {
 				ScacchieraServiceImpl scacchiera = new ScacchieraServiceImpl(null);
 				scacchiera = inizializzaPartita(giocatore1, giocatore2);
 				scacchiera.stampaScacchiera(scacchiera);
-				giocatore1.turno(giocatore2, scacchiera, this, container);
+				giocatore1.turno(giocatore2, scacchiera, this);
 
 			} else {
 				System.out.println("input sbagliato");
@@ -338,10 +338,7 @@ public class PartitaServiceImpl extends Partita {
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 
 		// Commentare se si vuole vedere il log delle mosse del computer.
-		file = new File(logPath);
-		if (file.exists()) {
-			file.delete();
-		}
+		
 	}
 
 	public void fine(Giocatore giocatore) {
@@ -350,23 +347,18 @@ public class PartitaServiceImpl extends Partita {
 			this.setScaccoMatto(true);
 			System.out.println("Partita finita, ha vinto " + giocatore.getNomeGiocatore());
 		}
-		File file;
-		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		file = new File(logPath);
-		if (file.exists()) {
-			file.delete();
-		}
-		System.exit(0);
+		
 	}
 
 	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
-			Giocatore giocatore2, ContainerPartite container) {
+			Giocatore giocatore2) {
+		
 		List<PartitaServiceImpl> lista = new ArrayList<>();
-		lista = container.getListaPartite();
 		partita.setScacchiera(scacchiera);
 		partita.setGiocatore1(giocatore1);
 		partita.setGiocatore2(giocatore2);
 		lista.add(this);
+		ContainerPartite container = new ContainerPartite(null);	
 		container.setListaPartite(lista);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
@@ -460,17 +452,27 @@ public class PartitaServiceImpl extends Partita {
 					return lista.get(penultimoElemento);
 
 				} else {
-					throw new NullPointerException();
+					throw new ArithmeticException();
 				}
 
+			}else {
+				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
 			System.out.println("Non puoi tornare più indietro di così");
-			return lista.get(0);
-		} catch (Exception e) {
-
+			return this.getScacchiera();
+		} catch (ArithmeticException e) {
+			System.out.println("Numero di undo finiti");
+			return this.getScacchiera();
 		}
-		return null;
 
+	}
+	public void salvaMossa(String mossa, Pezzo pezzo, Giocatore giocatore) {
+		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {
+			writer.write("Turno "+ this.getContatoreMosse()  + ": "+ giocatore.getNomeGiocatore()+ " ha mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

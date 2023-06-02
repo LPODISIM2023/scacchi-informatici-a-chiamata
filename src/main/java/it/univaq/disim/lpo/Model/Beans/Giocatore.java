@@ -95,8 +95,7 @@ public abstract class Giocatore implements Serializable{
 
 
 
-	abstract public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita,
-			ContainerPartite container);
+	abstract public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita);
 		
 	}
 

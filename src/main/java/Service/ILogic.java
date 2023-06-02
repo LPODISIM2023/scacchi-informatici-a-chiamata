@@ -10,13 +10,15 @@ import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public interface ILogic {
 
-	void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo, Giocatore giocatore2,
-			PartitaServiceImpl partita, ContainerPartite container);
 
 	ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input, PartitaServiceImpl partita,
-			Giocatore giocatore, ContainerPartite container);
+			Giocatore giocatore);
+
+	void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo, Giocatore giocatore2,
+			PartitaServiceImpl partita);
 
 	void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartite container);
+			List<Pezzo> pezzi);
+
 
 }

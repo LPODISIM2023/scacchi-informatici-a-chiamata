@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.google.common.collect.Table;
 
+import it.univaq.disim.lpo.Model.Beans.Giocatore;
 import it.univaq.disim.lpo.Model.Beans.Pezzo;
 import it.univaq.disim.lpo.Model.Beans.Scacchiera;
 
@@ -185,14 +186,7 @@ public class ScacchieraServiceImpl extends Scacchiera{
 		return pezzi;
 	}
 
-	public void salvaMossa(String mossa, Pezzo pezzo) {
-		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {
-			writer.write("Mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa + "\n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 }
 

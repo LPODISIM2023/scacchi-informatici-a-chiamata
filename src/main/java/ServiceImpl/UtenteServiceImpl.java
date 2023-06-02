@@ -32,8 +32,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 	}
 
 	@Override
-	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita,
-			ContainerPartite container) {
+	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
 
 			Re re = (Re) this.getRe();
 			if (re != null) {
@@ -59,11 +58,12 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 					return;
 
 				} else if (input == 2) {
-					partita.salvaPartita(partita, scacchiera, this, giocatore2, container);
+					partita.salvaPartita(partita, scacchiera, this, giocatore2);
 				} else if (input == 3) {
 					ScacchieraServiceImpl scacchieraVecchia = partita.rifaiMossa();
+					partita.setScacchiera(scacchieraVecchia);
 					scacchieraVecchia.stampaScacchiera(scacchieraVecchia);
-					this.turno(giocatore2, scacchieraVecchia, partita, container);
+					this.turno(giocatore2, scacchieraVecchia, partita);
 
 				}
 				List<Pezzo> pezzi = new ArrayList<>();
@@ -71,7 +71,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				if (Partita.contatorePatta >= 50) {
 					partita.patta();
 				} else {
-					scegliPezzo(scacchiera, giocatore2, partita, pezzi, container);
+					scegliPezzo(scacchiera, giocatore2, partita, pezzi);
 				}
 
 			}
@@ -80,7 +80,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,
-			List<Pezzo> pezzi, ContainerPartite container) {
+			List<Pezzo> pezzi) {
 		List<String> mosseValide;
 		pezzi = this.getPezzi();
 		try (Scanner scanner = new Scanner(System.in)) {
@@ -100,12 +100,12 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				String risposta = scanner.nextLine();
 
 				if (risposta.equals("N")) {
-					scegliPezzo(scacchiera, giocatore, partita, pezzi, container);
+					scegliPezzo(scacchiera, giocatore, partita, pezzi);
 				}
 
 				Pezzo pezzo = scacchiera.getPezzoFromScacchieraByValue(input);
 				mosseValide = pezzo.mosseValide(scacchiera);
-				scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita, container);
+				scegliMossa(scacchiera, mosseValide, pezzo, giocatore, partita);
 
 			} else {
 				throw new IllegalArgumentException();
@@ -132,7 +132,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public void scegliMossa(ScacchieraServiceImpl scacchiera, List<String> mosseValide, Pezzo pezzo,
-			Giocatore giocatore2, PartitaServiceImpl partita, ContainerPartite container) {
+			Giocatore giocatore2, PartitaServiceImpl partita) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean trovato = false;
@@ -145,9 +145,9 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				for (String s : mosseValide) {
 					if (s.equals(input)) {
 						ScacchieraServiceImpl scacchieraNuova = this.muovi(pezzo, scacchiera, input, partita,
-								giocatore2, container);
+								giocatore2);
 						trovato = true;
-						giocatore2.turno(this, scacchieraNuova, partita, container);
+						giocatore2.turno(this, scacchieraNuova, partita);
 
 					}
 				}
@@ -165,7 +165,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore, ContainerPartite container) {
+			PartitaServiceImpl partita, Giocatore giocatore) {
 
 		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
 		scacchiere = partita.getScacchiere();
@@ -245,11 +245,11 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
 				partita.setScacchiere(scacchiere);
-				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi(), container);
+				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
 				scacchiera.setScacchiera(table);
 				partita.addElementToList(scacchiera);
-				scacchiera.salvaMossa(posizioneNuova, pezzo);
+				partita.salvaMossa(posizioneNuova, pezzo, this);
 				scacchiera.stampaScacchiera(scacchiera);
 
 				return scacchiera;

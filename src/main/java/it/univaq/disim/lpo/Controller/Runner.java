@@ -42,6 +42,13 @@ public class Runner implements Serializable {
 	            e.printStackTrace();
 	        }
 
+			// Eliminazione file log mosse per far si che venga rimpiazzato con uno nuovo.
+			File file;
+			String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
+			file = new File(logPath);
+			if (file.exists()) {
+				file.delete();
+			}
 			
 			System.out.println("Cosa vuoi fare? \n 1-Nuova Partita; \n 2-Carica Partita");
 			Integer input = scanner.nextInt();
@@ -164,7 +171,7 @@ public class Runner implements Serializable {
 				if (idPartita == p.getIdPartita()) {
 					ScacchieraServiceImpl scacchiera = p.getScacchiera();
 					scacchiera.stampaScacchiera(scacchiera);
-					p.getGiocatore1().turno(p.getGiocatore2(), p.getScacchiera(), p, null);
+					p.getGiocatore1().turno(p.getGiocatore2(), p.getScacchiera(), p);
 				}
 			}
 		} catch (NoSuchElementException e) {
