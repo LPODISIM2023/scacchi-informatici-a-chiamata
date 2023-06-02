@@ -1,15 +1,10 @@
 package ServiceImpl;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Table;
 
-import it.univaq.disim.lpo.Model.Beans.Giocatore;
 import it.univaq.disim.lpo.Model.Beans.Pezzo;
 import it.univaq.disim.lpo.Model.Beans.Scacchiera;
 

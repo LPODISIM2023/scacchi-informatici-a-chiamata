@@ -11,7 +11,6 @@ import com.google.common.collect.Table;
 
 import Service.ILogic;
 import it.univaq.disim.lpo.Model.Re;
-import it.univaq.disim.lpo.Model.Beans.ContainerPartite;
 import it.univaq.disim.lpo.Model.Beans.Giocatore;
 import it.univaq.disim.lpo.Model.Beans.Partita;
 import it.univaq.disim.lpo.Model.Beans.Pezzo;

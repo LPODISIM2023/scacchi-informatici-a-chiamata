@@ -15,8 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.w3c.dom.events.EventException;
-
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -334,10 +332,6 @@ public class PartitaServiceImpl extends Partita {
 			this.setPatta(true);
 			System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
 		}
-		File file;
-		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
-
-		// Commentare se si vuole vedere il log delle mosse del computer.
 		
 	}
 
