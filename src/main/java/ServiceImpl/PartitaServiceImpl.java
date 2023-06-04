@@ -31,16 +31,16 @@ import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class PartitaServiceImpl extends Partita {
 
+	
 	public PartitaServiceImpl() {
 		super();
 	}
 
 	public PartitaServiceImpl(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio,
-			List<ScacchieraServiceImpl> scacchiere, Integer contatoreUndo, boolean scaccoMatto, boolean patta,
-			boolean resa) {
+			List<ScacchieraServiceImpl> scacchiere, Integer contatoreUndo, boolean fine) {
 		super(nomePartita, idPartita, scacchiera, giocatore1, giocatore2, contatoreMosse, numeroPezzi, punteggio,
-				scacchiere, contatoreUndo, scaccoMatto, patta, resa);
+				scacchiere, contatoreUndo, fine);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -292,12 +292,6 @@ public class PartitaServiceImpl extends Partita {
 
 	}
 
-	public void resa(Giocatore giocatore) {
-		if (!this.isResa()) {
-			this.setResa(true);
-			System.out.println("Il giocatore " + giocatore.getNomeGiocatore() + " si è arreso");
-		}
-	}
 
 	public boolean scaccoMatto(ScacchieraServiceImpl scacchiera, Giocatore giocatore2, Giocatore giocatore1) {
 
@@ -326,23 +320,7 @@ public class PartitaServiceImpl extends Partita {
 		return false;
 	}
 
-	public void patta() {
-
-		if (!this.isPatta()) {
-			this.setPatta(true);
-			System.out.println("La partita è finita in patta. Non c'e' nessun vincitore");
-		}
-		
-	}
-
-	public void fine(Giocatore giocatore) {
-
-		if (!this.isScaccoMatto()) {
-			this.setScaccoMatto(true);
-			System.out.println("Partita finita, ha vinto " + giocatore.getNomeGiocatore());
-		}
-		
-	}
+	
 
 	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2) {
@@ -355,7 +333,6 @@ public class PartitaServiceImpl extends Partita {
 		ContainerPartite container = new ContainerPartite(null);	
 		container.setListaPartite(lista);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
-		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 
 		// Blocco di codice che serve per il merging delle liste vecchie con la lista
 		// nuova.
@@ -389,12 +366,7 @@ public class PartitaServiceImpl extends Partita {
 			Thread.sleep(1500);
 
 			serializzazioneOutput.writeObject(container);
-			System.out.println("Partita Salvata!");
-			File file = new File(logPath);
-			if (file.exists()) {
-				file.delete();
-			}
-
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {

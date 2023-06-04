@@ -25,13 +25,12 @@ public class Partita implements Serializable {
 	private Integer punteggio;
 	private List<ScacchieraServiceImpl> scacchiere;
 	private Integer contatoreUndo;
-	private boolean scaccoMatto;
-	private boolean patta;
-	private boolean resa;
+	private boolean fine;
+
 	
 	public Partita(String nomePartita, int idPartita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2, Integer contatoreMosse, Integer numeroPezzi, Integer punteggio,  List<ScacchieraServiceImpl> scacchiere,
-			Integer contatoreUndo, boolean scaccoMatto, boolean patta, boolean resa) {
+			Integer contatoreUndo, boolean fine) {
 		super();
 		this.nomePartita = nomePartita;
 		this.idPartita = idPartita;
@@ -43,35 +42,15 @@ public class Partita implements Serializable {
 		this.punteggio = punteggio;
 		this.scacchiere = scacchiere;
 		this.contatoreUndo = contatoreUndo;
-		this.scaccoMatto = scaccoMatto;
-		this.patta = patta;
-		this.resa = resa;
-	}
+		this.fine = fine;
 
-	public boolean isResa() {
-		return resa;
 	}
-
-	public void setResa(boolean resa) {
-		this.resa = resa;
+	public boolean isFine() {
+		return fine;
 	}
-
-	public boolean isScaccoMatto() {
-		return scaccoMatto;
+	public void setFine(boolean fine) {
+		this.fine = fine;
 	}
-
-	public void setScaccoMatto(boolean scaccoMatto) {
-		this.scaccoMatto = scaccoMatto;
-	}
-
-	public boolean isPatta() {
-		return patta;
-	}
-
-	public void setPatta(boolean patta) {
-		this.patta = patta;
-	}
-
 	public Integer getContatoreUndo() {
 		return contatoreUndo;
 	}

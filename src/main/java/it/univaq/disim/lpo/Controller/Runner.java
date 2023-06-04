@@ -1,5 +1,6 @@
 package it.univaq.disim.lpo.Controller;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,18 +30,16 @@ public class Runner implements Serializable {
 	 */
 	private static final long serialVersionUID = 5655076700094621901L;
 
-
-
 	public static void main(String[] args) {
 
 		try (Scanner scanner = new Scanner(System.in)) {
-			
+
 			try {
-	            System.setOut(new java.io.PrintStream(System.out, true, "UTF-8"));
-	            System.setErr(new java.io.PrintStream(System.err, true, "UTF-8"));
-	        } catch (UnsupportedEncodingException e) {
-	            e.printStackTrace();
-	        }
+				System.setOut(new java.io.PrintStream(System.out, true, "UTF-8"));
+				System.setErr(new java.io.PrintStream(System.err, true, "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 
 			// Eliminazione file log mosse per far si che venga rimpiazzato con uno nuovo.
 			File file;
@@ -49,7 +48,7 @@ public class Runner implements Serializable {
 			if (file.exists()) {
 				file.delete();
 			}
-			
+
 			System.out.println("Cosa vuoi fare? \n 1-Nuova Partita; \n 2-Carica Partita");
 			Integer input = scanner.nextInt();
 
@@ -62,7 +61,7 @@ public class Runner implements Serializable {
 				String dataFormattata = data.format(formatter);
 
 				PartitaServiceImpl partita = new PartitaServiceImpl("Partita-" + dataFormattata, 0, null, null, null, 0,
-						null, null, null, 0, false, false, false);
+						null, null, null, 0, false);
 				partita.scegliTipologiaPartita();
 			} else {
 				throw new NoSuchElementException();
@@ -78,7 +77,8 @@ public class Runner implements Serializable {
 
 		List<PartitaServiceImpl> partite = new ArrayList<>();
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
-		try (FileInputStream inputStream = new FileInputStream(partitaPath);
+		try (Scanner scanner = new Scanner(System.in);
+				FileInputStream inputStream = new FileInputStream(partitaPath);
 				ObjectInputStream objectStream = new ObjectInputStream(inputStream);) {
 
 			ContainerPartite obj;
@@ -88,20 +88,9 @@ public class Runner implements Serializable {
 				System.out.println(obj.getListaPartite());
 			}
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 		List<PartitaServiceImpl> partiteSort = new ArrayList<>();
-
-		try (Scanner scanner = new Scanner(System.in)) {
 
 			System.out.println(
 					"In base a quale ordine vuoi ordinare le partite? \n 1-In base al numero di mosse della partita; "
@@ -154,12 +143,18 @@ public class Runner implements Serializable {
 			input = scanner.nextInt();
 			caricaPartita(input, partiteSort);
 
-		} catch (
-
-		NoSuchElementException e) {
+		} catch (NoSuchElementException e) {
 
 			System.out.println("Non è stato inserito alcun input, riavvia il programma");
 
+		} catch (EOFException e) {
+			System.out.println("Il file è vuoto.");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 
 	}

@@ -32,6 +32,8 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
+		int patta = 50;
+		try (Scanner scanner = new Scanner(System.in)) {
 
 			Re re = (Re) this.getRe();
 			if (re != null) {
@@ -39,43 +41,47 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 						+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
 				if (re.scacco(scacchiera, posizioneRe, giocatore2) == true) {
 					if (partita.scaccoMatto(scacchiera, giocatore2, this) == true) {
-						partita.fine(giocatore2);
+						throw new InterruptedException(
+								"Partita finita, ha vinto il giocatore " + giocatore2.getNomeGiocatore());
 					}
-					System.out.println("Il tuo " + this.getRe().getNome()
-							+ " e' andato in scacco. Risolvi questo problema");
+					System.out.println(
+							"Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
 				}
 			}
-			
-			try (Scanner scanner = new Scanner(System.in)) {
 
-				System.out.println(
-						"Cosa vuoi fare? \n 1-Arrenditi; \n 2-SalvaPartita; \n 3-TornaIndietro; \n Scegli qualsiasi numero per scegliere il pezzo");
-				Integer input = scanner.nextInt();
+			System.out.println(
+					"Cosa vuoi fare? \n 1-Arrenditi; \n 2-SalvaPartita; \n 3-TornaIndietro; \n Scegli qualsiasi numero per scegliere il pezzo");
+			Integer input = scanner.nextInt();
 
-				if (input == 1) {
-					partita.resa(this);
-					return;
+			if (input == 1) {
+				throw new InterruptedException("Il " + this.getNomeGiocatore() + " si è arreso");
 
-				} else if (input == 2) {
-					partita.salvaPartita(partita, scacchiera, this, giocatore2);
-				} else if (input == 3) {
-					ScacchieraServiceImpl scacchieraVecchia = partita.rifaiMossa();
-					partita.setScacchiera(scacchieraVecchia);
-					scacchieraVecchia.stampaScacchiera(scacchieraVecchia);
-					this.turno(giocatore2, scacchieraVecchia, partita);
-
-				}
-				List<Pezzo> pezzi = new ArrayList<>();
-				pezzi = this.getPezzi();
-				if (Partita.contatorePatta >= 50) {
-					partita.patta();
-				} else {
-					scegliPezzo(scacchiera, giocatore2, partita, pezzi);
-				}
+			} else if (input == 2) {
+				partita.salvaPartita(partita, scacchiera, this, giocatore2);
+				throw new InterruptedException("Partita Salvata!");
+			} else if (input == 3) {
+				ScacchieraServiceImpl scacchieraVecchia = partita.rifaiMossa();
+				partita.setScacchiera(scacchieraVecchia);
+				scacchieraVecchia.stampaScacchiera(scacchieraVecchia);
+				this.turno(giocatore2, scacchieraVecchia, partita);
 
 			}
+			List<Pezzo> pezzi = new ArrayList<>();
+			pezzi = this.getPezzi();
+			if (Partita.contatorePatta == patta) {
+				throw new InterruptedException("La partita è finita in patta.");
+			} else {
+				scegliPezzo(scacchiera, giocatore2, partita, pezzi);
+			}
+
+		} catch (InterruptedException e) {
+			if (!partita.isFine()) {
+				System.out.println(e.getMessage());
+				partita.setFine(true);
+			}
+
 		}
-	
+	}
 
 	@Override
 	public void scegliPezzo(ScacchieraServiceImpl scacchiera, Giocatore giocatore, PartitaServiceImpl partita,

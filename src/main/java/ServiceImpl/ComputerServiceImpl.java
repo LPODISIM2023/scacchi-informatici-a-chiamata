@@ -11,14 +11,11 @@ import com.google.common.collect.Table;
 
 import Service.ILogic;
 import it.univaq.disim.lpo.Model.Re;
-import it.univaq.disim.lpo.Model.Beans.ContainerPartite;
 import it.univaq.disim.lpo.Model.Beans.Giocatore;
 import it.univaq.disim.lpo.Model.Beans.Partita;
 import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class ComputerServiceImpl extends Giocatore implements ILogic, Serializable {
-
-
 
 	/**
 	 * 
@@ -33,30 +30,41 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 	public ComputerServiceImpl() {
 		super();
 	}
+
 	@Override
 	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
-		List<Pezzo> pezzi = new ArrayList<>();
-		pezzi = this.getPezzi();
-		if (Partita.contatorePatta >= 50) {
-			partita.patta();
-		} else {
+		int patta = 50;
+		try {
+			List<Pezzo> pezzi = new ArrayList<>();
+			pezzi = this.getPezzi();
+			if (Partita.contatorePatta >= patta) {
+				throw new InterruptedException("La partita è finita in patta.");
 
-			Re re = (Re) this.getRe();
-			if (re != null) {
-				String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
-						+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
-				if (re.scacco(scacchiera, posizioneRe, giocatore2) == true) {
-					if (partita.scaccoMatto(scacchiera, giocatore2, this) == true) {
-						partita.fine(giocatore2);
+			} else {
+
+				Re re = (Re) this.getRe();
+				if (re != null) {
+					String posizioneRe = scacchiera.getColonnaPezzoFromScacchiera(re.getNome()) + ""
+							+ scacchiera.getRigaPezzoFromScacchiera(re.getNome());
+					if (re.scacco(scacchiera, posizioneRe, giocatore2) == true) {
+						if (partita.scaccoMatto(scacchiera, giocatore2, this) == true) {
+							throw new InterruptedException(
+									"Partita finita, ha vinto il giocatore " + giocatore2.getNomeGiocatore());
+						}
+						System.out.println(
+								"Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
 					}
-					System.out.println(
-							"Il tuo " + this.getRe().getNome() + " e' andato in scacco. Risolvi questo problema");
 				}
+				scegliPezzo(scacchiera, giocatore2, partita, pezzi);
+
 			}
-			scegliPezzo(scacchiera, giocatore2, partita, pezzi);
 
+		} catch (InterruptedException e) {
+			if (!partita.isFine()) {
+				System.out.println(e.getMessage());
+				partita.setFine(true);
+			}
 		}
-
 	}
 
 	@Override
@@ -157,7 +165,6 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 				System.out.println(Partita.contatorePatta);
 				partita.setContatoreMosse(contatoreMosse + 1);
 				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
-				
 
 			}
 
