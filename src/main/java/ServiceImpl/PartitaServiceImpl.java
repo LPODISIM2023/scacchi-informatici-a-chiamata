@@ -428,7 +428,7 @@ public class PartitaServiceImpl extends Partita {
 			System.out.println("Non puoi tornare più indietro di così");
 			return this.getScacchiera();
 		} catch (ArithmeticException e) {
-			System.out.println("Numero di undo finiti");
+			System.out.println("Numero di undo finiti oppure nella lista è presente solo una scacchiera \n numero di undo: " + this.getContatoreUndo());
 			return this.getScacchiera();
 		}
 
