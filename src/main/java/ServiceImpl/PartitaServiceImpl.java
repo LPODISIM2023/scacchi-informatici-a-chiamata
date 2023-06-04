@@ -219,7 +219,6 @@ public class PartitaServiceImpl extends Partita {
 		scacchieraDaGioco = scacchieraDaGioco.creaScacchiera(pezziB, pezziN);
 		this.setScacchiera(scacchieraDaGioco);
 
-		scacchieraDaGioco.stampaScacchiera(scacchieraDaGioco);
 		scacchiere.add(scacchieraDaGioco);
 		this.addElementToList(scacchieraDaGioco);
 		this.setNumeroPezzi(pezziB.size() + pezziN.size());
@@ -409,12 +408,13 @@ public class PartitaServiceImpl extends Partita {
 		lista = this.getScacchiere();
 		try {
 			if (contatore != null && lista != null) {
-				if (contatore <= max && lista.size() > 1) {
+				if (contatore < max && lista.size() > 1) {
 
 					contatore++;
 					this.setContatoreUndo(contatore);
 					int penultimoElemento = lista.size() - 2;
 					lista.remove(lista.size() - 1);
+					System.out.printf("Sei tornato indietro di una mossa.\nNumero di Undo: %d su %d\n", this.getContatoreUndo(), max);
 					return lista.get(penultimoElemento);
 
 				} else {
@@ -428,7 +428,7 @@ public class PartitaServiceImpl extends Partita {
 			System.out.println("Non puoi tornare più indietro di così");
 			return this.getScacchiera();
 		} catch (ArithmeticException e) {
-			System.out.println("Numero di undo finiti oppure nella lista è presente solo una scacchiera \n numero di undo: " + this.getContatoreUndo());
+			System.out.println("Numero di undo finiti oppure nella lista è presente solo una scacchiera.\nNumero di undo: " + this.getContatoreUndo()+" su " + max);
 			return this.getScacchiera();
 		}
 
