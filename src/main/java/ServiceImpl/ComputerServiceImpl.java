@@ -171,7 +171,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 		}
 		// Verifica se dopo aver spostato un pezzo il re è andato sottoscacco oppure si
 		// è tolto dallo scacco
-		ScacchieraServiceImpl scacchieraCopia = new ScacchieraServiceImpl(table);
+		ScacchieraServiceImpl scacchieraScacco = new ScacchieraServiceImpl(table);
 
 		Re pezzoRe = (Re) this.getRe();
 
@@ -179,11 +179,11 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 			if (pezzoRe == null) {
 				throw new NullPointerException();
 			}
-			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(pezzoRe.getNome());
-			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(pezzoRe.getNome());
+			Integer posizioneRigaRe = scacchieraScacco.getRigaPezzoFromScacchiera(pezzoRe.getNome());
+			Character posizioneColonnaRe = scacchieraScacco.getColonnaPezzoFromScacchiera(pezzoRe.getNome());
 			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
 			// Il giocatore rappresenta giocatore2;
-			if (pezzoRe.scacco(scacchieraCopia, posizioneRe, giocatore) == true) {
+			if (pezzoRe.scacco(scacchieraScacco, posizioneRe, giocatore) == true) {
 				System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
@@ -191,12 +191,12 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 				partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
-				scacchiera.setScacchiera(table);
-				partita.addElementToList(scacchiera);
-				partita.salvaMossa(posizioneNuova, pezzo, this);
-				scacchiera.stampaScacchiera(scacchiera);
-
-				return scacchiera;
+				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
+			    nuovaScacchiera.setScacchiera(table);
+			    partita.addElementToList(nuovaScacchiera);
+			    partita.salvaMossa(posizioneNuova, pezzo, this);
+			    nuovaScacchiera.stampaScacchiera(nuovaScacchiera);
+			    return nuovaScacchiera;
 
 			}
 		} catch (NullPointerException e) {

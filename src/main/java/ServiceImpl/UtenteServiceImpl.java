@@ -257,12 +257,12 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
-				scacchiera.setScacchiera(table);
-				partita.addElementToList(scacchiera);
-				partita.salvaMossa(posizioneNuova, pezzo, this);
-				scacchiera.stampaScacchiera(scacchiera);
-
-				return scacchiera;
+				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
+			    nuovaScacchiera.setScacchiera(table);
+			    partita.addElementToList(nuovaScacchiera);
+			    partita.salvaMossa(posizioneNuova, pezzo, this);
+			    nuovaScacchiera.stampaScacchiera(nuovaScacchiera);
+			    return nuovaScacchiera;
 
 			}
 		} catch (NullPointerException e) {

@@ -218,8 +218,6 @@ public class PartitaServiceImpl extends Partita {
 		// Creazione scacchiera e settaggio valori iniziali della partita
 		scacchieraDaGioco = scacchieraDaGioco.creaScacchiera(pezziB, pezziN);
 		this.setScacchiera(scacchieraDaGioco);
-
-		scacchiere.add(scacchieraDaGioco);
 		this.addElementToList(scacchieraDaGioco);
 		this.setNumeroPezzi(pezziB.size() + pezziN.size());
 		punteggioIniziale = this.punteggioTotale(pezziB, pezziN);
