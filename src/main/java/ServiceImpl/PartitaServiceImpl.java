@@ -372,29 +372,15 @@ public class PartitaServiceImpl extends Partita {
 	public void addElementToList(ScacchieraServiceImpl scacchiera) {
 		ScacchieraServiceImpl scacchiera1 = new ScacchieraServiceImpl(scacchiera.getScacchiera());
 		List<ScacchieraServiceImpl> lista = this.getScacchiere();
-		int sizeMax = 5;
-		if (lista != null) {
-			if (lista.size() < sizeMax) {
+		if (lista != null) {			
 				lista.add(scacchiera1);
 			} else {
-				List<ScacchieraServiceImpl> listaAppoggio = new LinkedList<>();
-				Iterator<ScacchieraServiceImpl> itr = lista.listIterator();
-				while (itr.hasNext()) {
-					itr.next();
-					if (itr.hasNext()) {
-						listaAppoggio.add(itr.next());
-					}
-				}
-				listaAppoggio.add(scacchiera);
-				lista = listaAppoggio;
+				lista = new LinkedList<>();
+				lista.add(scacchiera1);
 			}
-		} else {
-			lista = new LinkedList<>();
-			lista.add(scacchiera1);
+			this.setScacchiere(lista);
 		}
-		this.setScacchiere(lista);
-	}
-
+	
 	public ScacchieraServiceImpl rifaiMossa() {
 		int max = 5;
 		Integer contatore = this.getContatoreUndo();
@@ -430,9 +416,7 @@ public class PartitaServiceImpl extends Partita {
 			System.out.println("Non puoi tornare più indietro di così");
 			return this.getScacchiera();
 		} catch (ArithmeticException e) {
-			System.out.println(
-					"Numero di undo finiti.\nNumero di undo: "
-							+ this.getContatoreUndo() + " su " + max);
+			System.out.println("Numero di undo finiti.\nNumero di undo: " + this.getContatoreUndo() + " su " + max);
 			return this.getScacchiera();
 		} catch (AlreadyBoundException e) {
 			System.out.println(e.getMessage());

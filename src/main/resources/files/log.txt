@@ -1,8 +1,8 @@
-Turno 1: giocatore1 ha mosso il pezzo PB1 in posizione A3
-Turno 2: computer ha mosso il pezzo PN3 in posizione C6
-Turno 3: giocatore1 ha mosso il pezzo PB1 in posizione A4
-Turno 4: computer ha mosso il pezzo PN7 in posizione G6
-Turno 5: giocatore1 ha mosso il pezzo PB1 in posizione A5
-Turno 6: computer ha mosso il pezzo rN1 in posizione C7
-Turno 7: giocatore1 ha mosso il pezzo PB1 in posizione A4
-Turno 8: computer ha mosso il pezzo PN8 in posizione H6
+Turno 1: giocatore1 ha mosso il pezzo PB3 in posizione C3
+Turno 2: giocatore2 ha mosso il pezzo PN5 in posizione E6
+Turno 3: giocatore1 ha mosso il pezzo PB6 in posizione F3
+Turno 4: giocatore2 ha mosso il pezzo PN4 in posizione D6
+Turno 5: giocatore1 ha mosso il pezzo rB1 in posizione A4
+Turno 6: giocatore2 ha mosso il pezzo RN1 in posizione E7
+Turno 7: giocatore1 ha mosso il pezzo PB6 in posizione F4
+Turno 8: giocatore2 ha mosso il pezzo RN1 in posizione E7

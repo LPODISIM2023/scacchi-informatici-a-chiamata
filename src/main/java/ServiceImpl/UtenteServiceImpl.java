@@ -254,7 +254,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
-				partita.setScacchiere(scacchiere);
+		//		partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
 				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
