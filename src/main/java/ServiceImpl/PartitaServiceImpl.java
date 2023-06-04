@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.rmi.AlreadyBoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -31,7 +32,6 @@ import it.univaq.disim.lpo.Model.Beans.Pezzo;
 
 public class PartitaServiceImpl extends Partita {
 
-	
 	public PartitaServiceImpl() {
 		super();
 	}
@@ -289,7 +289,6 @@ public class PartitaServiceImpl extends Partita {
 
 	}
 
-
 	public boolean scaccoMatto(ScacchieraServiceImpl scacchiera, Giocatore giocatore2, Giocatore giocatore1) {
 
 		Re re = (Re) giocatore1.getRe();
@@ -317,17 +316,15 @@ public class PartitaServiceImpl extends Partita {
 		return false;
 	}
 
-	
-
 	public void salvaPartita(PartitaServiceImpl partita, ScacchieraServiceImpl scacchiera, Giocatore giocatore1,
 			Giocatore giocatore2) {
-		
+
 		List<PartitaServiceImpl> lista = new ArrayList<>();
 		partita.setScacchiera(scacchiera);
 		partita.setGiocatore1(giocatore1);
 		partita.setGiocatore2(giocatore2);
 		lista.add(this);
-		ContainerPartite container = new ContainerPartite(null);	
+		ContainerPartite container = new ContainerPartite(null);
 		container.setListaPartite(lista);
 		String partitaPath = new File("src/main/resources/files/partite.txt").getAbsolutePath();
 
@@ -363,7 +360,7 @@ public class PartitaServiceImpl extends Partita {
 			Thread.sleep(1500);
 
 			serializzazioneOutput.writeObject(container);
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -406,35 +403,49 @@ public class PartitaServiceImpl extends Partita {
 		lista = this.getScacchiere();
 		try {
 			if (contatore != null && lista != null) {
-				if (contatore < max && lista.size() > 1) {
+				if (contatore < max) {
 
-					contatore++;
-					this.setContatoreUndo(contatore);
-					int penultimoElemento = lista.size() - 2;
-					lista.remove(lista.size() - 1);
-					System.out.printf("Sei tornato indietro di una mossa.\nNumero di Undo: %d su %d\n", this.getContatoreUndo(), max);
-					return lista.get(penultimoElemento);
+					if (lista.size() > 1) {
+
+						contatore++;
+						this.setContatoreUndo(contatore);
+						int penultimoElemento = lista.size() - 2;
+						lista.remove(lista.size() - 1);
+						System.out.printf("Sei tornato indietro di una mossa.\nNumero di Undo: %d su %d\n",
+								this.getContatoreUndo(), max);
+						return lista.get(penultimoElemento);
+
+					} else {
+						throw new AlreadyBoundException("Non puoi andare più indietro di così.\nNumero di Undo: "
+								+ this.getContatoreUndo() + " su " + max);
+					}
 
 				} else {
 					throw new ArithmeticException();
 				}
-
-			}else {
+			} else {
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
 			System.out.println("Non puoi tornare più indietro di così");
 			return this.getScacchiera();
 		} catch (ArithmeticException e) {
-			System.out.println("Numero di undo finiti oppure nella lista è presente solo una scacchiera.\nNumero di undo: " + this.getContatoreUndo()+" su " + max);
+			System.out.println(
+					"Numero di undo finiti.\nNumero di undo: "
+							+ this.getContatoreUndo() + " su " + max);
+			return this.getScacchiera();
+		} catch (AlreadyBoundException e) {
+			System.out.println(e.getMessage());
 			return this.getScacchiera();
 		}
 
 	}
+
 	public void salvaMossa(String mossa, Pezzo pezzo, Giocatore giocatore) {
 		String logPath = new File("src/main/resources/files/log.txt").getAbsolutePath();
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(logPath, true));) {
-			writer.write("Turno "+ this.getContatoreMosse()  + ": "+ giocatore.getNomeGiocatore()+ " ha mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa + "\n");
+			writer.write("Turno " + this.getContatoreMosse() + ": " + giocatore.getNomeGiocatore()
+					+ " ha mosso il pezzo " + pezzo.getNome() + " in posizione " + mossa + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
