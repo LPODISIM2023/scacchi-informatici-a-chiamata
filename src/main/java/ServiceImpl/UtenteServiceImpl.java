@@ -33,6 +33,10 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 	@Override
 	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
 		int patta = 50;
+		
+		if(partita.isFine()) {
+			return;
+		}
 		try (Scanner scanner = new Scanner(System.in)) {
 
 			Re re = (Re) this.getRe();
@@ -78,6 +82,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 			if (!partita.isFine()) {
 				System.out.println(e.getMessage());
 				partita.setFine(true);
+				return;
 			}
 
 		}
