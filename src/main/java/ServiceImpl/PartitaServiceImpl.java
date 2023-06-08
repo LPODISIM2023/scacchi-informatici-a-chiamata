@@ -226,9 +226,6 @@ public class PartitaServiceImpl extends Partita {
 
 	}
 
-	// Metodo Da inserire nella Classe Giocatore.
-	// E' stato implementato qui solo per prova.
-
 	public int punteggioTotale(List<Pezzo> pezziB, List<Pezzo> pezziN) {
 		List<Pezzo> pezziTotali = new ArrayList<>();
 		int sum = 0;
@@ -372,15 +369,15 @@ public class PartitaServiceImpl extends Partita {
 	public void addElementToList(ScacchieraServiceImpl scacchiera) {
 		ScacchieraServiceImpl scacchiera1 = new ScacchieraServiceImpl(scacchiera.getScacchiera());
 		List<ScacchieraServiceImpl> lista = this.getScacchiere();
-		if (lista != null) {			
-				lista.add(scacchiera1);
-			} else {
-				lista = new LinkedList<>();
-				lista.add(scacchiera1);
-			}
-			this.setScacchiere(lista);
+		if (lista != null) {
+			lista.add(scacchiera1);
+		} else {
+			lista = new LinkedList<>();
+			lista.add(scacchiera1);
 		}
-	
+		this.setScacchiere(lista);
+	}
+
 	public ScacchieraServiceImpl rifaiMossa() {
 		int max = 5;
 		Integer contatore = this.getContatoreUndo();
@@ -399,6 +396,9 @@ public class PartitaServiceImpl extends Partita {
 						lista.remove(lista.size() - 1);
 						System.out.printf("Sei tornato indietro di una mossa.\nNumero di Undo: %d su %d\n",
 								this.getContatoreUndo(), max);
+						if (Partita.contatorePatta > 0) {
+							Partita.contatorePatta--;
+						}
 						return lista.get(penultimoElemento);
 
 					} else {

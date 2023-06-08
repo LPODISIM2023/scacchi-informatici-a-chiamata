@@ -156,13 +156,13 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 
 			if ((this.getPedoni().contains(pezzo))) {
 				Partita.contatorePatta = 0;
-				System.out.println(Partita.contatorePatta);
+				System.out.println("Contatore Patta: " + Partita.contatorePatta);
 				partita.setContatoreMosse(contatoreMosse + 1);
 				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 
 			} else {
 				Partita.contatorePatta++;
-				System.out.println(Partita.contatorePatta);
+				System.out.println("Contatore Patta: " + Partita.contatorePatta);
 				partita.setContatoreMosse(contatoreMosse + 1);
 				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 

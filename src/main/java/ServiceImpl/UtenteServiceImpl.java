@@ -54,7 +54,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 			}
 
 			System.out.println(
-					"Cosa vuoi fare? \n 1-Arrenditi; \n 2-SalvaPartita; \n 3-TornaIndietro; \n Scegli qualsiasi numero per scegliere il pezzo");
+					"Cosa vuoi fare? \n 1-Arrenditi; \n 2-SalvaPartita; \n 3-TornaIndietro; \n Oppure digita qualsiasi numero per andare alla scelta del pezzo(Es. 4,5,6...)");
 			Integer input = scanner.nextInt();
 
 			if (input == 1) {
@@ -98,16 +98,19 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 		pezzi = this.getPezzi();
 		try (Scanner scanner = new Scanner(System.in)) {
 			List<String> nomePezzi = new ArrayList<>();
+			List<Pezzo> pezziValidi = new ArrayList<>();
 			for (Pezzo p : pezzi) {
+				if(!(p.mosseValide(scacchiera).isEmpty())) {
 				nomePezzi.add(p.getNome());
-
+				pezziValidi.add(p);
+				}
 			}
 			System.out.println(this.getNomeGiocatore() + ": "
-					+ "Digita il nome del pezzo che vuoi usare. I pezzi sono i seguenti: " + "\n" + nomePezzi);
+					+ "Digita il nome del pezzo che puoi usare. I pezzi sono i seguenti: " + "\n" + nomePezzi);
 
 			String input = scanner.nextLine();
 
-			if (presenzaScelta(input, pezzi) == true) {
+			if (presenzaScelta(input, pezziValidi) == true) {
 
 				System.out.println("Sei sicuro di voler scegliere questo pezzo?: S/N ");
 				String risposta = scanner.nextLine();
@@ -131,9 +134,9 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 		}
 	}
 
-	public boolean presenzaScelta(String input, List<Pezzo> pezzi) {
+	public boolean presenzaScelta(String input, List<Pezzo> pezziValidi) {
 
-		for (Pezzo p : pezzi) {
+		for (Pezzo p : pezziValidi) {
 			if (p.getNome().equals(input)) {
 				return true;
 			}
@@ -225,13 +228,13 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 			if ((this.getPedoni().contains(pezzo))) {
 				Partita.contatorePatta = 0;
-				System.out.println(Partita.contatorePatta);
+				System.out.println("Contatore Patta: " + Partita.contatorePatta);
 				partita.setContatoreMosse(contatoreMosse + 1);
 				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 
 			} else {
 				Partita.contatorePatta++;
-				System.out.println(Partita.contatorePatta);
+				System.out.println("Contatore Patta: " + Partita.contatorePatta);
 				partita.setContatoreMosse(contatoreMosse + 1);
 				table.remove(posizioneRigaAttuale, posizioneColonnaAttuale);
 
