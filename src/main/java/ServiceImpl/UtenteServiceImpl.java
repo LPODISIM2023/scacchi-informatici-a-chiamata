@@ -181,10 +181,9 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 	@Override
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
-			PartitaServiceImpl partita, Giocatore giocatore) {
+			PartitaServiceImpl partita, Giocatore giocatore2) {
 
-		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
-		scacchiere = partita.getScacchiere();
+
 
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer contatoreMosse = partita.getContatoreMosse();
@@ -209,16 +208,16 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 			// Aggiornamento lista pezzi nel caso in cui si è rimosso un pezzo
 			List<Pezzo> pezzi = new ArrayList<>();
-			pezzi = giocatore.getPezzi();
+			pezzi = giocatore2.getPezzi();
 			pezzi.remove(pezzoMorto);
-			giocatore.setPezzi(pezzi);
+			giocatore2.setPezzi(pezzi);
 
 			// Aggiornamento valori della partita dopo aver mangiato
 			Partita.contatorePatta = 0;
 			System.out.println(Partita.contatorePatta);
 			partita.setContatoreMosse(++contatoreMosse);
-			partita.setNumeroPezzi(this.getPezzi().size() + giocatore.getPezzi().size());
-			punteggio = partita.punteggioTotale(this.getPezzi(), giocatore.getPezzi());
+			partita.setNumeroPezzi(this.getPezzi().size() + giocatore2.getPezzi().size());
+			punteggio = partita.punteggioTotale(this.getPezzi(), giocatore2.getPezzi());
 			partita.setPunteggio(punteggio);
 		} else {
 
@@ -254,14 +253,13 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 			Integer posizioneRigaRe = scacchieraCopia.getRigaPezzoFromScacchiera(pezzoRe.getNome());
 			Character posizioneColonnaRe = scacchieraCopia.getColonnaPezzoFromScacchiera(pezzoRe.getNome());
 			String posizioneRe = posizioneColonnaRe + "" + posizioneRigaRe;
-			// Il giocatore rappresenta giocatore2;
-			if (pezzoRe.scacco(scacchieraCopia, posizioneRe, giocatore) == true) {
+			
+			if (pezzoRe.scacco(scacchieraCopia, posizioneRe, giocatore2) == true) {
 				System.out.println("Il tuo ReB è ancora sotto scacco. Scegli un altro pezzo oppure muovi il re");
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
-				// partita.setScacchiere(scacchiere);
-				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
+				scegliPezzo(scacchiera, giocatore2, partita, this.getPezzi());
 			} else {
 				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
 				nuovaScacchiera.setScacchiera(table);

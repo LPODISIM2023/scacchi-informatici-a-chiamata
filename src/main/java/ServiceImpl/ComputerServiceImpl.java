@@ -111,8 +111,7 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 	public ScacchieraServiceImpl muovi(Pezzo pezzo, ScacchieraServiceImpl scacchiera, String input,
 			PartitaServiceImpl partita, Giocatore giocatore) {
 
-		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
-		scacchiere = partita.getScacchiere();
+		
 
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
 		Integer contatoreMosse = partita.getContatoreMosse();
@@ -188,7 +187,6 @@ public class ComputerServiceImpl extends Giocatore implements ILogic, Serializab
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
-				partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
 				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
