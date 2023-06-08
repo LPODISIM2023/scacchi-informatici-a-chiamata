@@ -33,8 +33,8 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 	@Override
 	public void turno(Giocatore giocatore2, ScacchieraServiceImpl scacchiera, PartitaServiceImpl partita) {
 		int patta = 50;
-		
-		if(partita.isFine()) {
+
+		if (partita.isFine()) {
 			return;
 		}
 		try (Scanner scanner = new Scanner(System.in)) {
@@ -63,6 +63,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 			} else if (input == 2) {
 				partita.salvaPartita(partita, scacchiera, this, giocatore2);
 				throw new InterruptedException("Partita Salvata!");
+
 			} else if (input == 3) {
 				ScacchieraServiceImpl scacchieraVecchia = partita.rifaiMossa();
 				partita.setScacchiera(scacchieraVecchia);
@@ -70,14 +71,16 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				this.turno(giocatore2, scacchieraVecchia, partita);
 
 			}
-			List<Pezzo> pezzi = new ArrayList<>();
-			pezzi = this.getPezzi();
-			if (Partita.contatorePatta == patta) {
-				throw new InterruptedException("La partita è finita in patta.");
-			} else {
-				scegliPezzo(scacchiera, giocatore2, partita, pezzi);
-			}
 
+			if (!partita.isFine()) {
+				List<Pezzo> pezzi = new ArrayList<>();
+				pezzi = this.getPezzi();
+				if (Partita.contatorePatta == patta) {
+					throw new InterruptedException("La partita è finita in patta.");
+				} else {
+					scegliPezzo(scacchiera, giocatore2, partita, pezzi);
+				}
+			}
 		} catch (InterruptedException e) {
 			if (!partita.isFine()) {
 				System.out.println(e.getMessage());
@@ -254,15 +257,15 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 				Partita.contatorePatta--;
 				partita.setContatoreMosse(contatoreMosse--);
 				scacchiera.stampaScacchiera(scacchiera);
-		//		partita.setScacchiere(scacchiere);
+				// partita.setScacchiere(scacchiere);
 				scegliPezzo(scacchiera, giocatore, partita, this.getPezzi());
 			} else {
 				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
-			    nuovaScacchiera.setScacchiera(table);
-			    partita.addElementToList(nuovaScacchiera);
-			    partita.salvaMossa(posizioneNuova, pezzo, this);
-			    nuovaScacchiera.stampaScacchiera(nuovaScacchiera);
-			    return nuovaScacchiera;
+				nuovaScacchiera.setScacchiera(table);
+				partita.addElementToList(nuovaScacchiera);
+				partita.salvaMossa(posizioneNuova, pezzo, this);
+				nuovaScacchiera.stampaScacchiera(nuovaScacchiera);
+				return nuovaScacchiera;
 
 			}
 		} catch (NullPointerException e) {

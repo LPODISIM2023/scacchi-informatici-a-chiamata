@@ -45,6 +45,10 @@ public class Partita implements Serializable {
 		this.fine = fine;
 
 	}
+	
+	public Partita() {
+
+	}
 	public boolean isFine() {
 		return fine;
 	}
@@ -65,11 +69,6 @@ public class Partita implements Serializable {
 
 	public List<ScacchieraServiceImpl> getScacchiere() {
 		return scacchiere;
-	}
-	
-
-	public Partita() {
-
 	}
 
 	public Integer getPunteggio() {
