@@ -2,7 +2,6 @@ package ServiceImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -186,6 +185,7 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 
 
 		Table<Integer, Character, Pezzo> table = HashBasedTable.create(scacchiera.getScacchiera());
+		List<ScacchieraServiceImpl> list = partita.getScacchiere();
 		Integer contatoreMosse = partita.getContatoreMosse();
 		Integer punteggio;
 		Integer posizioneRigaAttuale = scacchiera.getRigaPezzoFromScacchiera(pezzo.getNome());
@@ -263,7 +263,8 @@ public class UtenteServiceImpl extends Giocatore implements ILogic, Serializable
 			} else {
 				ScacchieraServiceImpl nuovaScacchiera = new ScacchieraServiceImpl(scacchiera.getScacchiera());
 				nuovaScacchiera.setScacchiera(table);
-				partita.addElementToList(nuovaScacchiera);
+				list.add(nuovaScacchiera);
+				partita.setScacchiere(list);
 				partita.salvaMossa(posizioneNuova, pezzo, this);
 				nuovaScacchiera.stampaScacchiera(nuovaScacchiera);
 				return nuovaScacchiera;

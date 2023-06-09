@@ -50,7 +50,7 @@ public class PartitaServiceImpl extends Partita {
 		int punteggioIniziale;
 		Table<Integer, Character, Pezzo> scacchiera = HashBasedTable.create(8, 8);
 		ScacchieraServiceImpl scacchieraDaGioco = new ScacchieraServiceImpl(scacchiera);
-		List<ScacchieraServiceImpl> scacchiere = new LinkedList<>();
+		List<ScacchieraServiceImpl> scacchiere = new ArrayList<>();
 		// PedoneModel
 		List<Pezzo> pezziB = new ArrayList<>();
 		List<Pezzo> pedoniB = new ArrayList<>();
@@ -218,7 +218,9 @@ public class PartitaServiceImpl extends Partita {
 		// Creazione scacchiera e settaggio valori iniziali della partita
 		scacchieraDaGioco = scacchieraDaGioco.creaScacchiera(pezziB, pezziN);
 		this.setScacchiera(scacchieraDaGioco);
-		this.addElementToList(scacchieraDaGioco);
+		scacchiere.add(scacchieraDaGioco);
+		this.setScacchiere(scacchiere);
+		//this.addElementToList(scacchieraDaGioco);
 		this.setNumeroPezzi(pezziB.size() + pezziN.size());
 		punteggioIniziale = this.punteggioTotale(pezziB, pezziN);
 		this.setPunteggio(punteggioIniziale);
@@ -366,23 +368,11 @@ public class PartitaServiceImpl extends Partita {
 		}
 	}
 
-	public void addElementToList(ScacchieraServiceImpl scacchiera) {
-		ScacchieraServiceImpl scacchiera1 = new ScacchieraServiceImpl(scacchiera.getScacchiera());
-		List<ScacchieraServiceImpl> lista = this.getScacchiere();
-		if (lista != null) {
-			lista.add(scacchiera1);
-		} else {
-			lista = new LinkedList<>();
-			lista.add(scacchiera1);
-		}
-		this.setScacchiere(lista);
-	}
-
 	public ScacchieraServiceImpl rifaiMossa() {
 		int max = 5;
 		Integer contatore = this.getContatoreUndo();
 
-		List<ScacchieraServiceImpl> lista = new LinkedList<>();
+		List<ScacchieraServiceImpl> lista = new ArrayList<>();
 		lista = this.getScacchiere();
 		try {
 			if (contatore != null && lista != null) {
