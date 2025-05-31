@@ -4,5 +4,6 @@ It includes several modalities:
   - Player vs Player 
   - Player vs Computer
   - Computer vs Computer
-It can be played in the terminal.
+
+This game must be played in the terminal, since it hasn't a graphic engine.
 Unfortunately, this code was made with the italian language.
