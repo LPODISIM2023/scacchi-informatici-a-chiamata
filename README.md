@@ -5,3 +5,4 @@ It includes several modalities:
   - Player vs Computer
   - Computer vs Computer
 It can be played in the terminal.
+Unfortunately, this code was made with the italian language.
